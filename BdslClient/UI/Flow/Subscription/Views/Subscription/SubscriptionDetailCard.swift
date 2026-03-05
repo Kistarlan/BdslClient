@@ -1,0 +1,71 @@
+//
+//  SubscriptionDetailCard.swift
+//  BdslClient
+//
+//  Created by Oleh Rozkvas on 26.02.2026.
+//
+
+import SwiftUI
+import Models
+import DesignSystem
+
+struct SubscriptionDetailCard: View {
+    @Environment(\.locale) private var locale
+    @Environment(\.theme) private var theme
+    @State private var userSubscription: UserSubscription
+
+    init(subscription: UserSubscription){
+        userSubscription = subscription
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: theme.layout.spacing.s) {
+
+            Text(userSubscription.title)
+                .font(theme.typography.sectionTitle)
+                .foregroundColor(theme.colors.textPrimary)
+
+            SubscriptionBadge(category: userSubscription.category)
+
+            if let metaText = subscriptionMetaText {
+                Text(metaText)
+                    .font(theme.typography.body)
+                    .foregroundColor(theme.colors.textSecondary)
+            }
+
+            if let dateText = userSubscription.dateRangeText(locale: locale) {
+                Text(dateText)
+                    .font(theme.typography.caption)
+                    .foregroundColor(theme.colors.textSecondary)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(theme.layout.spacing.m)
+        .background(theme.colors.cardBackground)
+        .cornerRadius(theme.layout.cornerRadius.m)
+        .roundedBorder(
+            radius: theme.layout.cornerRadius.m,
+            borderColor: theme.colors.materialBorder
+        )
+    }
+
+    private var subscriptionMetaText: String? {
+        [
+            userSubscription.price.map { "₴ \($0.formatted())" },
+            userSubscription.paymentMethod?.localized.localized(locale: locale)
+        ]
+        .compactMap { $0 }
+        .joined(separator: ", ")
+        .nilIfEmpty
+    }
+}
+
+#Preview {
+
+    VStack {
+        SubscriptionDetailCard(
+            subscription: UserSubscription.placeholder()
+        )
+    }
+    .setupPreviewEnvironments(.dark)
+}

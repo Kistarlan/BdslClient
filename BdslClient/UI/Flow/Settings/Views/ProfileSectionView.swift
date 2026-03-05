@@ -1,0 +1,40 @@
+//
+//  ProfileSectionView.swift
+//  BdslClient
+//
+//  Created by Oleh Rozkvas on 03.02.2026.
+//
+
+import SwiftUI
+import Models
+
+struct ProfileSectionView: View {
+    let user: User
+
+    var body: some View {
+        HStack(spacing: 12) {
+            Image(systemName: "person.crop.circle.fill")
+                .resizable()
+                .frame(width: 48, height: 48)
+                .foregroundColor(.gray)
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(.welcome)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+
+                Text(user.fullName)
+                    .font(.headline)
+            }
+
+            Spacer()
+
+            Image(systemName: "arrow.right.square")
+                .foregroundColor(.blue)
+        }
+    }
+}
+
+#Preview {
+    ProfileSectionView(user: UserDTO.previewValue().toDomain())
+}

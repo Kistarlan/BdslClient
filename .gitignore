@@ -1,0 +1,9 @@
+Breakpoints_v2.xcbkptlist
+Packages/Infrastructure/PreviewServices/Sources/PreviewServices/Resources/Jsons
+build/
+DerivedData/
+*.xcworkspace/xcuserdata/
+*.xcuserdatad/
+*.xcuserstate
+xcuserdata/
+Config.swift

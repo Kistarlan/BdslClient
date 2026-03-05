@@ -1,0 +1,60 @@
+//
+//  LoginBackgroundView.swift
+//  BdslClient
+//
+//  Created by Oleh Rozkvas on 05.02.2026.
+//
+
+import SwiftUI
+import Models
+import DesignSystem
+
+struct LoginBackgroundView: View {
+    @Environment(\.theme) private var theme
+    @EnvironmentObject private var appState: AppState
+
+    var body: some View {
+        theme.colors.loginBackground
+            .overlay(getOverlayGradient())
+            .ignoresSafeArea()
+    }
+
+    private func getOverlayGradient() -> LinearGradient {
+        return LinearGradient(
+            stops: [
+                Gradient.Stop(color: .white.opacity(0.1), location: 0),
+                Gradient.Stop(color: .clear, location: 0.6),
+                Gradient.Stop(color: .black.opacity(0.5), location: 1)
+            ],
+            startPoint: .top,
+            endPoint: .bottom
+        )
+
+//        if appState.themeMode == .dark {
+//            return LinearGradient(
+//                stops: [
+//                    Gradient.Stop(color: .white.opacity(0.1), location: 0),
+//                    Gradient.Stop(color: .clear, location: 0.6),
+//                    Gradient.Stop(color: .black.opacity(0.5), location: 1)
+//                ],
+//                startPoint: .top,
+//                endPoint: .bottom
+//            )
+//        } else {
+//            return LinearGradient(
+//                stops: [
+//                    Gradient.Stop(color: .black.opacity(0.05), location: 0),
+//                    Gradient.Stop(color: .clear, location: 0.6),
+//                    Gradient.Stop(color: .white.opacity(0.2), location: 1)
+//                ],
+//                startPoint: .top,
+//                endPoint: .bottom
+//            )
+//        }
+    }
+}
+
+#Preview {
+    LoginBackgroundView()
+        .setupPreviewEnvironments(.dark)
+}

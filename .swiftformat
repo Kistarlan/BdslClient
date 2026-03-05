@@ -1,0 +1,8 @@
+--indent 4                        # use 4 spaces for indentation
+--wraparguments before-first      # wrap function arguments onto a new line before the first argument
+--wrapparameters before-first     # wrap function parameters onto a new line before the first parameter
+--wrapelements before-first       # wrap array/dictionary elements onto a new line before the first element
+--maxwidth 120                    # maximum line width
+--semicolons inline-only          # use semicolons only for multiple statements on one line
+--commas inline                   # keep commas on the same line
+--stripunusedargs closure-only    # remove unused closure arguments

@@ -1,0 +1,36 @@
+//
+//  BdslClientApp.swift
+//  BdslClient
+//
+//  Created by Oleh Rozkvas on 23.01.2026.
+//
+
+import SwiftUI
+import Models
+
+@main
+struct BdslClientApp: App {
+    @Environment(\.colorScheme) private var systemScheme
+    @StateObject private var appState = AppContainer.shared.appState
+
+    var body: some Scene {
+        WindowGroup {
+            RootView()
+                .environment(
+                    \.theme,
+                    appState.resolveTheme(systemScheme: systemScheme)
+                )
+                .preferredColorScheme(
+                    appState.themeMode == .system
+                        ? systemScheme
+                        : (appState.themeMode == .dark ? .dark : .light)
+                )
+                .environment(\.locale, resolvedLocale)
+                .environmentObject(appState)
+        }
+    }
+
+    private var resolvedLocale: Locale {
+        appState.appLanguage.locale ?? .current
+    }
+}

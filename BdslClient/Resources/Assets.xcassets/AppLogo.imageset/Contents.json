@@ -1,0 +1,22 @@
+{
+  "images" : [
+    {
+      "filename" : "bdsl_logo_white_tbg.png",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "bdsl_logo_white_tbg 1.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

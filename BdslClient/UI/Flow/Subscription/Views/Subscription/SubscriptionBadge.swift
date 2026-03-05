@@ -1,0 +1,60 @@
+//
+//  SubscriptionBadge.swift
+//  BdslClient
+//
+//  Created by Oleh Rozkvas on 26.02.2026.
+//
+
+import SwiftUI
+import Models
+import DesignSystem
+
+struct SubscriptionBadge: View {
+    @Environment(\.theme) private var theme
+
+    let category: SubscriptionCategory
+
+    var body: some View {
+        ZStack {
+            if let title = localizedTitle {
+                Text(title)
+                    .font(theme.typography.label)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, theme.layout.spacing.s)
+                    .padding(.vertical, theme.layout.spacing.xs)
+                    .background(backgroundColor)
+                    .clipShape(Capsule())
+            }
+        }
+    }
+
+    private var localizedTitle: LocalizedStringResource? {
+        switch category {
+        case .active:
+            return .active
+        case .credit:
+            return .activeCredit
+        case .expired, .oneClassTicket:
+            return .inactive
+        default:
+            return nil
+        }
+    }
+
+    private var backgroundColor: Color {
+        switch category {
+        case .active:
+            return theme.colors.badgeActive
+        case .credit:
+            return theme.colors.badgeCredit
+        case .expired, .oneClassTicket:
+            return theme.colors.badgeInactive
+        default:
+            return .clear
+        }
+    }
+}
+
+#Preview {
+    SubscriptionBadge(category: .active)
+}

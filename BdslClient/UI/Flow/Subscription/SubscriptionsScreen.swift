@@ -1,0 +1,112 @@
+//
+//  SubscriptionsScreen.swift
+//  BdslClient
+//
+//  Created by Oleh Rozkvas on 19.02.2026.
+//
+
+import SwiftUI
+import Models
+import DesignSystem
+import Navigation
+
+struct SubscriptionsScreen: View {
+    @Environment(\.theme) private var theme
+
+    @Bindable private var viewModel: SubscriptionsViewModel
+    var displayedGroups: [GroupedSection<SubscriptionGroupCategory, UserSubscription>] {
+        if viewModel.isLoading {
+            return [
+                GroupedSection(key: .subscriptionCategory(.active),
+                               items: (0..<5).map { _ in .placeholder() })
+            ]
+        }
+
+        let grouped = viewModel.grouped
+        return grouped
+    }
+
+    init(subscriptionsViewModel: SubscriptionsViewModel){
+        viewModel = subscriptionsViewModel
+    }
+
+    var body: some View {
+        VStack {
+            List {
+                ForEach(displayedGroups) { group in
+                    subscriptionsGroup(group: group)
+                }
+            }
+            .listStyle(.plain)
+            .listRowSeparator(.hidden)
+            .scrollContentBackground(.hidden)
+        }
+        .searchable(text: $viewModel.searchText)
+        .navigationTitle(Text(LocalizedStringResource.mySubscriptions))
+        .background(theme.colors.appBackground)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading){
+                Button {
+                    viewModel.togleGroupingMode()
+                } label: {
+                    Image(systemName:
+                            viewModel.groupingMode == .category
+                          ? "calendar"
+                          : "square.grid.2x2"
+                    )
+                }
+            }
+
+            ToolbarItem(placement: .topBarTrailing){
+                SettingsButton()
+            }
+        }
+        .task {
+            await viewModel.fetchSubscriptions()
+        }
+    }
+
+    func subscriptionsGroup(group: GroupedSection<SubscriptionGroupCategory, UserSubscription>) -> some View {
+        Section() {
+            ForEach(group.items) { subscription in
+                subscriptionsCard(subscription)
+            }
+        } header: {
+            groupHeader(group.key)
+        }
+        .listRowSeparator(.hidden)
+    }
+
+    func subscriptionsCard(_ subscription: UserSubscription) -> some View {
+        return NavigationButton(push: PushDestination.subsctiptionDetails(userSubscription: subscription)){
+            SubscriptionCard(
+                subscription: subscription,
+            )
+            .redacted(reason: viewModel.isLoading ? .placeholder : [])
+            .shimmer(active: viewModel.isLoading)
+        }
+        .disabled(viewModel.isLoading)
+        .listRowBackground(Color.clear)
+    }
+
+    func groupHeader(_ groupCategory: SubscriptionGroupCategory) -> some View {
+        Group {
+            switch groupCategory {
+            case .date(let date):
+                Text(dateFormatter.string(from: date))
+            case .subscriptionCategory(let subscriptionCategory):
+                Text(subscriptionCategory.title)
+            }
+        }
+        .font(theme.typography.label)
+        .foregroundStyle(theme.colors.textSecondary)
+        .textCase(.uppercase)
+    }
+
+    var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "LLLL yyyy"
+
+        return formatter
+    }
+}
