@@ -93,7 +93,7 @@ struct SubscriptionsScreen: View {
         Group {
             switch groupCategory {
             case .date(let date):
-                Text(dateFormatter.string(from: date))
+                Text(date, format: .dateTime.month(.wide).year())
             case .subscriptionCategory(let subscriptionCategory):
                 Text(subscriptionCategory.title)
             }
@@ -101,12 +101,5 @@ struct SubscriptionsScreen: View {
         .font(theme.typography.label)
         .foregroundStyle(theme.colors.textSecondary)
         .textCase(.uppercase)
-    }
-
-    var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "LLLL yyyy"
-
-        return formatter
     }
 }

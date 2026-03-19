@@ -9,7 +9,5 @@ import Foundation
 
 public enum AttendeeStatus: String, Decodable, Sendable {
     case confirmed
-    case cancelled
-    case pending
     case suggested
 }

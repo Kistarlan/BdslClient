@@ -25,6 +25,13 @@ struct MainTabView: View {
     var body: some View {
         ZStack {
             TabView(selection: $router.selectedTab) {
+                Tab(LocalizedStringKey("Schedule"), systemImage: "calendar", value: TabDestination.schedule) {
+                    NavigationContainer(parentRouter: router,
+                                        destination: Destination.tab(TabDestination.schedule)) {
+                        ScheduleScreen(viewModel: mainTabViewModel.scheduleViewModel)
+                    }
+                }
+
                 //TODO: find correct solution for lower versions
                 Tab(LocalizedStringKey("Subscriptions"), systemImage: "creditcard", value: TabDestination.subscription) {
                     NavigationContainer(parentRouter: router,
@@ -33,12 +40,7 @@ struct MainTabView: View {
                     }
                 }
 
-                Tab(LocalizedStringKey("Schedule"), systemImage: "calendar", value: TabDestination.schedule) {
-                    NavigationContainer(parentRouter: router,
-                                        destination: Destination.tab(TabDestination.schedule)) {
-                        ScheduleScreen(viewModel: mainTabViewModel.scheduleViewModel)
-                    }
-                }
+
             }
             .backport
             .tabBarMinimizeBehavior(.onScrollDown)
