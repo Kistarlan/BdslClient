@@ -8,18 +8,20 @@
 import SwiftUI
 import DesignSystem
 import Navigation
+import Models
 
 struct MainTabView: View {
+    @EnvironmentObject private var appState: AppState
     @Environment(\.theme) private var theme
     @Bindable var router: Router
-    @State private var mainTabViewModel: MainTabViewModel
+    @State private var mainViewModel: MainViewModel
 
     init(
         router: Router,
-        mainTabViewModel: MainTabViewModel
+        mainViewModel: MainViewModel
     ) {
         self.router = router
-        _mainTabViewModel = State(initialValue: mainTabViewModel)
+        _mainViewModel = State(initialValue: mainViewModel)
     }
 
     var body: some View {
@@ -28,19 +30,22 @@ struct MainTabView: View {
                 Tab(LocalizedStringKey("Schedule"), systemImage: "calendar", value: TabDestination.schedule) {
                     NavigationContainer(parentRouter: router,
                                         destination: Destination.tab(TabDestination.schedule)) {
-                        ScheduleScreen(viewModel: mainTabViewModel.scheduleViewModel)
+                        ScheduleScreen(viewModel: mainViewModel.scheduleViewModel)
+                            .toolbar(
+                                appState.state.isAuthenticated ? .visible : .hidden,
+                                for: .tabBar
+                            )
                     }
                 }
 
-                //TODO: find correct solution for lower versions
-                Tab(LocalizedStringKey("Subscriptions"), systemImage: "creditcard", value: TabDestination.subscription) {
-                    NavigationContainer(parentRouter: router,
-                                        destination: Destination.tab(TabDestination.subscription)) {
-                        SubscriptionsScreen(subscriptionsViewModel: mainTabViewModel.subscriptionsViewModel)
+                if appState.state.isAuthenticated {
+                    Tab(LocalizedStringKey("Subscriptions"), systemImage: "creditcard", value: TabDestination.subscription) {
+                        NavigationContainer(parentRouter: router,
+                                            destination: Destination.tab(TabDestination.subscription)) {
+                            SubscriptionsScreen(subscriptionsViewModel: mainViewModel.subscriptionsViewModel)
+                        }
                     }
                 }
-
-
             }
             .backport
             .tabBarMinimizeBehavior(.onScrollDown)
@@ -52,7 +57,7 @@ struct MainTabView: View {
 #Preview {
     MainTabView(
         router: .init(level: 0, identifierDestination: nil),
-        mainTabViewModel: AppContainer.shared.viewModelsFactory.makePreviewMainTabViewModel()
+        mainViewModel: AppContainer.shared.viewModelsFactory.makePreviewMainViewModel()
     )
     .setupPreviewEnvironments()
 }

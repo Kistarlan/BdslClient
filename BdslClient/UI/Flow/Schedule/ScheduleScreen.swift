@@ -23,7 +23,7 @@ struct ScheduleScreen: View {
             ]
         }
 
-        return viewModel.eventSections
+        return viewModel.groupSections
     }
 
     init(viewModel: ScheduleViewModel) {

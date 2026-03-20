@@ -20,11 +20,7 @@ struct SettingsButton: View {
 
     var body: some View {
         NavigationButton(push: PushDestination.settings){
-            image()
-                .resizable()
-                .frame(width: 36, height: 36)
-                .foregroundColor(theme.colors.iconSecondary)
-                .clipShape(Circle())
+            settingsImage
         }
         .onAppear {
             if case let .authenticated(user) = appState.state,
@@ -46,6 +42,14 @@ struct SettingsButton: View {
 }
 
 extension SettingsButton {
+    var settingsImage: some View {
+        image()
+            .resizable()
+            .frame(width: 36, height: 36)
+            .foregroundColor(theme.colors.iconSecondary)
+            .clipShape(Circle())
+    }
+
     func loadAvatarImage(imageSource: String) async {
         do {
             let avatarData = try await imageSerbvice.fetchImage(imageSource)

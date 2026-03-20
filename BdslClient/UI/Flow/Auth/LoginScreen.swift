@@ -8,8 +8,11 @@
 import SwiftUI
 import Models
 import DesignSystem
+import Navigation
 
 struct LoginScreen: View {
+    @EnvironmentObject private var appState: AppState
+    @Environment(Router.self) private var router
     @Environment(\.theme) private var theme
     @State private var viewModel: LoginViewModel
     @State private var isSecure: Bool = true
@@ -40,6 +43,11 @@ struct LoginScreen: View {
         }
         .onDisappear {
             viewModel.reset()
+        }
+        .onChange(of: appState.state) {
+            if appState.state.isAuthenticated {
+                router.navigateToRoot()
+            }
         }
     }
 }
@@ -158,6 +166,8 @@ extension LoginScreen {
 }
 
 #Preview {
-    LoginScreen(AppContainer.shared.viewModelsFactory.makeLoginViewModel())
-        .setupPreviewEnvironments(.light)
+    NavigationStack {
+        LoginScreen(AppContainer.shared.viewModelsFactory.makeLoginViewModel())
+            .setupPreviewEnvironments(.light)
+    }
 }

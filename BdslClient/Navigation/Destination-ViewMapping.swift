@@ -3,6 +3,7 @@ import Navigation
 
 @ViewBuilder func view(for destination: PushDestination) -> some View {
     let vmFactory = AppContainer.shared.viewModelsFactory
+
     switch destination {
     case .languageSettings:
         LanguagePickerView()
@@ -14,6 +15,8 @@ import Navigation
         SettingsScreen(settingsViewModel: vmFactory.makeSettingsViewModel())
     case let .subsctiptionDetails(userSubscription):
         AttendeesScreen(attendeesViewModel: vmFactory.makeAttendeesViewModel(userSubscription: userSubscription))
+    case .login:
+        LoginScreen(vmFactory.makeLoginViewModel())
     default:
         LoginBackgroundView()
     }

@@ -49,7 +49,7 @@ final class ScheduleViewModel {
 
     // MARK: - Sections
 
-    var eventSections: [ScheduleGroupSection] {
+    var groupSections: [ScheduleGroupSection] {
 
         Dictionary(grouping: filterGroups(allGroups)) {
             Set($0.recurrence.days.sorted())

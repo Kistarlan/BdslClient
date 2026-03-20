@@ -11,8 +11,7 @@ import Navigation
 
 struct RootView: View {
     @EnvironmentObject private var appState: AppState
-    @State private var loginVM: LoginViewModel = AppContainer.shared.viewModelsFactory.makeLoginViewModel()
-    @State private var mainVM: MainTabViewModel = AppContainer.shared.viewModelsFactory.makeMainTabViewModel()
+    @State private var mainVM: MainViewModel = AppContainer.shared.viewModelsFactory.makeMainViewModel()
     @State var router: Router = .init(level: 0, identifierDestination: nil)
 
     var body: some View {
@@ -21,11 +20,8 @@ struct RootView: View {
             case .splash:
                 SplashView()
 
-            case .unauthenticated:
-                LoginScreen(loginVM)
-
-            case .authenticated:
-                MainTabView(router: router, mainTabViewModel: mainVM)
+            case .authenticated, .unauthenticated:
+                MainTabView(router: router, mainViewModel: mainVM)
             }
         }
         .onAppear {

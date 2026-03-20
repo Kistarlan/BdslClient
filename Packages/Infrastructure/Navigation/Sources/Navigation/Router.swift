@@ -136,6 +136,11 @@ extension Router {
         logger.debug("\(self.debugDescription): \(#function) \(destination)")
         navigate(to: destination)
     }
+
+    public func navigateToRoot() {
+        logger.debug("\(self.debugDescription): \(#function)")
+        navigationStackPath.removeAll()
+    }
 }
 
 extension Router {
@@ -163,6 +168,7 @@ extension Router {
             }
         }
     }
+
     public func consumePopResult<T: Hashable>(for destination: PushDestination?) -> T? {
         if let pushDestination = destination {
             return popResults.removeValue(forKey: pushDestination) as? T

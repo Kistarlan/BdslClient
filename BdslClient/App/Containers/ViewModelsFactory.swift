@@ -35,8 +35,8 @@ struct ViewModelsFactory {
         )
     }
 
-    func makeMainTabViewModel() -> MainTabViewModel {
-        MainTabViewModel(
+    func makeMainViewModel() -> MainViewModel {
+        MainViewModel(
             settingsViewModel: makeSettingsViewModel(),
             subscriptionsViewModel: makeUseSubscriptionsViewModel(),
             scheduleViewModel: makeScheduleViewModel()
@@ -72,8 +72,8 @@ struct ViewModelsFactory {
 }
 
 extension ViewModelsFactory {
-    func makePreviewMainTabViewModel() -> MainTabViewModel {
-        return MainTabViewModel(
+    func makePreviewMainViewModel() -> MainViewModel {
+        return MainViewModel(
             settingsViewModel: AppContainer.shared.viewModelsFactory.makePreviewSettingsViewModel(),
             subscriptionsViewModel: makeUseSubscriptionsViewModel(),
             scheduleViewModel: makeScheduleViewModel()

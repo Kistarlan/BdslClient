@@ -10,3 +10,12 @@ public enum AppFlowState: Equatable {
     case unauthenticated
     case authenticated(User)
 }
+
+public extension AppFlowState {
+    var isAuthenticated: Bool {
+        if case .authenticated = self {
+            return true
+        }
+        return false
+    }
+}

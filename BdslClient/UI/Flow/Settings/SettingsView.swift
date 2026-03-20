@@ -32,9 +32,13 @@ struct SettingsView: View {
                         userSetting(user: user)
                     }
 
-                    appSettings()
+                    appSettings
 
-                    logOutButton()
+                    if appState.state.isAuthenticated {
+                        logOutButton
+                    } else {
+                        loginButton
+                    }
 
                     Spacer()
                 }
@@ -43,7 +47,7 @@ struct SettingsView: View {
         }
     }
 
-    func logOutButton() -> some View {
+    var logOutButton: some View {
         VStack {
             Button {
                 viewModel.logout()
@@ -65,7 +69,18 @@ struct SettingsView: View {
         .applyGroupContainerStyle(theme)
     }
 
-    func appSettings() -> some View {
+    var loginButton: some View {
+        VStack {
+            SettingsRowView(
+                title: .login,
+                rightIcon: "person.crop.circle",
+                destination: .push(.login)
+            )
+        }
+        .applyGroupContainerStyle(theme)
+    }
+
+    var appSettings: some View {
         VStack {
             SettingsRowView(
                 leftIcon: "globe",
