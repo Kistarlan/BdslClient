@@ -9,4 +9,5 @@ import Models
 
 public protocol ActivityService : CacheableService {
     func getActivity(id: String, forceReload: Bool) async throws -> Activity
+    func getAllActivities(forceReload: Bool) async throws -> [Activity]
 }

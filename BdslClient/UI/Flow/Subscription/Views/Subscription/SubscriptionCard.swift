@@ -15,7 +15,7 @@ struct SubscriptionCard: View {
     let subscription: UserSubscription
 
     var body: some View {
-        HStack(alignment: .top, spacing: theme.layout.spacing.m) {
+        HStack(alignment: .top, spacing: theme.layout.spacing.sm) {
             VStack(alignment: .leading, spacing: theme.layout.spacing.xs) {
                 Text(subscription.title)
                     .font(theme.typography.body.weight(.semibold))
@@ -29,9 +29,9 @@ struct SubscriptionCard: View {
             if let badgeLessonsCount = subscription.badgeLessonsCount {
                 VStack {
                     Spacer()
-                    RemainingCircle(
+                    SubscriptionRemainingCircle(
                         badgeLessonsCount: badgeLessonsCount,
-                        category: subscription.category
+                        userSubscription: subscription
                     )
                     Spacer()
                 }

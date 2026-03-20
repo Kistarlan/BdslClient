@@ -61,6 +61,7 @@ public struct DSColors {
     public let badgeActive: Color
     public let badgeCredit: Color
     public let badgeInactive: Color
+    public let badgeWarning: Color
 
     public let badgeTextOnColor: Color
 
@@ -69,6 +70,7 @@ public struct DSColors {
     public let chipBackground: Color
     public let chipBorder: Color
     public let chipText: Color
+    public let secondaryChipText: Color
 
     public let chipSelectedBackground: Color
     public let chipSelectedBorder: Color

@@ -9,11 +9,11 @@ import SwiftUI
 import Models
 import DesignSystem
 
-struct RemainingCircle: View {
+struct SubscriptionRemainingCircle: View {
     @Environment(\.theme) private var theme
 
     let badgeLessonsCount: Int
-    let category: SubscriptionCategory
+    let userSubscription: UserSubscription
 
     var body: some View {
         ZStack {
@@ -28,9 +28,9 @@ struct RemainingCircle: View {
     }
 
     var circleColor: Color {
-        switch category {
-        case .active: theme.colors.accent
-        case .credit: .red
+        switch userSubscription.category {
+        case .active: userSubscription.isExpiredSoon ? theme.colors.badgeWarning : theme.colors.badgeActive
+        case .credit: theme.colors.badgeCredit
         default: .clear
         }
     }

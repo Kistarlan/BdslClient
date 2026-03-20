@@ -5,7 +5,7 @@
 //  Created by Oleh Rozkvas on 02.03.2026.
 //
 
-public struct Activity: Hashable, Sendable {
+public struct Activity: Identifiable, Hashable, Sendable {
     public let id: String
     public let colorHex: String
     public let title: String

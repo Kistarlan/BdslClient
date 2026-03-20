@@ -257,6 +257,17 @@
         }
       }
     },
+    "Expiring" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Закінчується"
+          }
+        }
+      }
+    },
     "Filters" : {
       "extractionState" : "manual",
       "localizations" : {

@@ -31,6 +31,15 @@ public enum UserSubscriptionDTO: Identifiable, Decodable {
         }
     }
 
+    public var activityIds: [String] {
+        switch self {
+        case let .regular(model): return model.activityIds
+        case let .credit(model): return model.activityIds
+        case let .volunteer(model): return model.activityIds
+        case let .ticket(model): return model.activityIds
+        }
+    }
+
     // MARK: - Custom decoding
 
     public init(from decoder: Decoder) throws {
@@ -55,13 +64,13 @@ public enum UserSubscriptionDTO: Identifiable, Decodable {
 }
 
 extension UserSubscriptionDTO {
-    public func toDomain() -> UserSubscription {
+    public func toDomain(_ activities: [Activity]) -> UserSubscription {
         switch self {
 
         case .regular(let dto):
             return UserSubscription(
                 id: dto.id,
-                activityIds: dto.activityIds,
+                activities: activities,
                 visitsIds: dto.visitsIds,
                 userId: dto.userId,
                 title: dto.title,
@@ -81,7 +90,7 @@ extension UserSubscriptionDTO {
         case .credit(let dto):
             return UserSubscription(
                 id: dto.id,
-                activityIds: dto.activityIds,
+                activities: activities,
                 visitsIds: dto.visitsIds,
                 userId: dto.userId,
                 title: dto.title,
@@ -101,7 +110,7 @@ extension UserSubscriptionDTO {
         case .volunteer(let dto):
             return UserSubscription(
                 id: dto.id,
-                activityIds: dto.activityIds,
+                activities: activities,
                 visitsIds: dto.visitsIds,
                 userId: dto.userId,
                 title: dto.title,
@@ -121,7 +130,7 @@ extension UserSubscriptionDTO {
         case .ticket(let dto):
             return UserSubscription(
                 id: dto.id,
-                activityIds: dto.activities,
+                activities: activities,
                 visitsIds: dto.visits,
                 userId: dto.userId,
                 title: dto.title,

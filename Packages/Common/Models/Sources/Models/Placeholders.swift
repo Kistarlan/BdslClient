@@ -84,7 +84,7 @@ public extension UserDTO {
 public extension UserSubscription {
     static func placeholder() -> Self {
         UserSubscription(id: UUID().uuidString,
-                         activityIds: [],
+                         activities: [],
                          visitsIds: [],
                          userId: "",
                          title: "Month of Zouk and Bachata",

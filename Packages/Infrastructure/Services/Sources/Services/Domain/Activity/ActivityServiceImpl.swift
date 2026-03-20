@@ -22,21 +22,37 @@ final class ActivityServiceImpl: ActivityService {
             return activity
         }
 
-        let dtos = try await activityRepository.fetchActivities()
-
-        let activities = dtos.map { $0.toDomain() }
-
-        await cache.clear()
-
-        for activity in activities {
-            await cache.add(key: activity.id, value: activity)
-        }
+        try await loadCache()
 
         guard let activity = await cache[id] else {
             throw ActivityServiceError.notFound(id: id)
         }
 
         return activity
+    }
+
+    func getAllActivities(forceReload: Bool) async throws -> [Activity] {
+        if !forceReload {
+            let activities = await cache.getAll()
+
+            if !activities.isEmpty {
+                return activities
+            }
+        }
+        
+        try await loadCache()
+
+        return await cache.getAll()
+    }
+
+    func loadCache() async throws {
+        let dtos = try await activityRepository.fetchActivities()
+
+        await cache.clear()
+
+        for dto in dtos {
+            await cache.add(key: dto.id, value: dto.toDomain())
+        }
     }
 
     func clearCache() async {

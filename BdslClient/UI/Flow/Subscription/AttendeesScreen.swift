@@ -31,10 +31,12 @@ struct AttendeesScreen: View {
 
                 SubscriptionDetailCard(subscription: viewModel.userSubscription)
 
+                attendeesHeaderSection
+
                 if displayedAttendees.isEmpty {
                     emptyStateView
                 } else {
-                    attendeesSection
+                    attendeesList
                 }
             }
             .padding(theme.layout.spacing.m)
@@ -47,36 +49,8 @@ struct AttendeesScreen: View {
         }
     }
 
-    var attendeesSection: some View {
+    var attendeesList: some View {
         VStack(alignment: .leading, spacing: theme.layout.spacing.m) {
-
-            HStack {
-                VStack {
-                    Spacer()
-                    HStack(spacing: 0) {
-                        Text(.visits)
-                            .font(theme.typography.sectionTitle)
-                            .foregroundColor(theme.colors.textPrimary)
-
-                        Text(": ")
-                            .font(theme.typography.sectionTitle)
-                            .foregroundColor(theme.colors.textPrimary)
-                    }
-                    Spacer()
-                }
-
-                if let badgeLessonsCount = viewModel.userSubscription.badgeLessonsCount {
-                    VStack {
-                        Spacer()
-                        RemainingCircle(
-                            badgeLessonsCount: badgeLessonsCount,
-                            category: viewModel.userSubscription.category
-                        )
-                        Spacer()
-                    }
-                }
-            }
-
             LazyVStack(spacing: theme.layout.spacing.sm) {
                 ForEach(displayedAttendees) { attendee in
                     AttendeeCard(attendee: attendee)
@@ -85,6 +59,38 @@ struct AttendeesScreen: View {
                 }
             }
         }
+    }
+
+    var attendeesHeaderSection: some View {
+        HStack() {
+            VStack {
+                Spacer()
+                HStack(spacing: 0) {
+                    Text(.visits)
+                        .font(theme.typography.sectionTitle)
+                        .foregroundColor(theme.colors.textPrimary)
+
+                    Text(": ")
+                        .font(theme.typography.sectionTitle)
+                        .foregroundColor(theme.colors.textPrimary)
+                }
+                Spacer()
+            }
+
+            if let badgeLessonsCount = viewModel.userSubscription.badgeLessonsCount {
+                VStack {
+                    Spacer()
+                    SubscriptionRemainingCircle(
+                        badgeLessonsCount: badgeLessonsCount,
+                        userSubscription: viewModel.userSubscription
+                    )
+                    Spacer()
+                }
+            }
+
+            Spacer()
+        }
+
     }
 
     var emptyStateView: some View {
@@ -102,6 +108,7 @@ struct AttendeesScreen: View {
                 .foregroundColor(theme.colors.textSecondary)
                 .multilineTextAlignment(.center)
         }
+        .multilineTextAlignment(.center)
         .frame(maxWidth: .infinity)
         .padding(theme.layout.spacing.xl)
     }

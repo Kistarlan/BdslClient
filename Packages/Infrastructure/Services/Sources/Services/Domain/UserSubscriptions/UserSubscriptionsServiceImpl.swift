@@ -16,11 +16,14 @@ final class UserSubscriptionsServiceImpl : UserSubscriptionsService {
     private let logger = Logger.forCategory(String(describing: UserSubscriptionsServiceImpl.self))
     private let userSubscriptionsRepository: UserSubscriptionsRepository
     private let eventsService: EventsService
+    private let activityService: ActivityService
 
     init(userSubscriptionsRepository: UserSubscriptionsRepository,
-         eventsService: EventsService) {
+         eventsService: EventsService,
+         activityService: ActivityService) {
         self.userSubscriptionsRepository = userSubscriptionsRepository
         self.eventsService = eventsService
+        self.activityService = activityService
     }
 
     func fetchUserSubscriptions(for id: String, forceReload: Bool) async throws -> [UserSubscription] {
@@ -29,7 +32,16 @@ final class UserSubscriptionsServiceImpl : UserSubscriptionsService {
         }
 
         let dtos = try await userSubscriptionsRepository.fetchUserSubscriptions(for: id)
-        let subscriptions = dtos.map { $0.toDomain() }
+        let activities = try await activityService.getAllActivities(forceReload: forceReload)
+
+        let subscriptions = dtos.map { dto in
+
+            let subscriptionActivities = activities.filter {
+                dto.activityIds.contains($0.id)
+            }
+
+            return dto.toDomain(subscriptionActivities)
+        }
 
         await userSubscriptionsCache.add(key: id, value: subscriptions)
 

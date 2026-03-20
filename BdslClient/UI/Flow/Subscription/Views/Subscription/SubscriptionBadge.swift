@@ -12,7 +12,7 @@ import DesignSystem
 struct SubscriptionBadge: View {
     @Environment(\.theme) private var theme
 
-    let category: SubscriptionCategory
+    let userSubscription: UserSubscription
 
     var body: some View {
         ZStack {
@@ -29,9 +29,9 @@ struct SubscriptionBadge: View {
     }
 
     private var localizedTitle: LocalizedStringResource? {
-        switch category {
+        switch userSubscription.category {
         case .active:
-            return .active
+            return userSubscription.isExpiredSoon ? .expiring : .active
         case .credit:
             return .activeCredit
         case .expired, .oneClassTicket:
@@ -42,9 +42,9 @@ struct SubscriptionBadge: View {
     }
 
     private var backgroundColor: Color {
-        switch category {
+        switch userSubscription.category {
         case .active:
-            return theme.colors.badgeActive
+            return userSubscription.isExpiredSoon ? theme.colors.badgeWarning : theme.colors.badgeActive
         case .credit:
             return theme.colors.badgeCredit
         case .expired, .oneClassTicket:
@@ -53,8 +53,4 @@ struct SubscriptionBadge: View {
             return .clear
         }
     }
-}
-
-#Preview {
-    SubscriptionBadge(category: .active)
 }

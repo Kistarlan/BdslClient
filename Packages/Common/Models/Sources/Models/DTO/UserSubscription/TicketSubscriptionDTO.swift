@@ -10,7 +10,7 @@ import Foundation
 public struct TicketSubscriptionDTO: Decodable {
     public let id: String
     public let paymentMethod: PaymentMethod?
-    public let activities: [String]
+    public let activityIds: [String]
     public let visits: [String]
     public let price: Double?
     public let comment: String?
@@ -23,7 +23,7 @@ public struct TicketSubscriptionDTO: Decodable {
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case paymentMethod
-        case activities
+        case activityIds = "activities"
         case visits
         case price
         case comment
@@ -42,7 +42,7 @@ public struct TicketSubscriptionDTO: Decodable {
 
         id = try container.decode(String.self, forKey: .id)
         paymentMethod = try container.decodeIfPresent(PaymentMethod.self, forKey: .paymentMethod)
-        activities = try container.decodeIfPresent([String].self, forKey: .activities) ?? []
+        activityIds = try container.decodeIfPresent([String].self, forKey: .activityIds) ?? []
         visits = try container.decodeIfPresent([String].self, forKey: .visits) ?? []
         price = try container.decodeIfPresent(Double.self, forKey: .price)
         comment = try container.decodeIfPresent(String.self, forKey: .comment)

@@ -30,6 +30,5 @@ public struct AttendeeDTO: Identifiable, Decodable {
         self.eventId = try container.decode(String.self, forKey: .eventId)
         self.userId = try container.decode(String.self, forKey: .userId)
         self.enroll = try container.decodeIfPresent(EnrollDTO.self, forKey: .enroll)
-
     }
 }

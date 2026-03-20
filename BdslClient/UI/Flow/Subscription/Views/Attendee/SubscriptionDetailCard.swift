@@ -25,12 +25,16 @@ struct SubscriptionDetailCard: View {
                 .font(theme.typography.sectionTitle)
                 .foregroundColor(theme.colors.textPrimary)
 
-            SubscriptionBadge(category: userSubscription.category)
+            SubscriptionBadge(userSubscription: userSubscription)
 
             if let metaText = subscriptionMetaText {
                 Text(metaText)
                     .font(theme.typography.body)
                     .foregroundColor(theme.colors.textSecondary)
+            }
+
+            if !userSubscription.activities.isEmpty {
+                activities
             }
 
             if let dateText = userSubscription.dateRangeText(locale: locale) {
@@ -48,15 +52,32 @@ struct SubscriptionDetailCard: View {
             borderColor: theme.colors.materialBorder
         )
     }
+}
+
+extension SubscriptionDetailCard {
+
+    private var activities: some View {
+        HStack {
+            ForEach(userSubscription.activities) { activity in
+                Text(activity.title)
+                    .font(theme.typography.caption)
+                    .foregroundStyle(theme.colors.secondaryChipText)
+                    .padding(.horizontal, theme.layout.spacing.s)
+                    .padding(.vertical, theme.layout.spacing.xs)
+                    .background(Color(hex: activity.colorHex))
+                    .clipShape(Capsule())
+            }
+        }
+    }
 
     private var subscriptionMetaText: String? {
         [
             userSubscription.price.map { "₴ \($0.formatted())" },
             userSubscription.paymentMethod?.localized.localized(locale: locale)
         ]
-        .compactMap { $0 }
-        .joined(separator: ", ")
-        .nilIfEmpty
+            .compactMap { $0 }
+            .joined(separator: ", ")
+            .nilIfEmpty
     }
 }
 

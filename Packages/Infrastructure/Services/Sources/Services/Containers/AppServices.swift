@@ -78,7 +78,8 @@ public struct AppServices {
 
         userSubscriptionsService = UserSubscriptionsServiceImpl(
             userSubscriptionsRepository: userSubscriptionsRepository,
-            eventsService: eventsService
+            eventsService: eventsService,
+            activityService: activityService
         )
 
         cachingManager = CachingManagerImpl(services: [any CacheableService](

@@ -63,9 +63,11 @@ public struct DarkTheme: AppTheme {
         buttonPrimaryDisabledBackground: Color.white.opacity(0.08),
         buttonPrimaryDisabledForeground: .white.opacity(0.4),
 
-        badgeActive: Color.green.opacity(0.15),
-        badgeCredit: Color.red.opacity(0.15),
-        badgeInactive: Color.blue.opacity(0.15),
+        // MARK: - badges
+        badgeActive: Color.green.opacity(0.85),
+        badgeCredit: Color.red.opacity(0.85),
+        badgeInactive: Color.blue.opacity(0.85),
+        badgeWarning: Color.yellow.opacity(0.85),
 
         badgeTextOnColor: .white,
 
@@ -73,6 +75,7 @@ public struct DarkTheme: AppTheme {
         chipBackground: Color("23262C"),
         chipBorder: Color("2A2C31"),
         chipText: .white.opacity(0.95),
+        secondaryChipText: .black.opacity(0.95),
 
         chipSelectedBackground: Color("0A84FF"),
         chipSelectedBorder: Color("0A84FF"),

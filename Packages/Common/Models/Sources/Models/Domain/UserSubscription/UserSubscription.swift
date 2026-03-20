@@ -11,7 +11,7 @@ public struct UserSubscription: Identifiable, Hashable, Sendable {
 
     // MARK: - Common properties
     public let id: String
-    public let activityIds: [String]
+    public let activities: [Activity]
     public let visitsIds: [String]
     public let userId: String
     public let title: String
@@ -30,6 +30,39 @@ public struct UserSubscription: Identifiable, Hashable, Sendable {
     // MARK: - Calculated properties
     public let category: SubscriptionCategory
 
+    // MARK: - Public initializer
+    public init(
+        id: String,
+        activities: [Activity],
+        visitsIds: [String],
+        userId: String,
+        title: String,
+        startDate: Date,
+        endDate: Date? = nil,
+        unlimited: Bool? = nil,
+        visitsLimit: Int? = nil,
+        paymentMethod: PaymentMethod? = nil,
+        price: Double? = nil,
+        closed: Bool? = nil,
+        category: SubscriptionCategory
+    ) {
+        self.id = id
+        self.activities = activities
+        self.visitsIds = visitsIds
+        self.userId = userId
+        self.title = title
+        self.startDate = startDate
+        self.endDate = endDate
+        self.unlimited = unlimited
+        self.visitsLimit = visitsLimit
+        self.paymentMethod = paymentMethod
+        self.price = price
+        self.closed = closed
+        self.category = category
+    }
+}
+
+public extension UserSubscription {
     var remainingLessons: Int? {
         if let limits = visitsLimit {
             return limits - visitsIds.count
@@ -40,7 +73,7 @@ public struct UserSubscription: Identifiable, Hashable, Sendable {
         }
     }
 
-    public var badgeLessonsCount: Int? {
+    var badgeLessonsCount: Int? {
         switch category {
         case .active:
             return remainingLessons
@@ -51,7 +84,7 @@ public struct UserSubscription: Identifiable, Hashable, Sendable {
         }
     }
 
-    public func dateRangeText(locale: Locale) -> String? {
+    func dateRangeText(locale: Locale) -> String? {
         let formatStyle = Date.FormatStyle()
             .day()
             .month(.abbreviated)
@@ -74,35 +107,16 @@ public struct UserSubscription: Identifiable, Hashable, Sendable {
         }
     }
 
-    // MARK: - Public initializer
-    public init(
-        id: String,
-        activityIds: [String],
-        visitsIds: [String],
-        userId: String,
-        title: String,
-        startDate: Date,
-        endDate: Date? = nil,
-        unlimited: Bool? = nil,
-        visitsLimit: Int? = nil,
-        paymentMethod: PaymentMethod? = nil,
-        price: Double? = nil,
-        closed: Bool? = nil,
-        category: SubscriptionCategory
-    ) {
-        self.id = id
-        self.activityIds = activityIds
-        self.visitsIds = visitsIds
-        self.userId = userId
-        self.title = title
-        self.startDate = startDate
-        self.endDate = endDate
-        self.unlimited = unlimited
-        self.visitsLimit = visitsLimit
-        self.paymentMethod = paymentMethod
-        self.price = price
-        self.closed = closed
-        self.category = category
+    var isExpiredSoon: Bool {
+        if let endDate = endDate {
+            //Less than 5 days
+            return endDate.timeIntervalSinceNow < 60 * 60 * 24 * 5
+        }
+
+        if let remainingLessons, remainingLessons <= 2 {
+            return true
+        }
+
+        return false
     }
 }
-
