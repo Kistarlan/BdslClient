@@ -5,7 +5,7 @@
 //  Created by Oleh Rozkvas on 20.02.2026.
 //
 
-public struct Location: Hashable, Sendable {
+public struct Location: Identifiable, Hashable, Sendable {
     public let id: String
     public let title: String
     public let address: String

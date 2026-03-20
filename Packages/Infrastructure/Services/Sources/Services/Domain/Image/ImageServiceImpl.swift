@@ -9,7 +9,7 @@ import Foundation
 import Models
 
 final class ImageServiceImpl : ImageService {
-    private let cache = Cache<String, Data>()
+    private let cache = Cache<String, AvatarData>()
     private let imageRepository: ImageRepository
 
     init(imageRepository: ImageRepository) {
@@ -18,12 +18,12 @@ final class ImageServiceImpl : ImageService {
 
     func fetchImage(_ uri: String) async throws -> Data {
         if let cachedData = await cache.get(key: uri) {
-            return cachedData as Data
+            return cachedData.data
         }
 
         let imageData: Data = try await imageRepository.fetchImage(uri)
 
-        await cache.add(key: uri, value: imageData)
+        await cache.add(key: uri, value: AvatarData(id: uri, data: imageData))
 
         return imageData
     }

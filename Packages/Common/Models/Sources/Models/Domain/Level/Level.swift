@@ -5,7 +5,7 @@
 //  Created by Oleh Rozkvas on 01.03.2026.
 //
 
-public struct Level: Hashable, Sendable {
+public struct Level: Identifiable, Hashable, Sendable {
     public let id: String
     public let colorHex: String
     public let title: String

@@ -15,10 +15,10 @@ struct ScheduleScreen: View {
 
     @State private var viewModel: ScheduleViewModel
 
-    var displayedSections: [ScheduleEventSection] {
+    var displayedSections: [ScheduleGroupSection] {
         if viewModel.isLoading {
             return [
-                ScheduleEventSection(days: Set([DayRecurrenceType.monday]),
+                ScheduleGroupSection(days: Set([DayRecurrenceType.monday]),
                                      events: (0..<5).map { _ in .placeholder() })
             ]
         }
@@ -36,7 +36,7 @@ struct ScheduleScreen: View {
 
                 FiltersView(viewModel: $viewModel)
 
-                EventListView(isLoading: viewModel.isLoading, eventSections: displayedSections)
+                GroupListView(isLoading: viewModel.isLoading, groupSections: displayedSections)
             }
             .padding()
         }

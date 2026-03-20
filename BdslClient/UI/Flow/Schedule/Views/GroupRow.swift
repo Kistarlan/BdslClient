@@ -1,5 +1,5 @@
 //
-//  EventRow.swift
+//  GroupRow.swift
 //  BdslClient
 //
 //  Created by Oleh Rozkvas on 03.03.2026.
@@ -9,10 +9,10 @@ import SwiftUI
 import Models
 import DesignSystem
 
-struct EventRow: View {
+struct GroupRow: View {
     @Environment(\.theme) private var theme
 
-    let event: EventModel
+    let group: GroupModel
     let presentHallImage: Bool
 
     var body: some View {
@@ -38,15 +38,15 @@ struct EventRow: View {
     }
 }
 
-extension EventRow {
+extension GroupRow {
     var datesView: some View {
         VStack(alignment: .leading, spacing: theme.layout.spacing.s) {
             Text(
-                event.startDate
+                group.startDate
                     .formatted(date: .omitted, time: .shortened)
             )
             Text(
-                event.endDate
+                group.endDate
                     .formatted(date: .omitted, time: .shortened)
             )
         }
@@ -56,13 +56,13 @@ extension EventRow {
 
     var infoView: some View {
         VStack(alignment: .leading, spacing: theme.layout.spacing.s) {
-            Text(event.activity.title)
+            Text(infoTitle)
                 .font(theme.typography.cardTitle)
                 .foregroundStyle(theme.colors.textPrimary)
 
             Text(
-                event.teachers
-                    .map { $0.user.fullName }
+                group.teachers
+                    .map { $0.name }
                     .joined(separator: ", ")
             )
             .font(theme.typography.caption)
@@ -77,6 +77,10 @@ extension EventRow {
     }
 
     private var houseColorHex : String {
-        theme.scheme == .dark ? event.location.color2Hex : event.location.colorHex
+        theme.scheme == .dark ? group.location.color2Hex : group.location.colorHex
+    }
+
+    var infoTitle: String {
+        "\(group.activity.title) \(group.level.title)"
     }
 }

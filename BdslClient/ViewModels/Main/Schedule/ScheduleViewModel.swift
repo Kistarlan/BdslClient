@@ -14,17 +14,17 @@ import Services
 @Observable
 final class ScheduleViewModel {
     private let logger = Logger.forCategory(String(describing: ScheduleViewModel.self))
-    private let eventsService: EventsService
+    private let groupsService: GroupsService
 
-    private var allEvents: [EventModel] = []
+    private var allGroups: [GroupModel] = []
 
     var expandedFilter: ScheduleFilterType?
     var filters = ScheduleFilters()
     var isLoading = false
     var isLoaded: Bool = false
 
-    init(eventsService: EventsService) {
-        self.eventsService = eventsService
+    init(groupsService: GroupsService) {
+        self.groupsService = groupsService
     }
 
     // MARK: - Loading
@@ -34,7 +34,7 @@ final class ScheduleViewModel {
         defer { isLoading = false }
 
         do {
-            allEvents = try await eventsService.fetchActualEvents(forceReload: false)
+            allGroups = try await groupsService.fetchGroups(forceReload: false)
             isLoaded = true
         } catch {
             logger.warning("Can't load events: \(error)")
@@ -47,23 +47,17 @@ final class ScheduleViewModel {
         filters = ScheduleFilters()
     }
 
-    // MARK: - Filtered Events
-
-    var filteredEvents: [EventModel] {
-        filterEvents(allEvents)
-    }
-
     // MARK: - Sections
 
-    var eventSections: [ScheduleEventSection] {
+    var eventSections: [ScheduleGroupSection] {
 
-        Dictionary(grouping: filteredEvents) {
-            Set($0.weeklyReccurance.days.sorted())
+        Dictionary(grouping: filterGroups(allGroups)) {
+            Set($0.recurrence.days.sorted())
         }
-        .map { days, events in
-            ScheduleEventSection(
+        .map { days, groups in
+            ScheduleGroupSection(
                 days: days,
-                events: events.sorted { $0.startDate < $1.startDate }
+                events: groups.sorted { $0.startDate < $1.startDate }
             )
         }
         .sorted {
@@ -81,28 +75,28 @@ final class ScheduleViewModel {
     // MARK: - Available Filters (Faceted)
 
     var availableLocations: [Location] {
-        unique(eventsFiltered(excluding: .location)) { $0.location }
+        unique(groupsFiltered(excluding: .location)) { $0.location }
             .sorted { $0.title < $1.title }
     }
 
     var availableActivities: [Activity] {
-        unique(eventsFiltered(excluding: .activity)) { $0.activity }
+        unique(groupsFiltered(excluding: .activity)) { $0.activity }
             .sorted { $0.title < $1.title }
     }
 
-    var availableTeachers: [TeacherModel] {
+    var availableTeachers: [GroupTeacher] {
         unique(
-            eventsFiltered(excluding: .teacher)
+            groupsFiltered(excluding: .teacher)
                 .flatMap { $0.teachers }
         ) { $0.id }
-            .sorted { $0.user.fullName < $1.user.fullName }
+            .sorted { $0.fullName < $1.fullName }
     }
 
     var availableDays: [DayRecurrenceType] {
         Array(
             Set(
-                eventsFiltered(excluding: .day)
-                    .flatMap { $0.weeklyReccurance.days }
+                groupsFiltered(excluding: .day)
+                    .flatMap { $0.recurrence.days }
             )
         )
         .sorted()
@@ -120,23 +114,23 @@ final class ScheduleViewModel {
         }
     }
 
-    private func filterEvents(_ events: [EventModel]) -> [EventModel] {
+    private func filterGroups(_ groups: [GroupModel]) -> [GroupModel] {
 
-        events.filter { event in
+        groups.filter { group in
 
             if !filters.selectedLocationIds.isEmpty &&
-                !filters.selectedLocationIds.contains(event.location.id) {
+                !filters.selectedLocationIds.contains(group.location.id) {
                 return false
             }
 
             if !filters.selectedActivityIds.isEmpty &&
-                !filters.selectedActivityIds.contains(event.activity.id) {
+                !filters.selectedActivityIds.contains(group.activity.id) {
                 return false
             }
 
             if !filters.selectedTeacherIds.isEmpty {
 
-                let teacherIds = Set(event.teachers.map(\.id))
+                let teacherIds = Set(group.teachers.map(\.id))
 
                 if filters.selectedTeacherIds.isDisjoint(with: teacherIds) {
                     return false
@@ -145,7 +139,7 @@ final class ScheduleViewModel {
 
             if !filters.selectedDays.isEmpty {
 
-                if Set(event.weeklyReccurance.days)
+                if Set(group.recurrence.days)
                     .isDisjoint(with: filters.selectedDays) {
                     return false
                 }
@@ -157,20 +151,20 @@ final class ScheduleViewModel {
 
     // MARK: - Faceted filtering helper
 
-    private func eventsFiltered(excluding filter: ScheduleFilterType) -> [EventModel] {
+    private func groupsFiltered(excluding filter: ScheduleFilterType) -> [GroupModel] {
 
-        allEvents.filter { event in
+        allGroups.filter { group in
 
             if filter != .location {
                 if !filters.selectedLocationIds.isEmpty &&
-                    !filters.selectedLocationIds.contains(event.location.id) {
+                    !filters.selectedLocationIds.contains(group.location.id) {
                     return false
                 }
             }
 
             if filter != .activity {
                 if !filters.selectedActivityIds.isEmpty &&
-                    !filters.selectedActivityIds.contains(event.activity.id) {
+                    !filters.selectedActivityIds.contains(group.activity.id) {
                     return false
                 }
             }
@@ -178,7 +172,7 @@ final class ScheduleViewModel {
             if filter != .teacher {
                 if !filters.selectedTeacherIds.isEmpty {
 
-                    let teacherIds = Set(event.teachers.map(\.id))
+                    let teacherIds = Set(group.teachers.map(\.id))
 
                     if filters.selectedTeacherIds.isDisjoint(with: teacherIds) {
                         return false
@@ -189,7 +183,7 @@ final class ScheduleViewModel {
             if filter != .day {
                 if !filters.selectedDays.isEmpty {
 
-                    if Set(event.weeklyReccurance.days)
+                    if Set(group.recurrence.days)
                         .isDisjoint(with: filters.selectedDays) {
                         return false
                     }
@@ -203,8 +197,8 @@ final class ScheduleViewModel {
     // MARK: - Utilities
 
     private func unique<T: Hashable>(
-        _ items: [EventModel],
-        key: (EventModel) -> T
+        _ items: [GroupModel],
+        key: (GroupModel) -> T
     ) -> [T] {
 
         Array(Set(items.map(key)))

@@ -20,3 +20,14 @@ public struct WeeklyRecurrenceDTO: Identifiable, Decodable {
         case days = "byday"
     }
 }
+
+public extension WeeklyRecurrenceDTO {
+    func toDomain() -> WeeklyRecurrence {
+        WeeklyRecurrence(
+            id: id,
+            interval: interval,
+            untilDate: untilDate,
+            days: days
+        )
+    }
+}

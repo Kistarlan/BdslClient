@@ -1,5 +1,5 @@
 //
-//  EventDetailsSheet.swift
+//  GroupDetailsSheet.swift
 //  BdslClient
 //
 //  Created by Oleh Rozkvas on 03.03.2026.
@@ -10,14 +10,14 @@ import Models
 import DesignSystem
 import Navigation
 
-struct EventDetailsSheet: View {
+struct GroupDetailsSheet: View {
     @Environment(\.locale) private var locale
     @Environment(\.theme) private var theme
 
     private let navTitleHeight: CGFloat = 140
     @State private var contentHeight: CGFloat = 200
 
-    let event: EventModel
+    let group: GroupModel
 
     var body: some View {
         ZStack {
@@ -25,18 +25,18 @@ struct EventDetailsSheet: View {
                 alignment: .leading,
                 spacing: theme.layout.spacing.m
             ) {
-                detailsRow(title: .style, value: event.activity.title)
+                detailsRow(title: .style, value: group.activity.title)
 
-                detailsRow(title: .level, value: event.level.title)
+                detailsRow(title: .level, value: group.level.title)
 
-                detailsRow(title: .location, value: event.location.title)
+                detailsRow(title: .location, value: group.location.title)
 
-                detailsRow(title: .address, value: event.location.address)
+                detailsRow(title: .address, value: group.location.address)
 
                 detailsRow(
                     title: .teachers,
-                    value: event.teachers
-                        .map { $0.user.fullName }
+                    value: group.teachers
+                        .map { $0.fullName }
                         .joined(separator: ", ")
                 )
 
@@ -63,7 +63,7 @@ struct EventDetailsSheet: View {
             }
         )
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(event.activity.title)
+        .navigationTitle(group.activity.title)
         .addDismissButton(.close)
         .presentationDetents([.height(contentHeight + navTitleHeight), .large])
     }
@@ -84,14 +84,14 @@ struct EventDetailsSheet: View {
     }
 
     var days: String {
-        event.weeklyReccurance.days
+        group.recurrence.days
             .sorted()
             .map { $0.localized.localized(locale: locale) }
             .joined(separator: ", ")
     }
 
     var time: String {
-        "\(event.startDate.formatted(date: .omitted, time: .shortened))"
-        + "– \(event.endDate.formatted(date: .omitted, time: .shortened))"
+        "\(group.startDate.formatted(date: .omitted, time: .shortened))"
+        + "– \(group.endDate.formatted(date: .omitted, time: .shortened))"
     }
 }

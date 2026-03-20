@@ -23,6 +23,7 @@ public struct AppServices {
     public let imageService: ImageService
     public let userSubscriptionsService: UserSubscriptionsService
     public let eventsService: EventsService
+    public let groupsService: GroupsService
     public let cachingManager: CachingManager
 
     // MARK: - Designated initializer (builds service graph)
@@ -36,7 +37,8 @@ public struct AppServices {
         eventsRepository: EventsRepository,
         levelsRepository: LevelsRepository,
         locationsRepository: LocationsRepository,
-        teachersRepository: TeachersRepository
+        teachersRepository: TeachersRepository,
+        groupsRepository: GroupsRepository
     ) {
         self.tokenStore = tokenStore
         self.authRepository = authRepository
@@ -90,6 +92,8 @@ public struct AppServices {
                 userSubscriptionsService as any CacheableService,
             ]
         ))
+
+        groupsService = GroupsServiceImpl(groupsRepository: groupsRepository)
     }
 }
 
@@ -140,6 +144,10 @@ public extension AppServices {
             apiClient: apiClient
         )
 
+        let groupsRepository = GroupsRepositoryImpl(
+            apiClient: apiClient
+        )
+
         return AppServices(
             tokenStore: tokenStore,
             authRepository: authRepository,
@@ -150,7 +158,8 @@ public extension AppServices {
             eventsRepository: eventsRepository,
             levelsRepository: levelsRepository,
             locationsRepository: locationsRepository,
-            teachersRepository: teachersRepository
+            teachersRepository: teachersRepository,
+            groupsRepository: groupsRepository
         )
     }
 }

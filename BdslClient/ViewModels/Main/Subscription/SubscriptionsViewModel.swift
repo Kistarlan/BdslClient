@@ -102,7 +102,7 @@ final class SubscriptionsViewModel {
         defer { isLoading = false }
 
         do {
-            let userSubscriptions = try await userSubscriptionsService.fetchUserSubscriptions(for: user.id)
+            let userSubscriptions = try await userSubscriptionsService.fetchUserSubscriptions(for: user.id, forceReload: false)
             subscriptions = userSubscriptions
                 .sorted { firstSubscription, secondSubscription in
                     let firstDate = firstSubscription.endDate ?? firstSubscription.startDate

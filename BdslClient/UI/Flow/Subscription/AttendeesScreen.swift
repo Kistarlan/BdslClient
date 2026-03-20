@@ -43,7 +43,7 @@ struct AttendeesScreen: View {
         .navigationTitle(LocalizedStringResource.subscriptionDetails)
         .toolbar(.hidden, for: .tabBar)
         .task {
-            await viewModel.fetchAttendees()
+            await viewModel.fetchAttendees(forceReload: false)
         }
     }
 

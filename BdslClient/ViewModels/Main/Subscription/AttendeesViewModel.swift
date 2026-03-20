@@ -29,14 +29,14 @@ final class AttendeesViewModel {
         self.userSubscriptionsService = userSubscriptionsService
     }
 
-    func fetchAttendees() async {
+    func fetchAttendees(forceReload: Bool) async {
         guard attendees.isEmpty else { return }
 
         isLoading = true
         defer { isLoading = false }
 
         do {
-            attendees = try await userSubscriptionsService.fetchSubscriptionAttendees(userSubscription: userSubscription)
+            attendees = try await userSubscriptionsService.fetchSubscriptionAttendees(userSubscription: userSubscription, forceReload: false)
         } catch {
             logger.error("can't load attendees for subscription: \(self.userSubscription.id)")
         }

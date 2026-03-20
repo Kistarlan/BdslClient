@@ -123,7 +123,7 @@ private extension FiltersView {
                 items: viewModel.availableTeachers,
                 selection: $viewModel.filters.selectedTeacherIds,
                 id: \.id,
-                titleKey: \.user.fullName,
+                titleKey: \.fullName,
                 isExpanded: viewModel.expandedFilter == .teacher,
                 onHeaderTap: { viewModel.toggle(.teacher) }
             )

@@ -22,8 +22,8 @@ import Navigation
 @ViewBuilder func view(for destination: SheetDestination) -> some View {
     Group {
         switch destination {
-        case let .eventDescription(event):
-            EventDetailsSheet(event: event)
+        case let .groupDescription(group):
+            GroupDetailsSheet(group: group)
         }
     }
 }

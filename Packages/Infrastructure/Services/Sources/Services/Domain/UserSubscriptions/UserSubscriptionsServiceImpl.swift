@@ -23,7 +23,7 @@ final class UserSubscriptionsServiceImpl : UserSubscriptionsService {
         self.eventsService = eventsService
     }
 
-    func fetchUserSubscriptions(for id: String) async throws -> [UserSubscription] {
+    func fetchUserSubscriptions(for id: String, forceReload: Bool) async throws -> [UserSubscription] {
         if let cached = await userSubscriptionsCache[id] {
             return cached
         }
@@ -43,8 +43,9 @@ final class UserSubscriptionsServiceImpl : UserSubscriptionsService {
         }
     }
 
-    func fetchSubscriptionAttendees(userSubscription: UserSubscription) async throws -> [AttendeeModel] {
-        if let cached = await attendeesCache[userSubscription] {
+    func fetchSubscriptionAttendees(userSubscription: UserSubscription, forceReload: Bool) async throws -> [AttendeeModel] {
+        if !forceReload,
+           let cached = await attendeesCache[userSubscription] {
             return cached
         }
 
@@ -52,8 +53,9 @@ final class UserSubscriptionsServiceImpl : UserSubscriptionsService {
         let eventIds = attendeeDtos.compactMap {
             $0.eventId.split(separator: ".").first.map(String.init)
         }
-        let events: [EventModel] = try await eventsService.fetchEvents(for: eventIds, forceReload: false)
-        let subscriptionsCache: [UserSubscription] = try await fetchUserSubscriptions(for: userSubscription.userId)
+        let events: [EventModel] = try await eventsService.fetchEvents(for: eventIds, forceReload: forceReload)
+        let subscriptionsCache: [UserSubscription] = try await fetchUserSubscriptions(for: userSubscription.userId, forceReload: forceReload)
+
 
         for subscription in subscriptionsCache {
             let filteredDtos = attendeeDtos.filter{

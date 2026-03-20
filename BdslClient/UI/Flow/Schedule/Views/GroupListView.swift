@@ -1,5 +1,5 @@
 //
-//  EventListView.swift
+//  GroupListView.swift
 //  BdslClient
 //
 //  Created by Oleh Rozkvas on 03.03.2026.
@@ -10,23 +10,23 @@ import Models
 import DesignSystem
 import Navigation
 
-struct EventListView: View {
+struct GroupListView: View {
     @Environment(\.locale) private var locale
     @Environment(\.theme) private var theme
 
     let isLoading: Bool
-    let eventSections: [ScheduleEventSection]
+    let groupSections: [ScheduleGroupSection]
 
     var body: some View {
         LazyVStack(alignment: .leading, spacing: theme.layout.spacing.m) {
-            ForEach(eventSections) { section in
+            ForEach(groupSections) { section in
                 VStack(alignment: .leading, spacing: theme.layout.spacing.sm) {
 
                     sectionHeader(days: section.days)
 
-                    ForEach(section.events) { event in
-                        NavigationButton(sheet: .eventDescription(event: event)){
-                            EventRow(event: event, presentHallImage: !isLoading)
+                    ForEach(section.groups) { group in
+                        NavigationButton(sheet: .groupDescription(group: group)){
+                            GroupRow(group: group, presentHallImage: !isLoading)
                         }
                         .redacted(reason: isLoading ? .placeholder : [])
                         .shimmer(active: isLoading)

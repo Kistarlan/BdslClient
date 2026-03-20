@@ -134,6 +134,23 @@ public extension EventModel {
     }
 }
 
+public extension GroupModel {
+    static func placeholder() -> Self {
+        GroupModel(id: "123",
+                   teachers: [],
+                   type: .group,
+                   startDate: Date.now,
+                   endDate: Date.now,
+                   recurrence: WeeklyRecurrence.previewValue(),
+                   location: Location.previewValue(),
+                   level: Level.previewValue(),
+                   title: "Bachata Month",
+                   activity: Activity.previewValue(),
+                   duration: 60
+        )
+    }
+}
+
 public extension Level {
     static func previewValue() -> Self {
         .init(

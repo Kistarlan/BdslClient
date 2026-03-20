@@ -71,11 +71,11 @@ public enum PushDestination: Hashable, CustomStringConvertible {
 }
 
 public enum SheetDestination: Hashable, CustomStringConvertible {
-    case eventDescription(event: EventModel)
+    case groupDescription(group: GroupModel)
 
     public var description: String {
         switch self {
-        case let .eventDescription(event): return ".eventDescription(\(event))"
+        case let .groupDescription(event): return ".eventDescription(\(event))"
         }
     }
 }
@@ -83,7 +83,7 @@ public enum SheetDestination: Hashable, CustomStringConvertible {
 extension SheetDestination: Identifiable {
     public var id: String {
         switch self {
-        case let .eventDescription(event): event.id
+        case let .groupDescription(group): group.id
         }
     }
 }

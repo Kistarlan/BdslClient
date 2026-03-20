@@ -9,6 +9,6 @@ import Foundation
 import Models
 
 public protocol UserSubscriptionsService : CacheableService, UserCacheableService {
-    func fetchUserSubscriptions(for id: String) async throws -> [UserSubscription]
-    func fetchSubscriptionAttendees(userSubscription: UserSubscription) async throws -> [AttendeeModel]
+    func fetchUserSubscriptions(for id: String, forceReload: Bool) async throws -> [UserSubscription]
+    func fetchSubscriptionAttendees(userSubscription: UserSubscription, forceReload: Bool) async throws -> [AttendeeModel]
 }

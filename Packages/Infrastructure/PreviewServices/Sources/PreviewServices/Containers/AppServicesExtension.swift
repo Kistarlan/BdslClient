@@ -52,6 +52,10 @@ public extension AppServices {
             previewDataProvider: previewDataProvider
         )
 
+        let groupsRepository = PreviewGroupsRepository(
+            previewDataProvider: previewDataProvider
+        )
+
         return AppServices(
             tokenStore: tokenStore,
             authRepository: authRepository,
@@ -62,7 +66,8 @@ public extension AppServices {
             eventsRepository: eventsRepository,
             levelsRepository: levelsRepository,
             locationsRepository: locationsRepository,
-            teachersRepository: teachersRepository
+            teachersRepository: teachersRepository,
+            groupsRepository: groupsRepository
         )
     }
 }

@@ -25,16 +25,11 @@ public struct AttendeeDTO: Identifiable, Decodable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        do {
-            self.id = try container.decode(String.self, forKey: .id)
-            self.status = try container.decode(AttendeeStatus.self, forKey: .status)
-            self.eventId = try container.decode(String.self, forKey: .eventId)
-            self.userId = try container.decode(String.self, forKey: .userId)
-            self.enroll = try container.decodeIfPresent(EnrollDTO.self, forKey: .enroll)
-        } catch {
-            print(error)
+        self.id = try container.decode(String.self, forKey: .id)
+        self.status = try container.decode(AttendeeStatus.self, forKey: .status)
+        self.eventId = try container.decode(String.self, forKey: .eventId)
+        self.userId = try container.decode(String.self, forKey: .userId)
+        self.enroll = try container.decodeIfPresent(EnrollDTO.self, forKey: .enroll)
 
-            throw error
-        }
     }
 }

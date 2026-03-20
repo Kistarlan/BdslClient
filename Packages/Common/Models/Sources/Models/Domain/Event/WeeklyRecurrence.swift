@@ -12,7 +12,6 @@ public struct WeeklyRecurrence: Hashable, Sendable {
     public let untilDate: Date
     public let days: [DayRecurrenceType]
 
-    // 🔹 Public init
     public init(
         id: String,
         interval: Int,

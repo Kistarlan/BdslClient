@@ -26,6 +26,8 @@ final class ActivityServiceImpl: ActivityService {
 
         let activities = dtos.map { $0.toDomain() }
 
+        await cache.clear()
+
         for activity in activities {
             await cache.add(key: activity.id, value: activity)
         }
