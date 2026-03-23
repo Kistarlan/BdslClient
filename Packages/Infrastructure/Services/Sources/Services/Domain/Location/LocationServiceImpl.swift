@@ -18,8 +18,12 @@ final class LocationServiceImpl: LocationService {
     }
 
     func getLocaction(id: String, forceReload: Bool) async throws -> Location {
-        if !forceReload, let location = await cache[id] {
-            return location
+        if forceReload {
+            await clearCache()
+        } else {
+            if let location = await cache[id] {
+                return location
+            }
         }
 
         let dtos = try await locationsRepository.fetchLocations()

@@ -71,6 +71,8 @@ final class EventsServiceImpl: EventsService {
             for id in ids {
                 await cache.remove(forKey: id)
             }
+
+            await clearCacheInSubServices()
         }
 
         var cachedEvents: [EventModel] = []
@@ -96,6 +98,13 @@ final class EventsServiceImpl: EventsService {
         }
 
         return cachedEvents
+    }
+
+    private func clearCacheInSubServices() async {
+        await teacherService.clearCache()
+        await locationsService.clearCache()
+        await activityService.clearCache()
+        await levelsService.clearCache()
     }
 
     private func buildEventModel(from dto: EventDTO) async -> EventModel? {

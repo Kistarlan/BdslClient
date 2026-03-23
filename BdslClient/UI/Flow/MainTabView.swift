@@ -39,17 +39,17 @@ struct MainTabView: View {
                 }
 
                 if appState.state.isAuthenticated {
-                    Tab(LocalizedStringKey("Subscriptions"), systemImage: "creditcard", value: TabDestination.subscription) {
-                        NavigationContainer(parentRouter: router,
-                                            destination: Destination.tab(TabDestination.subscription)) {
-                            SubscriptionsScreen(subscriptionsViewModel: mainViewModel.subscriptionsViewModel)
-                        }
-                    }
-
                     Tab(LocalizedStringKey("My Classes"), systemImage: "person.2.fill", value: TabDestination.myClasses) {
                         NavigationContainer(parentRouter: router,
                                             destination: Destination.tab(TabDestination.myClasses)) {
                             MyClassesScreen(viewModel: mainViewModel.myClassesViewModel)
+                        }
+                    }
+
+                    Tab(LocalizedStringKey("Subscriptions"), systemImage: "creditcard", value: TabDestination.subscription) {
+                        NavigationContainer(parentRouter: router,
+                                            destination: Destination.tab(TabDestination.subscription)) {
+                            SubscriptionsScreen(subscriptionsViewModel: mainViewModel.subscriptionsViewModel)
                         }
                     }
                 }

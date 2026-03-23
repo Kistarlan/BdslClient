@@ -26,9 +26,9 @@ struct FiltersView: View {
         ) {
 
             header
-                .redacted(reason: viewModel.isLoading ? .placeholder : [])
-                .shimmer(active: viewModel.isLoading)
-                .disabled(viewModel.isLoading)
+                .redacted(reason: !viewModel.isInitialized ? .placeholder : [])
+                .shimmer(active: !viewModel.isInitialized)
+                .disabled(!viewModel.isInitialized)
 
             if isFilterExpanded && !viewModel.isLoading {
                 filterSections

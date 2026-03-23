@@ -20,6 +20,7 @@ final class MyClassesViewModel {
 
     var isLoading: Bool = false
     var isLoaded: Bool = false
+    var isInitialized: Bool = false
     var upcomingClasses: [UpcomingClassModel] = []
 
     init(userSubscriptionsService: UserSubscriptionsService,
@@ -45,12 +46,16 @@ final class MyClassesViewModel {
         return grouped
     }
 
-    func fetchSubscriptions() async {
+    func loadSubscriptions(forceReload: Bool) async {
         guard case let AppFlowState.authenticated(user) = appState.state else {
             logger.warning("Can't load user subscriptions, user is not authenticated")
             isLoaded = false
 
             return
+        }
+
+        if forceReload {
+            isLoaded = false
         }
 
         if currentUser == user {
@@ -63,10 +68,13 @@ final class MyClassesViewModel {
         }
 
         isLoading = true
-        defer { isLoading = false }
+        defer {
+            isLoading = false
+            isInitialized = true
+        }
 
         do {
-            upcomingClasses = try await userSubscriptionsService.loadUpcommingClasses(for: user.id, forceReload: false)
+            upcomingClasses = try await userSubscriptionsService.loadUpcommingClasses(for: user.id, forceReload: forceReload)
 
             isLoaded = true
         } catch {

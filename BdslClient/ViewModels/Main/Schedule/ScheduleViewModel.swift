@@ -21,7 +21,8 @@ final class ScheduleViewModel {
     var expandedFilter: ScheduleFilterType?
     var filters = ScheduleFilters()
     var isLoading = false
-    var isLoaded: Bool = false
+    var isInitialized = false
+    var isLoaded = false
 
     init(groupsService: GroupsService) {
         self.groupsService = groupsService
@@ -29,16 +30,22 @@ final class ScheduleViewModel {
 
     // MARK: - Loading
 
-    func loadEvents() async {
+    func loadEvents(forceReload: Bool) async {
+
         isLoading = true
-        defer { isLoading = false }
+
+        defer {
+            isLoading = false
+            isInitialized = true
+        }
 
         do {
-            allGroups = try await groupsService.fetchGroups(forceReload: false)
+            allGroups = try await groupsService.fetchGroups(forceReload: forceReload)
             isLoaded = true
         } catch {
             logger.warning("Can't load events: \(error)")
         }
+
     }
 
     // MARK: - Filters

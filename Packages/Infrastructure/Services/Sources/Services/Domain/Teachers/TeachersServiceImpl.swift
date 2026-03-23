@@ -31,10 +31,14 @@ final class TeachersServiceImpl : TeachersService {
     }
 
     func fetchTeachers(forceReload: Bool) async throws -> [TeacherModel] {
-        let isEmpty = await cache.isEmpty
+        if forceReload {
+            await clearCache()
+        } else {
+            let isEmpty = await cache.isEmpty
 
-        if !forceReload && !isEmpty  {
-            return await cache.getAll()
+            if !isEmpty {
+                return await cache.getAll()
+            }
         }
 
         let dtos = try await teacherRepository.fetchTeachers()

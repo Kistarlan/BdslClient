@@ -16,7 +16,7 @@ struct MyClassesScreen: View {
 
     @State private var viewModel: MyClassesViewModel
     var displayedSections: [GroupedSection<Date, UpcomingClassModel>] {
-        if viewModel.isLoading {
+        if !viewModel.isInitialized {
             return [
                 GroupedSection<Date, UpcomingClassModel>(
                     Date(),
@@ -52,7 +52,12 @@ struct MyClassesScreen: View {
             }
         }
         .task {
-            await viewModel.fetchSubscriptions()
+            await viewModel.loadSubscriptions(forceReload: false)
+        }
+        .refreshable {
+            if viewModel.isInitialized && !viewModel.isLoading {
+                await viewModel.loadSubscriptions(forceReload: true)
+            }
         }
     }
 }
@@ -65,12 +70,13 @@ extension MyClassesScreen {
                 NavigationButton(sheet: .eventDescription(event: upcomingClass.event)) {
                     ClassCard(
                         upcomingClass: upcomingClass,
-                        presentHallImage: !viewModel.isLoading
+                        presentHallImage: viewModel.isInitialized
                     )
                 }
+                .disabled(viewModel.isLoading)
                 .listRowBackground(Color.clear)
-                .redacted(reason: viewModel.isLoading ? .placeholder : [])
-                .shimmer(active: viewModel.isLoading)
+                .redacted(reason: !viewModel.isInitialized ? .placeholder : [])
+                .shimmer(active: !viewModel.isInitialized)
                 .listRowSeparator(.hidden)
             }
         } header: {
@@ -78,12 +84,6 @@ extension MyClassesScreen {
                 .headerProminence(.standard)
         }
         .listRowSeparator(.hidden)
-        //TODO: investigate if we can set normal margins inside list or we need to migrate to LazyVStack
-        //        .listRowInsets(EdgeInsets(
-        //            top: theme.layout.spacing.xs,
-        //            leading: theme.layout.spacing.s,
-        //            bottom: theme.layout.spacing.xs,
-        //            trailing: theme.layout.spacing.s))
     }
 
     func groupHeader(_ date: Date) -> some View {
@@ -99,8 +99,8 @@ extension MyClassesScreen {
         .font(theme.typography.label)
         .foregroundStyle(theme.colors.textSecondary)
         .textCase(.uppercase)
-        .redacted(reason: viewModel.isLoading ? .placeholder : [])
-        .shimmer(active: viewModel.isLoading)
+        .redacted(reason: !viewModel.isInitialized ? .placeholder : [])
+        .shimmer(active: !viewModel.isInitialized)
     }
 
     func dayOfWeek(for date: Date) -> String {

@@ -18,6 +18,7 @@ final class SubscriptionsViewModel {
     var groupingMode: SubscriptionsGroupingMode = .month
     var subscriptions: [UserSubscription] = []
     var isLoading: Bool = false
+    var isInitialized: Bool = false
     var isLoaded: Bool = false
     var searchText: String = ""
 
@@ -81,7 +82,7 @@ final class SubscriptionsViewModel {
             .sorted { $0.key > $1.key }
     }
 
-    func fetchSubscriptions() async {
+    func fetchSubscriptions(forceReload: Bool) async {
         guard case let AppFlowState.authenticated(user) = appState.state else {
             logger.warning("Can't load user subscriptions, user is not authenticated")
             isLoaded = false
@@ -90,7 +91,7 @@ final class SubscriptionsViewModel {
         }
 
         if currentUser == user {
-            if isLoaded {
+            if isLoaded && !forceReload {
                 return
             }
         } else {
@@ -99,10 +100,13 @@ final class SubscriptionsViewModel {
         }
 
         isLoading = true
-        defer { isLoading = false }
+        defer {
+            isLoading = false
+            isInitialized = true
+        }
 
         do {
-            let userSubscriptions = try await userSubscriptionsService.fetchUserSubscriptions(for: user.id, forceReload: false)
+            let userSubscriptions = try await userSubscriptionsService.fetchUserSubscriptions(for: user.id, forceReload: forceReload)
             subscriptions = userSubscriptions
                 .sorted { firstSubscription, secondSubscription in
                     let firstDate = firstSubscription.endDate ?? firstSubscription.startDate

@@ -15,7 +15,7 @@ struct SubscriptionsScreen: View {
 
     @Bindable private var viewModel: SubscriptionsViewModel
     var displayedGroups: [GroupedSection<SubscriptionGroupCategory, UserSubscription>] {
-        if viewModel.isLoading {
+        if !viewModel.isInitialized {
             return [
                 GroupedSection(.subscriptionCategory(.active),
                                (0..<5).map { _ in .placeholder() })
@@ -62,7 +62,12 @@ struct SubscriptionsScreen: View {
             }
         }
         .task {
-            await viewModel.fetchSubscriptions()
+            await viewModel.fetchSubscriptions(forceReload: false)
+        }
+        .refreshable {
+            if viewModel.isInitialized && !viewModel.isLoading {
+                await viewModel.fetchSubscriptions(forceReload: true)
+            }
         }
     }
 
@@ -82,8 +87,8 @@ struct SubscriptionsScreen: View {
             SubscriptionCard(
                 subscription: subscription,
             )
-            .redacted(reason: viewModel.isLoading ? .placeholder : [])
-            .shimmer(active: viewModel.isLoading)
+            .redacted(reason: !viewModel.isInitialized ? .placeholder : [])
+            .shimmer(active: !viewModel.isInitialized)
         }
         .disabled(viewModel.isLoading)
         .listRowBackground(Color.clear)

@@ -18,8 +18,12 @@ final class LevelsServiceImpl: LevelsService {
     }
 
     func getLevel(id: String, forceReload: Bool) async throws -> Level {
-        if !forceReload, let level = await cache[id] {
-            return level
+        if forceReload {
+            await clearCache()
+        } else {
+            if let level = await cache[id] {
+                return level
+            }
         }
 
         let dtos = try await levelsRepository.fetchLevels()

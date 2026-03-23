@@ -75,8 +75,6 @@ final class UserSubscriptionsServiceImpl : UserSubscriptionsService {
 
         let upcommingClasses = generator.generate(
             from: actualClasses,
-            //TODO: for test
-            //now: Calendar.current.date(byAdding: .day, value: 2, to: Date())!
             now: Date()
         )
 
@@ -87,6 +85,8 @@ final class UserSubscriptionsServiceImpl : UserSubscriptionsService {
     func fetchSubscriptions(for id: String, forceReload: Bool) async throws -> [UserSubscription] {
         let dtos = try await userSubscriptionsRepository.fetchUserSubscriptions(for: id)
         let activities = try await activityService.getAllActivities(forceReload: forceReload)
+
+        await userSubscriptionsCache.clear()
 
         for dto in dtos {
             let subscriptionActivities = activities.filter {
@@ -107,6 +107,8 @@ final class UserSubscriptionsServiceImpl : UserSubscriptionsService {
         let events: [EventModel] = try await eventsService.fetchEvents(for: eventIds, forceReload: forceReload)
         let subscriptionsCache: [UserSubscription] = try await fetchUserSubscriptions(for: userId, forceReload: forceReload)
 
+        await attendeesCache.clear()
+
         for subscription in subscriptionsCache {
             let filteredAttendees = attendeeDtos.filter{
                 subscription.visitsIds.contains($0.id)
@@ -116,6 +118,8 @@ final class UserSubscriptionsServiceImpl : UserSubscriptionsService {
         }
 
         let classModels = buildClassModels(attendeeDtos, events)
+
+        await classesCache.clear()
 
         for classModel in classModels {
             await classesCache.add(key: classModel.id, value: classModel)
