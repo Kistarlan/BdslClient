@@ -28,7 +28,7 @@ extension Destination: CustomStringConvertible {
 
 public enum TabDestination: String, Hashable {
     case subscription
-    case classes
+    case myClasses
     case schedule
 }
 
@@ -72,10 +72,12 @@ public enum PushDestination: Hashable, CustomStringConvertible {
 
 public enum SheetDestination: Hashable, CustomStringConvertible {
     case groupDescription(group: GroupModel)
+    case eventDescription(event: EventModel)
 
     public var description: String {
         switch self {
-        case let .groupDescription(event): return ".eventDescription(\(event))"
+        case let .groupDescription(group): return ".groupDescription(\(group))"
+        case let .eventDescription(event): return ".eventDescription(\(event))"
         }
     }
 }
@@ -84,6 +86,7 @@ extension SheetDestination: Identifiable {
     public var id: String {
         switch self {
         case let .groupDescription(group): group.id
+        case let .eventDescription(event): event.id
         }
     }
 }

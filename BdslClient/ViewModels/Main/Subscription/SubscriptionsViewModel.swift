@@ -54,8 +54,8 @@ final class SubscriptionsViewModel {
             .grouped(by: \.category)
             .map {
                 GroupedSection(
-                    key: SubscriptionGroupCategory.subscriptionCategory($0.key),
-                    items: $0.items
+                    SubscriptionGroupCategory.subscriptionCategory($0.key),
+                    $0.items
                 )
             }
             .sorted { $0.key < $1.key }
@@ -74,8 +74,8 @@ final class SubscriptionsViewModel {
             .sorted { $0.key > $1.key }
             .map { group in
                 return GroupedSection(
-                    key: SubscriptionGroupCategory.date(group.key),
-                    items: group.items
+                    SubscriptionGroupCategory.date(group.key),
+                    group.items
                 )
             }
             .sorted { $0.key > $1.key }

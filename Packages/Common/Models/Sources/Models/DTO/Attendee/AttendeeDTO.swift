@@ -8,7 +8,7 @@
 import Foundation
 
 public struct AttendeeDTO: Identifiable, Decodable {
-    public let id: String
+    public let id: String //contains info about 1.event 2. date of class 3. userId
     public let status: AttendeeStatus
     public let eventId: String
     public let userId: String

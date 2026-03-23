@@ -11,7 +11,7 @@ public struct GroupedSection<Key: Hashable & Comparable, Item>: Identifiable {
 
     public var id: Key { key }
 
-    public init(key: Key, items: [Item]) {
+    public init(_ key: Key, _ items: [Item]) {
         self.key = key
         self.items = items
     }
@@ -22,7 +22,7 @@ extension Array {
         by keyPath: KeyPath<Element, Key>
     ) -> [GroupedSection<Key, Element>] {
         Dictionary(grouping: self, by: { $0[keyPath: keyPath] })
-            .map { GroupedSection(key: $0.key, items: $0.value) }
+            .map { GroupedSection($0.key, $0.value) }
     }
 }
 
@@ -38,6 +38,6 @@ extension Sequence {
     ) -> [GroupedSection<Key, Element>] {
 
         Dictionary(grouping: self, by: keySelector)
-            .map { GroupedSection(key: $0.key, items: $0.value) }
+            .map { GroupedSection($0.key, $0.value) }
     }
 }

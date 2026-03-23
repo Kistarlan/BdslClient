@@ -466,6 +466,17 @@
         }
       }
     },
+    "My Classes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Мої заняття"
+          }
+        }
+      }
+    },
     "MySubscriptions" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -869,6 +880,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Час"
+          }
+        }
+      }
+    },
+    "Today" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сьогодні"
+          }
+        }
+      }
+    },
+    "Tomorrow" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Завтра"
           }
         }
       }

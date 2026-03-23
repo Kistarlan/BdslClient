@@ -17,8 +17,8 @@ struct SubscriptionsScreen: View {
     var displayedGroups: [GroupedSection<SubscriptionGroupCategory, UserSubscription>] {
         if viewModel.isLoading {
             return [
-                GroupedSection(key: .subscriptionCategory(.active),
-                               items: (0..<5).map { _ in .placeholder() })
+                GroupedSection(.subscriptionCategory(.active),
+                               (0..<5).map { _ in .placeholder() })
             ]
         }
 

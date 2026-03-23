@@ -27,6 +27,13 @@ struct ViewModelsFactory {
         )
     }
 
+    func makeMyClassesViewModel() -> MyClassesViewModel {
+        MyClassesViewModel(
+            userSubscriptionsService: appServices.userSubscriptionsService,
+            appState: appState
+        )
+    }
+
     func makeSettingsViewModel() -> SettingsViewModel {
         SettingsViewModel(
             usersService: appServices.usersService,
@@ -39,7 +46,8 @@ struct ViewModelsFactory {
         MainViewModel(
             settingsViewModel: makeSettingsViewModel(),
             subscriptionsViewModel: makeUseSubscriptionsViewModel(),
-            scheduleViewModel: makeScheduleViewModel()
+            scheduleViewModel: makeScheduleViewModel(),
+            myClassesViewModel: makeMyClassesViewModel()
         )
     }
 
@@ -76,7 +84,8 @@ extension ViewModelsFactory {
         return MainViewModel(
             settingsViewModel: AppContainer.shared.viewModelsFactory.makePreviewSettingsViewModel(),
             subscriptionsViewModel: makeUseSubscriptionsViewModel(),
-            scheduleViewModel: makeScheduleViewModel()
+            scheduleViewModel: makeScheduleViewModel(),
+            myClassesViewModel: makeMyClassesViewModel()
         )
     }
 

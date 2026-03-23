@@ -42,4 +42,8 @@ public actor Cache<Key: Hashable, Value> {
     public var isEmpty: Bool {
         storage.count == 0
     }
+
+    public var isNotEmpty: Bool {
+        !isEmpty
+    }
 }

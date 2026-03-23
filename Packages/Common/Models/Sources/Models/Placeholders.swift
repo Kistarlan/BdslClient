@@ -112,7 +112,6 @@ public extension UserSubscription {
 public extension AttendeeModel {
     static func placeholder() -> Self {
         AttendeeModel(id: UUID().uuidString,
-                      status: .confirmed,
                       event: .placeholder(),
                       enrollTime: Date.now
         )
@@ -189,6 +188,16 @@ public extension WeeklyRecurrence {
             interval: 1,
             untilDate: Date.now,
             days: [.monday, .wednesday]
+        )
+    }
+}
+
+public extension UpcomingClassModel {
+    static func placeholder() -> Self {
+        .init(
+            id: UUID().uuidString,
+            event: .placeholder(),
+            concreateTime: Date(),
         )
     }
 }

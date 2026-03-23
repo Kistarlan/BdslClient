@@ -46,3 +46,28 @@ public struct GroupModel: Identifiable, Hashable, Sendable {
         self.duration = duration
     }
 }
+
+public extension EventModel {
+    func toGroup() -> GroupModel {
+        GroupModel(
+            id: id,
+            teachers: teachers.map {
+                GroupTeacher(
+                    id: $0.user.id,
+                    name: $0.user.name,
+                    surname: $0.user.surname ?? "",
+                    fullName: $0.user.fullName
+                )
+            },
+            type: type,
+            startDate: startDate,
+            endDate: endDate,
+            recurrence: weeklyReccurance,
+            location: location,
+            level: level,
+            title: title,
+            activity: activity,
+            duration: weeklyReccurance.interval
+        )
+    }
+}

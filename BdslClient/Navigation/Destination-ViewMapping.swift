@@ -1,5 +1,6 @@
 import SwiftUI
 import Navigation
+import Models
 
 @ViewBuilder func view(for destination: PushDestination) -> some View {
     let vmFactory = AppContainer.shared.viewModelsFactory
@@ -27,6 +28,8 @@ import Navigation
         switch destination {
         case let .groupDescription(group):
             GroupDetailsSheet(group: group)
+        case let .eventDescription(event):
+            GroupDetailsSheet(group: event.toGroup())
         }
     }
 }
