@@ -102,11 +102,13 @@ final class SubscriptionsViewModel {
         isLoading = true
         defer {
             isLoading = false
-            isInitialized = true
         }
 
         do {
             let userSubscriptions = try await userSubscriptionsService.fetchUserSubscriptions(for: user.id, forceReload: forceReload)
+
+            try Task.checkCancellation()
+
             subscriptions = userSubscriptions
                 .sorted { firstSubscription, secondSubscription in
                     let firstDate = firstSubscription.endDate ?? firstSubscription.startDate
@@ -116,6 +118,8 @@ final class SubscriptionsViewModel {
                 }
             
             isLoaded = true
+
+            isInitialized = true
         } catch {
             logger.warning("Can't load user subscriptions for \(user.id)")
         }

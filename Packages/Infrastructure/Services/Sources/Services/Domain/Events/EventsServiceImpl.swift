@@ -54,8 +54,16 @@ final class EventsServiceImpl: EventsService {
         let dtos = try await eventsRepository.fetchActualEvents(minEndDate:  Date(), forceReload ? [] : cacheIds)
 
         for eventDTO in dtos {
-            if let model = await buildEventModel(from: eventDTO) {
-                await cache.add(key: model.id, value: model)
+            do {
+                try Task.checkCancellation()
+
+                if let model = await buildEventModel(from: eventDTO) {
+                    await cache.add(key: model.id, value: model)
+                }
+
+                try Task.checkCancellation()
+            } catch is CancellationError {
+                await cache.clear()
             }
         }
 

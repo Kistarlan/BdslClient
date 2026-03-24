@@ -22,7 +22,6 @@ final class ScheduleViewModel {
     var filters = ScheduleFilters()
     var isLoading = false
     var isInitialized = false
-    var isLoaded = false
 
     init(groupsService: GroupsService) {
         self.groupsService = groupsService
@@ -36,12 +35,12 @@ final class ScheduleViewModel {
 
         defer {
             isLoading = false
-            isInitialized = true
         }
 
         do {
             allGroups = try await groupsService.fetchGroups(forceReload: forceReload)
-            isLoaded = true
+
+            isInitialized = true
         } catch {
             logger.warning("Can't load events: \(error)")
         }

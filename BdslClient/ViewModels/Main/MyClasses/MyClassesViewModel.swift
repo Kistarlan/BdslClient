@@ -54,6 +54,7 @@ final class MyClassesViewModel {
             return
         }
 
+
         if forceReload {
             isLoaded = false
         }
@@ -70,15 +71,17 @@ final class MyClassesViewModel {
         isLoading = true
         defer {
             isLoading = false
-            isInitialized = true
         }
 
         do {
             upcomingClasses = try await userSubscriptionsService.loadUpcommingClasses(for: user.id, forceReload: forceReload)
 
+            try await Task.checkCancellation()
+
             isLoaded = true
+            isInitialized = true
         } catch {
-            logger.warning("Can't load user subscriptions for \(user.id)")
+            logger.warning("Can't load user subscriptions for \(user.id), error =\(error), errorDescription: \(error.localizedDescription)")
         }
     }
 }

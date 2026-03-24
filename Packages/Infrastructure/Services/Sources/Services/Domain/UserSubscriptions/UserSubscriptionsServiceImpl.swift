@@ -84,7 +84,12 @@ final class UserSubscriptionsServiceImpl : UserSubscriptionsService {
     //MARK: - load data from repositories and fill cache
     func fetchSubscriptions(for id: String, forceReload: Bool) async throws -> [UserSubscription] {
         let dtos = try await userSubscriptionsRepository.fetchUserSubscriptions(for: id)
+
+        try Task.checkCancellation()
+
         let activities = try await activityService.getAllActivities(forceReload: forceReload)
+
+        try Task.checkCancellation()
 
         await userSubscriptionsCache.clear()
 
