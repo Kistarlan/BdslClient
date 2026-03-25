@@ -19,8 +19,8 @@ final class SubscriptionsViewModel {
     var subscriptions: [UserSubscription] = []
     var isLoading: Bool = false
     var isInitialized: Bool = false
-    var isLoaded: Bool = false
     var searchText: String = ""
+    var localizedError: LocalizedStringResource?
 
     private var currentUser: User?
     private let userSubscriptionsService: UserSubscriptionsService
@@ -82,32 +82,48 @@ final class SubscriptionsViewModel {
             .sorted { $0.key > $1.key }
     }
 
+
     func fetchSubscriptions(forceReload: Bool) async {
+        guard handleNetwork(forceReload: forceReload) else { return }
+        guard let user = resolveUser() else { return }
+
+        await performLoad(for: user, forceReload: forceReload)
+    }
+
+    private func handleNetwork(forceReload: Bool) -> Bool {
+        if appState.isNetworkAvailable {
+            return true
+        }
+
+        if forceReload || !isInitialized {
+            localizedError = .noInternetConnection
+        }
+
+        return false
+    }
+
+    private func resolveUser() -> User? {
         guard case let AppFlowState.authenticated(user) = appState.state else {
-            logger.warning("Can't load user subscriptions, user is not authenticated")
-            isLoaded = false
-
-            return
+            logger.warning("User is not authenticated")
+            return nil
         }
 
-        if currentUser == user {
-            if isLoaded && !forceReload {
-                return
-            }
-        } else {
-            currentUser = user
-            isLoaded = false
-        }
+        return user
+    }
 
+    private func performLoad(for user: User, forceReload: Bool) async {
         isLoading = true
-        defer {
-            isLoading = false
-        }
+        defer { isLoading = false }
 
         do {
-            let userSubscriptions = try await userSubscriptionsService.fetchUserSubscriptions(for: user.id, forceReload: forceReload)
+            localizedError = nil
 
-            try Task.checkCancellation()
+            let userSubscriptions = try await fetchWithNetworkCheck(.seconds(5)) {
+                try await self.userSubscriptionsService.fetchUserSubscriptions(
+                    for: user.id,
+                    forceReload: forceReload
+                )
+            }
 
             subscriptions = userSubscriptions
                 .sorted { firstSubscription, secondSubscription in
@@ -116,12 +132,15 @@ final class SubscriptionsViewModel {
 
                     return firstDate > secondDate
                 }
-            
-            isLoaded = true
 
             isInitialized = true
+
+        } catch TaskError.timeout {
+            logger.warning("Timeout")
+            localizedError = .theRequestTimedOut
+
         } catch {
-            logger.warning("Can't load user subscriptions for \(user.id)")
+            logger.warning("Error: \(error.localizedDescription)")
         }
     }
 

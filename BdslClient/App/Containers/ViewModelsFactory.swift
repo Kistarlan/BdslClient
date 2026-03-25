@@ -75,7 +75,10 @@ struct ViewModelsFactory {
     }
 
     func makeScheduleViewModel() -> ScheduleViewModel {
-        ScheduleViewModel(groupsService: appServices.groupsService)
+        ScheduleViewModel(
+            appState: appState,
+            groupsService: appServices.groupsService
+        )
     }
 }
 

@@ -32,16 +32,27 @@ struct SubscriptionsScreen: View {
 
     var body: some View {
         VStack {
-            List {
-                ForEach(displayedGroups) { group in
-                    subscriptionsGroup(group: group)
+            if let localizedErrorMessage = viewModel.localizedError {
+                ErrorView(errorMessage: localizedErrorMessage) {
+                    Task {
+                        await viewModel.fetchSubscriptions(forceReload: false)
+                    }
                 }
+            } else {
+                VStack {
+                    List {
+                        ForEach(displayedGroups) { group in
+                            subscriptionsGroup(group: group)
+                        }
+                    }
+                    .listStyle(.plain)
+                    .listRowSeparator(.hidden)
+                    .scrollContentBackground(.hidden)
+                }
+                .searchable(text: $viewModel.searchText)
             }
-            .listStyle(.plain)
-            .listRowSeparator(.hidden)
-            .scrollContentBackground(.hidden)
+
         }
-        .searchable(text: $viewModel.searchText)
         .navigationTitle(Text(LocalizedStringResource.mySubscriptions))
         .background(theme.colors.appBackground)
         .toolbar {

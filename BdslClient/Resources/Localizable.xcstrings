@@ -248,6 +248,7 @@
       }
     },
     "Error" : {
+      "extractionState" : "manual",
       "localizations" : {
         "uk" : {
           "stringUnit" : {
@@ -516,6 +517,17 @@
         }
       }
     },
+    "No Internet Connection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проблеми зі з’єднанням"
+          }
+        }
+      }
+    },
     "No Visits yet" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -666,6 +678,7 @@
       }
     },
     "Retry" : {
+      "extractionState" : "manual",
       "localizations" : {
         "uk" : {
           "stringUnit" : {
@@ -847,6 +860,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Телеграм"
+          }
+        }
+      }
+    },
+    "The request timed out" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Запит перевищив час очікування"
           }
         }
       }

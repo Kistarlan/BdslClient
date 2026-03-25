@@ -33,17 +33,24 @@ struct ScheduleScreen: View {
     var body: some View {
         ScrollView {
             VStack(spacing: theme.layout.spacing.m) {
+                if let localizedError = viewModel.localizedError {
+                    ErrorView(errorMessage: localizedError) {
+                        Task {
+                            await viewModel.loadEvents(forceReload: false)
+                        }
+                    }
+                } else {
+                    VStack {
+                        FiltersView(viewModel: $viewModel)
 
-                FiltersView(viewModel: $viewModel)
-
-                GroupListView(isLoading: !viewModel.isInitialized, groupSections: displayedSections)
+                        GroupListView(isLoading: !viewModel.isInitialized, groupSections: displayedSections)
+                    }
+                }
             }
             .padding()
         }
         .task {
-            if !viewModel.isInitialized {
-                await viewModel.loadEvents(forceReload: false)
-            }
+            await viewModel.loadEvents(forceReload: false)
         }
         .navigationTitle(Text(.schedule))
         .toolbar {

@@ -15,12 +15,12 @@ import Services
 final class MyClassesViewModel {
     private let logger = Logger.forCategory(String(describing: MyClassesViewModel.self))
     private let userSubscriptionsService: UserSubscriptionsService
-    private var currentUser: User?
     private let appState: AppState
 
     var isLoading: Bool = false
     var isLoaded: Bool = false
     var isInitialized: Bool = false
+    var localizedError: LocalizedStringResource?
     var upcomingClasses: [UpcomingClassModel] = []
 
     init(userSubscriptionsService: UserSubscriptionsService,
@@ -46,42 +46,57 @@ final class MyClassesViewModel {
         return grouped
     }
 
-    func loadSubscriptions(forceReload: Bool) async {
+    func loadClasses(forceReload: Bool) async {
+        guard handleNetwork(forceReload: forceReload) else { return }
+        guard let user = resolveUser() else { return }
+
+        await performLoad(for: user, forceReload: forceReload)
+    }
+
+    private func handleNetwork(forceReload: Bool) -> Bool {
+        if appState.isNetworkAvailable {
+            return true
+        }
+
+        if forceReload || !isInitialized {
+            localizedError = .noInternetConnection
+        }
+
+        return false
+    }
+
+    private func resolveUser() -> User? {
         guard case let AppFlowState.authenticated(user) = appState.state else {
-            logger.warning("Can't load user subscriptions, user is not authenticated")
-            isLoaded = false
-
-            return
+            logger.warning("User is not authenticated")
+            return nil
         }
 
+        return user
+    }
 
-        if forceReload {
-            isLoaded = false
-        }
-
-        if currentUser == user {
-            if isLoaded {
-                return
-            }
-        } else {
-            currentUser = user
-            isLoaded = false
-        }
-
+    private func performLoad(for user: User, forceReload: Bool) async {
         isLoading = true
-        defer {
-            isLoading = false
-        }
+        defer { isLoading = false }
 
         do {
-            upcomingClasses = try await userSubscriptionsService.loadUpcommingClasses(for: user.id, forceReload: forceReload)
+            localizedError = nil
 
-            try await Task.checkCancellation()
+            upcomingClasses = try await fetchWithNetworkCheck(.seconds(5)) {
+                try await self.userSubscriptionsService.loadUpcommingClasses(
+                    for: user.id,
+                    forceReload: forceReload
+                )
+            }
 
             isLoaded = true
             isInitialized = true
+
+        } catch TaskError.timeout {
+            logger.warning("Timeout")
+            localizedError = .theRequestTimedOut
+
         } catch {
-            logger.warning("Can't load user subscriptions for \(user.id), error =\(error), errorDescription: \(error.localizedDescription)")
+            logger.warning("Error: \(error.localizedDescription)")
         }
     }
 }

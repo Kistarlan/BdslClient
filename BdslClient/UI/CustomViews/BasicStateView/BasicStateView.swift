@@ -25,11 +25,11 @@ public struct BasicStateView<ViewData, LoadingContent: View, DataContent: View>:
 
             case let .error(error):
                 ContentUnavailableView {
-                    Label("Error", systemImage: "xmark")
+                    Label(.error, systemImage: "xmark")
                 } description: {
                     Text(error.localizedDescription)
                 } actions: {
-                    Button("Retry", action: retry)
+                    Button(.retry, action: retry)
                 }
             }
         }

@@ -28,35 +28,53 @@ struct MainTabView: View {
         ZStack {
             TabView(selection: $router.selectedTab) {
                 Tab(LocalizedStringKey("Schedule"), systemImage: "calendar", value: TabDestination.schedule) {
-                    NavigationContainer(parentRouter: router,
-                                        destination: Destination.tab(TabDestination.schedule)) {
-                        ScheduleScreen(viewModel: mainViewModel.scheduleViewModel)
-                            .toolbar(
-                                appState.state.isAuthenticated ? .visible : .hidden,
-                                for: .tabBar
-                            )
-                    }
+                    scheduleTabContent
                 }
 
                 if appState.state.isAuthenticated {
                     Tab(LocalizedStringKey("My Classes"), systemImage: "person.2.fill", value: TabDestination.myClasses) {
-                        NavigationContainer(parentRouter: router,
-                                            destination: Destination.tab(TabDestination.myClasses)) {
-                            MyClassesScreen(viewModel: mainViewModel.myClassesViewModel)
-                        }
+                        myClassesTabContent
                     }
 
                     Tab(LocalizedStringKey("Subscriptions"), systemImage: "creditcard", value: TabDestination.subscription) {
-                        NavigationContainer(parentRouter: router,
-                                            destination: Destination.tab(TabDestination.subscription)) {
-                            SubscriptionsScreen(subscriptionsViewModel: mainViewModel.subscriptionsViewModel)
-                        }
+                        subscriptionTabContent
                     }
                 }
             }
             .backport
             .tabBarMinimizeBehavior(.onScrollDown)
             .tint(theme.colors.accent)
+        }
+    }
+}
+
+private extension MainTabView {
+    var subscriptionTabContent: some View {
+        NavigationContainer(parentRouter: router,
+                            destination: Destination.tab(TabDestination.subscription)) {
+            SubscriptionsScreen(subscriptionsViewModel: mainViewModel.subscriptionsViewModel)
+        }
+    }
+
+    var myClassesTabContent: some View {
+        NavigationContainer(parentRouter: router,
+                            destination: Destination.tab(TabDestination.myClasses)) {
+            MyClassesScreen(viewModel: mainViewModel.myClassesViewModel)
+        }
+    }
+
+    var scheduleTabContent: some View {
+        NavigationContainer(parentRouter: router,
+                            destination: Destination.tab(TabDestination.schedule)) {
+            Group {
+                if appState.state.isAuthenticated {
+                    ScheduleScreen(viewModel: mainViewModel.scheduleViewModel)
+                } else {
+                    ScheduleScreen(viewModel: mainViewModel.scheduleViewModel)
+                        .toolbar(.hidden,for: .tabBar)
+                }
+            }
+
         }
     }
 }

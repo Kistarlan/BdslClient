@@ -135,7 +135,7 @@ public extension EventModel {
 
 public extension GroupModel {
     static func placeholder() -> Self {
-        GroupModel(id: "123",
+        GroupModel(id: UUID().uuidString,
                    teachers: [],
                    type: .group,
                    startDate: Date.now,

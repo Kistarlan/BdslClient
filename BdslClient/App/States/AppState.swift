@@ -20,15 +20,17 @@ final class AppState: ObservableObject {
     private let cachingManager: CachingManager
     private let usersService: UsersService
     private var userDefaults: UserDefaults = .standard
+    private var cancellables = Set<AnyCancellable>()
+    private var isBootstrapping: Bool = false
 
     @Published private(set) var state: AppFlowState = .splash
+    @Published var isNetworkAvailable: Bool
     @Published var themeMode: ThemeMode {
         didSet {
             guard oldValue != themeMode else { return }
             userDefaults.set(themeMode.rawValue, forKey: AppState.themeModeKey)
         }
     }
-
     @Published var appLanguage: AppLanguage {
         didSet {
             guard oldValue != appLanguage else { return }
@@ -38,7 +40,8 @@ final class AppState: ObservableObject {
 
     init(authRepository: AuthRepository,
          usersService: UsersService,
-         cachingManager: CachingManager) {
+         cachingManager: CachingManager,
+         networkState: NetworkState) {
         self.authRepository = authRepository
         self.usersService = usersService
         self.cachingManager = cachingManager
@@ -58,9 +61,29 @@ final class AppState: ObservableObject {
         } else {
             appLanguage = .system
         }
+
+        isNetworkAvailable = networkState.isConnected
+
+        networkState.$isConnected
+            .sink { [weak self] connected in
+                guard self != nil,
+                        self?.isNetworkAvailable != connected else { return }
+
+                self!.isNetworkAvailable = connected
+                if !self!.state.isAuthenticated {
+                    self!.bootstrap()
+                }
+            }
+            .store(in: &cancellables)
     }
 
     func bootstrap() {
+        if isBootstrapping {
+            return
+        } else {
+            isBootstrapping = true
+        }
+
         Task {
             let authState = await restoreSession()
 
@@ -70,6 +93,8 @@ final class AppState: ObservableObject {
             case .unauthenticated, .expired, .undefined:
                 state = .unauthenticated
             }
+
+            isBootstrapping = false
         }
     }
 

@@ -15,36 +15,52 @@ import Services
 final class ScheduleViewModel {
     private let logger = Logger.forCategory(String(describing: ScheduleViewModel.self))
     private let groupsService: GroupsService
+    public let appState: AppState
 
     private var allGroups: [GroupModel] = []
 
+    var localizedError: LocalizedStringResource?
     var expandedFilter: ScheduleFilterType?
     var filters = ScheduleFilters()
     var isLoading = false
     var isInitialized = false
 
-    init(groupsService: GroupsService) {
+    init(appState: AppState,
+         groupsService: GroupsService) {
         self.groupsService = groupsService
+        self.appState = appState
     }
 
     // MARK: - Loading
 
     func loadEvents(forceReload: Bool) async {
+        if !appState.isNetworkAvailable {
+            if forceReload || !isInitialized {
+                self.localizedError = .noInternetConnection
+            }
+
+            return
+        }
 
         isLoading = true
 
         defer {
             isLoading = false
+            isInitialized = true
         }
 
         do {
-            allGroups = try await groupsService.fetchGroups(forceReload: forceReload)
+            self.localizedError = nil
 
-            isInitialized = true
+            allGroups = try await fetchWithNetworkCheck(.seconds(5)) {
+                try await self.groupsService.fetchGroups(forceReload: forceReload)
+            }
+        } catch TaskError.timeout {
+            logger.warning("The request timed out")
+            self.localizedError = .theRequestTimedOut
         } catch {
             logger.warning("Can't load events: \(error)")
         }
-
     }
 
     // MARK: - Filters

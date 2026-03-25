@@ -34,15 +34,15 @@ struct MyClassesScreen: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            List {
-                ForEach(displayedSections) { group in
-                    classScetion(group)
+            if let localizedError = viewModel.localizedError {
+                ErrorView(errorMessage: localizedError) {
+                    Task {
+                        await viewModel.loadClasses(forceReload: false)
+                    }
                 }
+            } else {
+                itemList
             }
-            .listStyle(.plain)
-            .listSectionSeparator(.hidden)
-            .scrollContentBackground(.hidden)
-            .background(theme.colors.appBackground)
         }
         .navigationTitle(Text(.myClasses))
         .background(theme.colors.appBackground)
@@ -52,17 +52,29 @@ struct MyClassesScreen: View {
             }
         }
         .task {
-            await viewModel.loadSubscriptions(forceReload: false)
+            await viewModel.loadClasses(forceReload: false)
         }
         .refreshable {
             if viewModel.isInitialized && !viewModel.isLoading {
-                await viewModel.loadSubscriptions(forceReload: true)
+                await viewModel.loadClasses(forceReload: true)
             }
         }
     }
 }
 
 extension MyClassesScreen {
+
+    var itemList: some View {
+        List {
+            ForEach(displayedSections) { group in
+                classScetion(group)
+            }
+        }
+        .listStyle(.plain)
+        .listSectionSeparator(.hidden)
+        .scrollContentBackground(.hidden)
+        .background(theme.colors.appBackground)
+    }
 
     func classScetion(_ section: GroupedSection<Date, UpcomingClassModel>) -> some View {
         Section() {
