@@ -5,12 +5,12 @@
 //  Created by Oleh Rozkvas on 06.02.2026.
 //
 
-import Models
 import Configs
+import Models
 
 public struct AppServices {
-
     // MARK: - Core
+
     public let tokenStore: TokenStore
 
     // MARK: - Repositories (only those exposed outside)
@@ -31,6 +31,7 @@ public struct AppServices {
     public let appSettings: AppSettings
 
     // MARK: - Designated initializer (builds service graph)
+
     public init(
         tokenStore: TokenStore,
         authRepository: AuthRepository,
@@ -94,7 +95,7 @@ public struct AppServices {
                 locationsService as any CacheableService,
                 levelsService as any CacheableService,
                 eventsService as any CacheableService,
-                userSubscriptionsService as any CacheableService,
+                userSubscriptionsService as any CacheableService
             ]
         ))
 

@@ -6,7 +6,6 @@
 //
 
 struct AnyEncodable: Encodable {
-
     private let encodeFunc: (Encoder) throws -> Void
 
     init(_ encodable: Encodable) {

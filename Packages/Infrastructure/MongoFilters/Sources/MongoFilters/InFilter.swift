@@ -1,4 +1,5 @@
 import Foundation
+
 //
 //  InFilte.swift
 //  Models
@@ -9,7 +10,6 @@ import Foundation
 /// A CodingKey that can be created from arbitrary strings at runtime.
 
 struct InFilter<Value: Encodable>: MongoFilter {
-
     let field: String
     let values: [Value]
 
@@ -22,4 +22,3 @@ struct InFilter<Value: Encodable>: MongoFilter {
         )
     }
 }
-

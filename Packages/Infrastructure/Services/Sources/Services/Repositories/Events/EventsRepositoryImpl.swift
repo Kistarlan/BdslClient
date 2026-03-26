@@ -4,11 +4,11 @@
 //
 //  Created by Oleh Rozkvas on 25.02.2026.
 //
-import Models
 import Foundation
+import Models
 import MongoFilters
 
-final class EventsRepositoryImpl : EventsRepository {
+final class EventsRepositoryImpl: EventsRepository {
     let apiClient: APIClient
 
     init(apiClient: APIClient) {

@@ -5,9 +5,9 @@
 //  Created by Oleh Rozkvas on 03.03.2026.
 //
 
-import SwiftUI
 import DesignSystem
 import Models
+import SwiftUI
 
 struct FilterChip: View {
     @Environment(\.locale) private var locale
@@ -20,13 +20,13 @@ struct FilterChip: View {
 
     init(title: String?, isSelected: Bool, action: @escaping () -> Void) {
         self.title = title
-        self.localizedTitle = nil
+        localizedTitle = nil
         self.isSelected = isSelected
         self.action = action
     }
 
     init(localizedTitle: LocalizedStringResource?, isSelected: Bool, action: @escaping () -> Void) {
-        self.title = nil
+        title = nil
         self.localizedTitle = localizedTitle
         self.isSelected = isSelected
         self.action = action
@@ -48,25 +48,24 @@ struct FilterChip: View {
 }
 
 private extension FilterChip {
-
     var background: Color {
         isSelected
-        ? theme.colors.chipSelectedBackground
-        : theme.colors.chipBackground
+            ? theme.colors.chipSelectedBackground
+            : theme.colors.chipBackground
     }
 
     var textColor: Color {
         isSelected
-        ? theme.colors.chipSelectedText
-        : theme.colors.chipText
+            ? theme.colors.chipSelectedText
+            : theme.colors.chipText
     }
 
     var border: some View {
         Capsule()
             .stroke(
                 isSelected
-                ? theme.colors.chipSelectedBorder
-                : theme.colors.chipBorder
+                    ? theme.colors.chipSelectedBorder
+                    : theme.colors.chipBorder
             )
     }
 
@@ -80,7 +79,7 @@ private extension FilterChip {
 }
 
 #Preview {
-    var isSelcetd: Bool = false
+    var isSelcetd = false
 
     VStack {
         FilterChip(
@@ -92,4 +91,3 @@ private extension FilterChip {
     .background(LightTheme().colors.cardBackground)
     .setupPreviewEnvironments(ThemeMode.light)
 }
-

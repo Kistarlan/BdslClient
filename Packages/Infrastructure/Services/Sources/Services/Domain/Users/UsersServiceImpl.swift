@@ -8,10 +8,9 @@
 import Models
 
 final class UsersServiceImpl: UsersService {
-
     private let usersRepository: UsersRepository
 
-    init(usersRepository: UsersRepository){
+    init(usersRepository: UsersRepository) {
         self.usersRepository = usersRepository
     }
 
@@ -26,7 +25,7 @@ final class UsersServiceImpl: UsersService {
 
         return dto.toDomain()
     }
-    
+
     func updateUserInfo(_ user: User) async throws -> User {
         let dto = try await usersRepository.updateUserInfo(user)
 

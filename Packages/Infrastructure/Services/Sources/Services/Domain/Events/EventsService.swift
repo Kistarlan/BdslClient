@@ -8,7 +8,7 @@
 import Foundation
 import Models
 
-public protocol EventsService : CacheableService {
+public protocol EventsService: CacheableService {
     func fetchEvent(for id: String, forceReload: Bool) async throws -> EventModel
     func fetchEvents(for ids: [String], forceReload: Bool) async throws -> [EventModel]
     func fetchActualEvents(forceReload: Bool) async throws -> [EventModel]

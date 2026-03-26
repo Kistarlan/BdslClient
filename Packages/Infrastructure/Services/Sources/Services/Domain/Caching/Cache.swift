@@ -31,12 +31,12 @@ public actor Cache<Key: Hashable, Value> {
         storage.removeAll()
     }
 
-    public func getAll() -> [Value]{
-        storage.map { $0.value}
+    public func getAll() -> [Value] {
+        storage.map { $0.value }
     }
 
-    public func getAllKeys() -> [Key]{
-        storage.map { $0.key}
+    public func getAllKeys() -> [Key] {
+        storage.map { $0.key }
     }
 
     public var isEmpty: Bool {

@@ -5,8 +5,8 @@
 //  Created by Oleh Rozkvas on 02.03.2026.
 //
 
-import OSLog
 import Models
+import OSLog
 
 final class LocationServiceImpl: LocationService {
     private let logger = Logger.forCategory(String(describing: LocationServiceImpl.self))

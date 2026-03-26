@@ -16,5 +16,5 @@ public enum NotificationLeadTime: Equatable, Sendable, Hashable, Codable {
         .preset(8)
     ]
 
-    case custom(Int)// 1...24
+    case custom(Int) // 1...24
 }

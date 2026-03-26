@@ -5,11 +5,11 @@
 //  Created by Oleh Rozkvas on 06.03.2026.
 //
 
-import SwiftUI
-import Navigation
 import DesignSystem
 import Models
+import Navigation
 import Services
+import SwiftUI
 
 struct SettingsButton: View {
     @Environment(\.theme) private var theme
@@ -19,18 +19,19 @@ struct SettingsButton: View {
     private let imageSerbvice = AppContainer.shared.services.imageService
 
     var body: some View {
-        NavigationButton(push: PushDestination.settings){
+        NavigationButton(push: PushDestination.settings) {
             settingsImage
         }
         .onAppear {
             if case let .authenticated(user) = appState.state,
-               let avatar = user.avatar {
+               let avatar = user.avatar
+            {
                 Task {
                     await loadAvatarImage(imageSource: avatar.small)
                 }
             }
         }
-    }	
+    }
 
     func image() -> Image {
         if let image = avatarImage {

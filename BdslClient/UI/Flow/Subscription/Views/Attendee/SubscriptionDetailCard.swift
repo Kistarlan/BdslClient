@@ -5,22 +5,21 @@
 //  Created by Oleh Rozkvas on 26.02.2026.
 //
 
-import SwiftUI
-import Models
 import DesignSystem
+import Models
+import SwiftUI
 
 struct SubscriptionDetailCard: View {
     @Environment(\.locale) private var locale
     @Environment(\.theme) private var theme
     @State private var userSubscription: UserSubscription
 
-    init(subscription: UserSubscription){
+    init(subscription: UserSubscription) {
         userSubscription = subscription
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: theme.layout.spacing.s) {
-
             Text(userSubscription.title)
                 .font(theme.typography.sectionTitle)
                 .foregroundColor(theme.colors.textPrimary)
@@ -55,7 +54,6 @@ struct SubscriptionDetailCard: View {
 }
 
 extension SubscriptionDetailCard {
-
     private var activities: some View {
         HStack {
             ForEach(userSubscription.activities) { activity in
@@ -75,14 +73,13 @@ extension SubscriptionDetailCard {
             userSubscription.price.map { "₴ \($0.formatted())" },
             userSubscription.paymentMethod?.localized.localized(locale: locale)
         ]
-            .compactMap { $0 }
-            .joined(separator: ", ")
-            .nilIfEmpty
+        .compactMap { $0 }
+        .joined(separator: ", ")
+        .nilIfEmpty
     }
 }
 
 #Preview {
-
     VStack {
         SubscriptionDetailCard(
             subscription: UserSubscription.placeholder()

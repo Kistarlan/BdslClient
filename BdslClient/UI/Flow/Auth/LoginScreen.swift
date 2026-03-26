@@ -5,10 +5,10 @@
 //  Created by Oleh Rozkvas on 23.01.2026.
 //
 
-import SwiftUI
-import Models
 import DesignSystem
+import Models
 import Navigation
+import SwiftUI
 
 struct LoginScreen: View {
     @EnvironmentObject private var appState: AppState
@@ -53,7 +53,6 @@ struct LoginScreen: View {
 }
 
 extension LoginScreen {
-
     private var loginSection: some View {
         VStack(spacing: theme.layout.spacing.m) {
             phoneSection
@@ -82,7 +81,7 @@ extension LoginScreen {
         .padding(theme.layout.spacing.l)
     }
 
-    private var loadingIndicator : some View {
+    private var loadingIndicator: some View {
         VStack(spacing: theme.layout.spacing.s) {
             ProgressView()
                 .progressViewStyle(CircularProgressViewStyle(tint: theme.colors.accent))
@@ -128,7 +127,7 @@ extension LoginScreen {
         .cornerRadius(theme.layout.cornerRadius.m)
     }
 
-    private var inputTypeSelection : some View {
+    private var inputTypeSelection: some View {
         HStack(spacing: theme.layout.spacing.s) {
             Text(viewModel.loginByPassword ? .loginVia : .loginBy)
                 .foregroundColor(theme.colors.textSecondary)
@@ -145,7 +144,7 @@ extension LoginScreen {
         }
     }
 
-    private var loginButton : some View {
+    private var loginButton: some View {
         Button(action: viewModel.login) {
             Text(.login)
                 .font(theme.typography.button)
@@ -153,7 +152,6 @@ extension LoginScreen {
                 .frame(maxWidth: .infinity)
                 .padding(theme.layout.spacing.m)
                 .background(viewModel.isLoading ? theme.colors.buttonDisabled : theme.colors.backgroundSecondary)
-
                 .cornerRadius(theme.layout.cornerRadius.m)
         }
     }

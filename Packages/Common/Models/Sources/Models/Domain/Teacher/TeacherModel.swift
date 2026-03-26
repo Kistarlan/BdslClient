@@ -13,6 +13,7 @@ public struct TeacherModel: Identifiable, Hashable, Sendable {
     public let about: String?
 
     // MARK: - Public initializer
+
     public init(
         id: String,
         active: Bool,

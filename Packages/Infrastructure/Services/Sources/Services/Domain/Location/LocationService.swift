@@ -7,6 +7,6 @@
 
 import Models
 
-public protocol LocationService : CacheableService {
+public protocol LocationService: CacheableService {
     func getLocaction(id: String, forceReload: Bool) async throws -> Location
 }

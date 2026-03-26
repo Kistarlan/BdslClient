@@ -9,17 +9,17 @@ let package = Package(
         .library(
             name: "Services",
             targets: ["Services"]
-        ),
+        )
     ],
     dependencies: [
         .package(path: "../../Common/Models"),
         .package(path: "../../Common/Configs"),
-        .package(path: "../MongoFilters"),
+        .package(path: "../MongoFilters")
     ],
     targets: [
         .target(
             name: "Services",
             dependencies: ["Models", "Configs", "MongoFilters"]
-        ),
+        )
     ]
 )

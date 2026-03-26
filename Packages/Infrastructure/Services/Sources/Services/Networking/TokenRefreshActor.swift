@@ -9,7 +9,6 @@ actor TokenRefreshActor {
     private var refreshTask: Task<String, Error>?
 
     func token(using block: @Sendable @escaping () async throws -> String) async throws -> String {
-
         if let refreshTask {
             return try await refreshTask.value
         }

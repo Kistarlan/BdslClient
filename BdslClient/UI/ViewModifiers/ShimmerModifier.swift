@@ -8,7 +8,6 @@
 import SwiftUI
 
 public struct ShimmerModifier: ViewModifier {
-
     @State private var phase: CGFloat = -1
     let active: Bool
 
@@ -37,7 +36,7 @@ public struct ShimmerModifier: ViewModifier {
                     .onAppear {
                         withAnimation(
                             .linear(duration: 1.2)
-                            .repeatForever(autoreverses: false)
+                                .repeatForever(autoreverses: false)
                         ) {
                             phase = 1
                         }
@@ -48,7 +47,6 @@ public struct ShimmerModifier: ViewModifier {
 }
 
 public extension View {
-
     func shimmer(active: Bool) -> some View {
         modifier(ShimmerModifier(active: active))
     }

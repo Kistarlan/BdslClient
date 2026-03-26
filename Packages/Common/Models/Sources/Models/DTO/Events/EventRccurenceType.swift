@@ -8,5 +8,5 @@
 import Foundation
 
 public enum EventRccurenceType: String, Decodable {
-    case weekly = "weekly"
+    case weekly
 }

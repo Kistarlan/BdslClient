@@ -5,8 +5,8 @@
 //  Created by Oleh Rozkvas on 23.01.2026.
 //
 
-import SwiftUI
 import Models
+import SwiftUI
 
 @main
 struct BdslClientApp: App {

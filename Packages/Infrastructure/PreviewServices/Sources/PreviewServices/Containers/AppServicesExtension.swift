@@ -5,12 +5,11 @@
 //  Created by Oleh Rozkvas on 04.03.2026.
 //
 
-import Services
 import Configs
 import Models
+import Services
 
 public extension AppServices {
-
     static var preview: AppServices {
         let tokenStore = KeychainTokenStore(service: Config.tokenStoreService)
 
@@ -71,4 +70,3 @@ public extension AppServices {
         )
     }
 }
-

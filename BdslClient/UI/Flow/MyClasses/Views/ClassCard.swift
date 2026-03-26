@@ -5,11 +5,11 @@
 //  Created by Oleh Rozkvas on 23.03.2026.
 //
 
-import SwiftUI
-import Models
 import DesignSystem
+import Models
+import SwiftUI
 
-struct ClassCard : View {
+struct ClassCard: View {
     @Environment(\.theme) private var theme
 
     let upcomingClass: UpcomingClassModel
@@ -77,10 +77,9 @@ extension ClassCard {
                 .foregroundStyle(Color(hex: houseColorHex))
             Spacer()
         }
-
     }
 
-    private var houseColorHex : String {
+    private var houseColorHex: String {
         theme.scheme == .dark ? upcomingClass.event.location.color2Hex : upcomingClass.event.location.colorHex
     }
 

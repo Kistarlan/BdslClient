@@ -6,12 +6,11 @@
 //
 
 public struct DynamicCodingKey: CodingKey {
-
     public var stringValue: String
     public var intValue: Int? { nil }
 
     public init(_ string: String) {
-        self.stringValue = string
+        stringValue = string
     }
 
     public init?(stringValue: String) {

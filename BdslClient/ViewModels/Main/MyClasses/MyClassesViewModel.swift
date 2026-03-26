@@ -5,10 +5,10 @@
 //  Created by Oleh Rozkvas on 22.03.2026.
 //
 
-import SwiftUI
-import OSLog
 import Models
+import OSLog
 import Services
+import SwiftUI
 
 @MainActor
 @Observable
@@ -23,8 +23,10 @@ final class MyClassesViewModel {
     var localizedError: LocalizedStringResource?
     var upcomingClasses: [UpcomingClassModel] = []
 
-    init(userSubscriptionsService: UserSubscriptionsService,
-         appState: AppState) {
+    init(
+        userSubscriptionsService: UserSubscriptionsService,
+        appState: AppState
+    ) {
         self.userSubscriptionsService = userSubscriptionsService
         self.appState = appState
     }

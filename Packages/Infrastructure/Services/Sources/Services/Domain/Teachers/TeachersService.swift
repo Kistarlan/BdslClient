@@ -8,7 +8,7 @@
 import Foundation
 import Models
 
-public protocol TeachersService : CacheableService {
+public protocol TeachersService: CacheableService {
     func fetchTeacher(for id: String) async throws -> TeacherModel
     func fetchTeachers(forceReload: Bool) async throws -> [TeacherModel]
 }

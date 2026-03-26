@@ -5,9 +5,9 @@
 //  Created by Oleh Rozkvas on 19.02.2026.
 //
 
-import SwiftUI
-import Models
 import DesignSystem
+import Models
+import SwiftUI
 
 struct SubscriptionCard: View {
     @Environment(\.locale) private var locale
@@ -62,7 +62,7 @@ private extension SubscriptionCard {
 }
 
 private extension SubscriptionCard {
-    var description : some View {
+    var description: some View {
         VStack(alignment: .leading, spacing: theme.layout.spacing.xs) {
             Text(tintText)
 
@@ -83,4 +83,3 @@ private extension SubscriptionCard {
         }
     }
 }
-

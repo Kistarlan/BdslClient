@@ -5,17 +5,17 @@
 //  Created by Oleh Rozkvas on 02.03.2026.
 //
 
-import SwiftUI
-import OSLog
 import Models
+import OSLog
 import Services
+import SwiftUI
 
 @MainActor
 @Observable
 final class ScheduleViewModel {
     private let logger = Logger.forCategory(String(describing: ScheduleViewModel.self))
     private let groupsService: GroupsService
-    public let appState: AppState
+    let appState: AppState
 
     private var allGroups: [GroupModel] = []
 
@@ -25,8 +25,10 @@ final class ScheduleViewModel {
     var isLoading = false
     var isInitialized = false
 
-    init(appState: AppState,
-         groupsService: GroupsService) {
+    init(
+        appState: AppState,
+        groupsService: GroupsService
+    ) {
         self.groupsService = groupsService
         self.appState = appState
     }
@@ -36,7 +38,7 @@ final class ScheduleViewModel {
     func loadEvents(forceReload: Bool) async {
         if !appState.isNetworkAvailable {
             if forceReload || !isInitialized {
-                self.localizedError = .noInternetConnection
+                localizedError = .noInternetConnection
             }
 
             return
@@ -50,14 +52,14 @@ final class ScheduleViewModel {
         }
 
         do {
-            self.localizedError = nil
+            localizedError = nil
 
             allGroups = try await fetchWithNetworkCheck(.seconds(5)) {
                 try await self.groupsService.fetchGroups(forceReload: forceReload)
             }
         } catch TaskError.timeout {
             logger.warning("The request timed out")
-            self.localizedError = .theRequestTimedOut
+            localizedError = .theRequestTimedOut
         } catch {
             logger.warning("Can't load events: \(error)")
         }
@@ -72,7 +74,6 @@ final class ScheduleViewModel {
     // MARK: - Sections
 
     var groupSections: [ScheduleGroupSection] {
-
         Dictionary(grouping: filterGroups(allGroups)) {
             Set($0.recurrence.days.sorted())
         }
@@ -137,21 +138,20 @@ final class ScheduleViewModel {
     }
 
     private func filterGroups(_ groups: [GroupModel]) -> [GroupModel] {
-
         groups.filter { group in
-
-            if !filters.selectedLocationIds.isEmpty &&
-                !filters.selectedLocationIds.contains(group.location.id) {
+            if !filters.selectedLocationIds.isEmpty,
+               !filters.selectedLocationIds.contains(group.location.id)
+            {
                 return false
             }
 
-            if !filters.selectedActivityIds.isEmpty &&
-                !filters.selectedActivityIds.contains(group.activity.id) {
+            if !filters.selectedActivityIds.isEmpty,
+               !filters.selectedActivityIds.contains(group.activity.id)
+            {
                 return false
             }
 
             if !filters.selectedTeacherIds.isEmpty {
-
                 let teacherIds = Set(group.teachers.map(\.id))
 
                 if filters.selectedTeacherIds.isDisjoint(with: teacherIds) {
@@ -160,9 +160,9 @@ final class ScheduleViewModel {
             }
 
             if !filters.selectedDays.isEmpty {
-
                 if Set(group.recurrence.days)
-                    .isDisjoint(with: filters.selectedDays) {
+                    .isDisjoint(with: filters.selectedDays)
+                {
                     return false
                 }
             }
@@ -174,26 +174,25 @@ final class ScheduleViewModel {
     // MARK: - Faceted filtering helper
 
     private func groupsFiltered(excluding filter: ScheduleFilterType) -> [GroupModel] {
-
         allGroups.filter { group in
-
             if filter != .location {
-                if !filters.selectedLocationIds.isEmpty &&
-                    !filters.selectedLocationIds.contains(group.location.id) {
+                if !filters.selectedLocationIds.isEmpty,
+                   !filters.selectedLocationIds.contains(group.location.id)
+                {
                     return false
                 }
             }
 
             if filter != .activity {
-                if !filters.selectedActivityIds.isEmpty &&
-                    !filters.selectedActivityIds.contains(group.activity.id) {
+                if !filters.selectedActivityIds.isEmpty,
+                   !filters.selectedActivityIds.contains(group.activity.id)
+                {
                     return false
                 }
             }
 
             if filter != .teacher {
                 if !filters.selectedTeacherIds.isEmpty {
-
                     let teacherIds = Set(group.teachers.map(\.id))
 
                     if filters.selectedTeacherIds.isDisjoint(with: teacherIds) {
@@ -204,9 +203,9 @@ final class ScheduleViewModel {
 
             if filter != .day {
                 if !filters.selectedDays.isEmpty {
-
                     if Set(group.recurrence.days)
-                        .isDisjoint(with: filters.selectedDays) {
+                        .isDisjoint(with: filters.selectedDays)
+                    {
                         return false
                     }
                 }
@@ -222,7 +221,6 @@ final class ScheduleViewModel {
         _ items: [GroupModel],
         key: (GroupModel) -> T
     ) -> [T] {
-
         Array(Set(items.map(key)))
     }
 
@@ -230,7 +228,6 @@ final class ScheduleViewModel {
         _ items: [T],
         key: (T) -> some Hashable
     ) -> [T] {
-
         Array(
             Dictionary(grouping: items, by: key)
                 .compactMap { $0.value.first }

@@ -17,7 +17,7 @@ public struct Location: Identifiable, Hashable, Sendable {
         title: String,
         address: String,
         colorHex: String,
-        color2Hex: String,
+        color2Hex: String
     ) {
         self.id = id
         self.title = title

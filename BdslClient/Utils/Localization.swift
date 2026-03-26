@@ -5,11 +5,11 @@
 //  Created by Oleh Rozkvas on 04.03.2026.
 //
 
-import Models
 import Foundation
+import Models
 
 extension DayRecurrenceType {
-    var localized : LocalizedStringResource {
+    var localized: LocalizedStringResource {
         switch self {
         case .monday: return .monday
         case .tueassday: return .tuesday
@@ -85,7 +85,7 @@ extension ThemeMode {
 extension NotificationLeadTime {
     func displayName(locale: Locale) -> String {
         switch self {
-        case .preset(let value), .custom(let value):
+        case let .preset(value), let .custom(value):
             return localizedHours(value, locale: locale)
         case .disabled:
             return LocalizedStringResource.never.localized(locale: locale)
@@ -98,10 +98,10 @@ func localizedHours(_ value: Int, locale: Locale) -> String {
     return "\(value) \(hoursLocalized)"
 }
 
-fileprivate func localizedHours(_ value: Int) -> LocalizedStringResource {
+private func localizedHours(_ value: Int) -> LocalizedStringResource {
     if value % 10 == 1 && value != 11 {
         return .hour
-    } else if (2...4).contains(value % 10) && !(12...14).contains(value) {
+    } else if (2 ... 4).contains(value % 10) && !(12 ... 14).contains(value) {
         return .hoursFew
     } else {
         return .hoursMany

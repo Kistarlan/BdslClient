@@ -6,6 +6,6 @@
 //
 import Models
 
-public protocol LevelsService : CacheableService {
+public protocol LevelsService: CacheableService {
     func getLevel(id: String, forceReload: Bool) async throws -> Level
 }

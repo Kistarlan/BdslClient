@@ -5,9 +5,9 @@
 //  Created by Oleh Rozkvas on 03.02.2026.
 //
 
-import SwiftUI
 import DesignSystem
 import Navigation
+import SwiftUI
 
 struct SettingsRowView: View {
     @Environment(\.theme) private var theme

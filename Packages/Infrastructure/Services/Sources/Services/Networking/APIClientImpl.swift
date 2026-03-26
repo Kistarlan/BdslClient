@@ -5,9 +5,9 @@
 //  Created by Oleh Rozkvas on 23.01.2026.
 //
 
+import Configs
 import Foundation
 import Models
-import Configs
 import OSLog
 
 final class APIClientImpl: APIClient {
@@ -25,7 +25,6 @@ final class APIClientImpl: APIClient {
     }
 
     func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T {
-
         var request = try await buildRequest(endpoint)
 
         let (data, response) = try await URLSession.shared.data(for: request)
@@ -35,7 +34,6 @@ final class APIClientImpl: APIClient {
         }
 
         if http.statusCode == 401 {
-
             _ = try await refreshActor.token {
                 try await self.refreshToken()
             }
@@ -48,14 +46,14 @@ final class APIClientImpl: APIClient {
                 throw URLError(.badServerResponse)
             }
 
-            guard (200..<300).contains(retryHttp.statusCode) else {
+            guard (200 ..< 300).contains(retryHttp.statusCode) else {
                 throw APIError.http(retryHttp.statusCode)
             }
 
             return try JSONDecoder.apiDecoder.decode(T.self, from: retryData)
         }
 
-        guard (200..<300).contains(http.statusCode) else {
+        guard (200 ..< 300).contains(http.statusCode) else {
             throw APIError.http(http.statusCode)
         }
 
@@ -67,7 +65,6 @@ final class APIClientImpl: APIClient {
     }
 
     private func buildRequest(_ endpoint: Endpoint) async throws -> URLRequest {
-
         let token = try await validToken()
 
         var components = URLComponents(
@@ -116,7 +113,6 @@ final class APIClientImpl: APIClient {
     }
 
     private func refreshToken() async throws -> String {
-
         guard let refreshToken = await tokenStore.load(tokenType: .refresh) else {
             throw APIError.incorrectRefreshToken
         }
@@ -136,7 +132,7 @@ final class APIClientImpl: APIClient {
         let (data, response) = try await URLSession.shared.data(for: request)
 
         guard let http = response as? HTTPURLResponse,
-              (200..<300).contains(http.statusCode)
+              (200 ..< 300).contains(http.statusCode)
         else {
             throw APIError.http((response as? HTTPURLResponse)?.statusCode ?? 500)
         }

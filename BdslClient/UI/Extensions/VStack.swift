@@ -5,8 +5,8 @@
 //  Created by Oleh Rozkvas on 18.02.2026.
 //
 
-import SwiftUI
 import DesignSystem
+import SwiftUI
 
 extension VStack {
     func applyGroupContainerStyle(_ theme: AppTheme) -> some View {

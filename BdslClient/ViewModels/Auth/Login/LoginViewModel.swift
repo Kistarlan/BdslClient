@@ -40,7 +40,6 @@ final class LoginViewModel {
 
         isLoading = true
 
-
         Task {
             do {
                 let identifier = try await authRepository.login(with: getCredentials())

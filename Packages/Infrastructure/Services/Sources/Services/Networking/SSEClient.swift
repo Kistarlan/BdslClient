@@ -7,8 +7,7 @@
 
 import Foundation
 
-final class SSEClient : Sendable {
-
+final class SSEClient: Sendable {
     func stream(from url: URL) -> AsyncThrowingStream<String, Error> {
         AsyncThrowingStream { continuation in
             let task = Task {
@@ -16,7 +15,8 @@ final class SSEClient : Sendable {
                     let (bytes, response) = try await URLSession.shared.bytes(from: url)
 
                     guard let http = response as? HTTPURLResponse,
-                          (200..<300).contains(http.statusCode) else {
+                          (200 ..< 300).contains(http.statusCode)
+                    else {
                         throw URLError(.badServerResponse)
                     }
 
@@ -40,12 +40,10 @@ final class SSEClient : Sendable {
         from url: URL,
         as type: T.Type
     ) -> AsyncThrowingStream<T, Error> {
-
         AsyncThrowingStream { continuation in
             let task = Task {
                 do {
                     for try await line in stream(from: url) {
-
                         guard line.starts(with: "data:") else { continue }
 
                         let json = line.dropFirst(5)

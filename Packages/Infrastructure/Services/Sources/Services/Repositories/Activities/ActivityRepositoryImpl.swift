@@ -7,7 +7,6 @@
 import Models
 
 final class ActivityRepositoryImpl: ActivityRepository {
-
     let apiClient: APIClient
 
     init(apiClient: APIClient) {

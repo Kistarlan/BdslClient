@@ -7,6 +7,6 @@
 
 import Models
 
-public protocol GroupsRepository : Sendable {
+public protocol GroupsRepository: Sendable {
     func fetchGroups() async throws -> [GroupDTO]
 }

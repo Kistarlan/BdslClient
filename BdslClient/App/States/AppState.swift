@@ -6,15 +6,14 @@
 //
 
 import Combine
-import Foundation
-import SwiftUI
-import Models
 import DesignSystem
+import Foundation
+import Models
 import Services
+import SwiftUI
 
 @MainActor
 final class AppState: ObservableObject {
-
     private let authRepository: AuthRepository
     private let cachingManager: CachingManager
     private let usersService: UsersService
@@ -32,12 +31,14 @@ final class AppState: ObservableObject {
             settings.themeMode = themeMode
         }
     }
+
     @Published var appLanguage: AppLanguage {
         didSet {
             guard oldValue != appLanguage else { return }
             settings.appLanguage = appLanguage
         }
     }
+
     @Published var notificationLeadTime: NotificationLeadTime {
         didSet {
             guard oldValue != notificationLeadTime else { return }
@@ -45,20 +46,21 @@ final class AppState: ObservableObject {
         }
     }
 
-    init(authRepository: AuthRepository,
-         usersService: UsersService,
-         cachingManager: CachingManager,
-         networkState: NetworkState,
-         appSettings: AppSettings) {
-
+    init(
+        authRepository: AuthRepository,
+        usersService: UsersService,
+        cachingManager: CachingManager,
+        networkState: NetworkState,
+        appSettings: AppSettings
+    ) {
         self.authRepository = authRepository
         self.usersService = usersService
         self.cachingManager = cachingManager
-        self.settings = appSettings
+        settings = appSettings
         self.networkState = networkState
-        self.themeMode = settings.themeMode
-        self.appLanguage = settings.appLanguage
-        self.notificationLeadTime = settings.notificationLeadTime
+        themeMode = settings.themeMode
+        appLanguage = settings.appLanguage
+        notificationLeadTime = settings.notificationLeadTime
 
         isNetworkAvailable = networkState.isConnected
 
@@ -104,12 +106,13 @@ final class AppState: ObservableObject {
         guard await authRepository.hasValidSession() else {
             return .expired
         }
-        
+
         if let userIdentifier = await authRepository.restoreSession(),
-           let user = await loadUserInfo(userIdentifier: userIdentifier) {
+           let user = await loadUserInfo(userIdentifier: userIdentifier)
+        {
             return .authenticated(user)
         }
-        
+
         return .unauthenticated
     }
 

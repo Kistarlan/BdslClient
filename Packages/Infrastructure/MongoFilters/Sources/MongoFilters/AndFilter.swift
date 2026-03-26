@@ -6,7 +6,6 @@
 //
 
 struct AndFilter: MongoFilter {
-
     let filters: [MongoFilter]
 
     func encode(to encoder: Encoder) throws {

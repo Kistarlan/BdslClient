@@ -5,10 +5,10 @@
 //  Created by Oleh Rozkvas on 12.02.2026.
 //
 
-import OSLog
-import SwiftUI
 import Models
+import OSLog
 import Services
+import SwiftUI
 
 @Observable
 final class EditUserInfoViewModel {
@@ -23,6 +23,7 @@ final class EditUserInfoViewModel {
     var avatar: Avatar?
 
     // MARK: - UI State
+
     var touchedFields: Set<EditUserInfoField> = []
 
     var isLoading = false
@@ -98,7 +99,7 @@ final class EditUserInfoViewModel {
         do {
             let updatedUser = try await uploadUserInfo()
             user = updatedUser
-            self.appState.updateUser(newUser: user)
+            appState.updateUser(newUser: user)
             errorMessage = ""
 
             return true

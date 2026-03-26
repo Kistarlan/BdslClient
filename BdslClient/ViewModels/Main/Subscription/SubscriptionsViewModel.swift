@@ -5,10 +5,10 @@
 //  Created by Oleh Rozkvas on 19.02.2026.
 //
 
-import SwiftUI
-import OSLog
 import Models
+import OSLog
 import Services
+import SwiftUI
 
 @MainActor
 @Observable
@@ -26,27 +26,29 @@ final class SubscriptionsViewModel {
     private let userSubscriptionsService: UserSubscriptionsService
     private let appState: AppState
 
-    init(userSubscriptionsService: UserSubscriptionsService,
-         appState: AppState){
+    init(
+        userSubscriptionsService: UserSubscriptionsService,
+        appState: AppState
+    ) {
         self.userSubscriptionsService = userSubscriptionsService
         self.appState = appState
     }
 
     var grouped: [GroupedSection<SubscriptionGroupCategory, UserSubscription>] {
         switch groupingMode {
-            case .category: groupedByCategory
-            case .month: groupedByMonth
+        case .category: groupedByCategory
+        case .month: groupedByMonth
         }
     }
 
-    var filteredSubscriptions : [UserSubscription] {
+    var filteredSubscriptions: [UserSubscription] {
         if searchText == "" {
             return subscriptions
         }
 
         return subscriptions.filter { subscription in
             subscription.title.caseInsensitiveContains(searchText) ||
-            subscription.category.title.localized.caseInsensitiveContains(searchText)
+                subscription.category.title.localized.caseInsensitiveContains(searchText)
         }
     }
 
@@ -74,14 +76,13 @@ final class SubscriptionsViewModel {
             }
             .sorted { $0.key > $1.key }
             .map { group in
-                return GroupedSection(
+                GroupedSection(
                     SubscriptionGroupCategory.date(group.key),
                     group.items
                 )
             }
             .sorted { $0.key > $1.key }
     }
-
 
     func fetchSubscriptions(forceReload: Bool) async {
         guard handleNetwork(forceReload: forceReload) else { return }

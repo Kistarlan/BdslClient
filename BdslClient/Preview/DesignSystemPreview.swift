@@ -5,10 +5,10 @@
 //  Created by Oleh Rozkvas on 06.02.2026.
 //
 
-import SwiftUI
-import Models
 import DesignSystem
+import Models
 import Navigation
+import SwiftUI
 
 extension View {
     func setupPreviewEnvironments(_ themeMode: ThemeMode = .light, _ router: Router? = nil) -> some View {

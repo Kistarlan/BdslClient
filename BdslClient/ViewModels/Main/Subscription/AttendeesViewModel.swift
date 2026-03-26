@@ -5,10 +5,10 @@
 //  Created by Oleh Rozkvas on 24.02.2026.
 //
 
-import SwiftUI
-import OSLog
 import Models
+import OSLog
 import Services
+import SwiftUI
 
 @MainActor
 @Observable
@@ -36,7 +36,10 @@ final class AttendeesViewModel {
         defer { isLoading = false }
 
         do {
-            attendees = try await userSubscriptionsService.fetchSubscriptionAttendees(userSubscription: userSubscription, forceReload: false)
+            attendees = try await userSubscriptionsService.fetchSubscriptionAttendees(
+                userSubscription: userSubscription,
+                forceReload: false
+            )
         } catch {
             logger.error("can't load attendees for subscription: \(self.userSubscription.id)")
         }

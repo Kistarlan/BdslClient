@@ -22,6 +22,6 @@ public struct ScheduleGroupSection: Identifiable, Hashable, Sendable {
 
     public init(days: Set<DayRecurrenceType>, events: [GroupModel]) {
         self.days = days
-        self.groups = events
+        groups = events
     }
 }

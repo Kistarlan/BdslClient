@@ -5,10 +5,10 @@
 //  Created by Oleh Rozkvas on 25.03.2026.
 //
 
-import SwiftUI
-import Models
 import DesignSystem
+import Models
 import Navigation
+import SwiftUI
 
 struct NotificationSettingsScreen: View {
     @Environment(\.locale) private var locale
@@ -90,7 +90,7 @@ struct NotificationSettingsScreen: View {
             value: customValueString
         ) {
             if !viewModel.isCustom {
-                if case let .preset(value) = viewModel.selected{
+                if case let .preset(value) = viewModel.selected {
                     viewModel.selectCustom(value)
                 } else {
                     viewModel.selectCustom(1)
@@ -102,14 +102,14 @@ struct NotificationSettingsScreen: View {
     private var pickerView: some View {
         Picker("", selection: Binding(
             get: {
-                if case .custom(let value) = viewModel.selected {
+                if case let .custom(value) = viewModel.selected {
                     return value
                 }
                 return 1
             },
             set: { viewModel.selectCustom($0) }
         )) {
-            ForEach(1...24, id: \.self) { hour in
+            ForEach(1 ... 24, id: \.self) { hour in
                 Text(localizedHours(hour, locale: locale))
                     .tag(hour)
             }

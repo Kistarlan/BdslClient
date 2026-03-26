@@ -1,5 +1,5 @@
 //
-//  SubscriptionsRepository.swift
+//  UserSubscriptionsRepository.swift
 //  BdslClient
 //
 //  Created by Oleh Rozkvas on 20.02.2026.

@@ -13,9 +13,9 @@ public struct ScheduleFilters {
 
     public var isEmpty: Bool {
         selectedLocationIds.isEmpty &&
-        selectedActivityIds.isEmpty &&
-        selectedTeacherIds.isEmpty &&
-        selectedDays.isEmpty
+            selectedActivityIds.isEmpty &&
+            selectedTeacherIds.isEmpty &&
+            selectedDays.isEmpty
     }
 
     public init() {}

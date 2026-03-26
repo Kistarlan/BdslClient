@@ -17,8 +17,8 @@ public struct GroupedSection<Key: Hashable & Comparable, Item>: Identifiable {
     }
 }
 
-extension Array {
-    public func grouped<Key: Hashable>(
+public extension Array {
+    func grouped<Key: Hashable>(
         by keyPath: KeyPath<Element, Key>
     ) -> [GroupedSection<Key, Element>] {
         Dictionary(grouping: self, by: { $0[keyPath: keyPath] })
@@ -26,17 +26,16 @@ extension Array {
     }
 }
 
-extension Sequence {
-    public func grouped<Key: Hashable>(
+public extension Sequence {
+    func grouped<Key: Hashable>(
         by keyPath: KeyPath<Element, Key>
     ) -> [GroupedSection<Key, Element>] {
         grouped { $0[keyPath: keyPath] }
     }
 
-    public func grouped<Key: Hashable>(
+    func grouped<Key: Hashable>(
         by keySelector: (Element) -> Key
     ) -> [GroupedSection<Key, Element>] {
-
         Dictionary(grouping: self, by: keySelector)
             .map { GroupedSection($0.key, $0.value) }
     }

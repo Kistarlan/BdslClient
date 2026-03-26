@@ -99,7 +99,6 @@ extension ViewModelsFactory {
     }
 
     func makePreviewSettingsViewModel() -> SettingsViewModel {
-
         let vm = SettingsViewModel(
             usersService: appServices.usersService,
             appState: appState,

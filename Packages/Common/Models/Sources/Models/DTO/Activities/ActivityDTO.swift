@@ -19,8 +19,8 @@ public struct ActivityDTO: Identifiable, Decodable {
     }
 }
 
-extension ActivityDTO {
-    public func toDomain() -> Activity {
+public extension ActivityDTO {
+    func toDomain() -> Activity {
         Activity(id: id, colorHex: colorHex, title: title)
     }
 }

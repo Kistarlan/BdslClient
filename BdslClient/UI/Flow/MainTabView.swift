@@ -5,10 +5,10 @@
 //  Created by Oleh Rozkvas on 23.01.2026.
 //
 
-import SwiftUI
 import DesignSystem
-import Navigation
 import Models
+import Navigation
+import SwiftUI
 
 struct MainTabView: View {
     @EnvironmentObject private var appState: AppState
@@ -32,11 +32,19 @@ struct MainTabView: View {
                 }
 
                 if appState.state.isAuthenticated {
-                    Tab(LocalizedStringKey("My Classes"), systemImage: "person.2.fill", value: TabDestination.myClasses) {
+                    Tab(
+                        LocalizedStringKey("My Classes"),
+                        systemImage: "person.2.fill",
+                        value: TabDestination.myClasses
+                    ) {
                         myClassesTabContent
                     }
 
-                    Tab(LocalizedStringKey("Subscriptions"), systemImage: "creditcard", value: TabDestination.subscription) {
+                    Tab(
+                        LocalizedStringKey("Subscriptions"),
+                        systemImage: "creditcard",
+                        value: TabDestination.subscription
+                    ) {
                         subscriptionTabContent
                     }
                 }
@@ -50,31 +58,36 @@ struct MainTabView: View {
 
 private extension MainTabView {
     var subscriptionTabContent: some View {
-        NavigationContainer(parentRouter: router,
-                            destination: Destination.tab(TabDestination.subscription)) {
+        NavigationContainer(
+            parentRouter: router,
+            destination: Destination.tab(TabDestination.subscription)
+        ) {
             SubscriptionsScreen(subscriptionsViewModel: mainViewModel.subscriptionsViewModel)
         }
     }
 
     var myClassesTabContent: some View {
-        NavigationContainer(parentRouter: router,
-                            destination: Destination.tab(TabDestination.myClasses)) {
+        NavigationContainer(
+            parentRouter: router,
+            destination: Destination.tab(TabDestination.myClasses)
+        ) {
             MyClassesScreen(viewModel: mainViewModel.myClassesViewModel)
         }
     }
 
     var scheduleTabContent: some View {
-        NavigationContainer(parentRouter: router,
-                            destination: Destination.tab(TabDestination.schedule)) {
+        NavigationContainer(
+            parentRouter: router,
+            destination: Destination.tab(TabDestination.schedule)
+        ) {
             Group {
                 if appState.state.isAuthenticated {
                     ScheduleScreen(viewModel: mainViewModel.scheduleViewModel)
                 } else {
                     ScheduleScreen(viewModel: mainViewModel.scheduleViewModel)
-                        .toolbar(.hidden,for: .tabBar)
+                        .toolbar(.hidden, for: .tabBar)
                 }
             }
-
         }
     }
 }

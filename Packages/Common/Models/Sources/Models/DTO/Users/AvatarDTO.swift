@@ -12,6 +12,7 @@ public struct AvatarDTO: Codable {
     public let large: String
 
     // MARK: - CodingKeys
+
     private enum CodingKeys: String, CodingKey {
         case id = "_id"
         case small
@@ -20,26 +21,28 @@ public struct AvatarDTO: Codable {
     }
 
     // MARK: - Manual initializer
+
     public init(
         _id: String,
         small: String,
         medium: String,
         large: String
     ) {
-        self.id = _id
+        id = _id
         self.small = small
         self.medium = medium
         self.large = large
     }
 
     // MARK: - Codable
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.small = try container.decode(String.self, forKey: .small)
-        self.medium = try container.decode(String.self, forKey: .medium)
-        self.large = try container.decode(String.self, forKey: .large)
+        id = try container.decode(String.self, forKey: .id)
+        small = try container.decode(String.self, forKey: .small)
+        medium = try container.decode(String.self, forKey: .medium)
+        large = try container.decode(String.self, forKey: .large)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -52,8 +55,8 @@ public struct AvatarDTO: Codable {
     }
 }
 
-extension AvatarDTO {
-    public func toDomain() -> Avatar {
+public extension AvatarDTO {
+    func toDomain() -> Avatar {
         Avatar(
             id: id,
             small: small,

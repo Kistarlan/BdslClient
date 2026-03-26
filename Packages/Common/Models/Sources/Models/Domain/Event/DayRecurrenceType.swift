@@ -19,7 +19,7 @@ extension DayRecurrenceType: Identifiable {
     public var id: Self { self }
 }
 
-extension DayRecurrenceType : Comparable {
+extension DayRecurrenceType: Comparable {
     public static func < (lhs: DayRecurrenceType, rhs: DayRecurrenceType) -> Bool {
         lhs.sortOrder < rhs.sortOrder
     }
@@ -36,4 +36,3 @@ extension DayRecurrenceType : Comparable {
         }
     }
 }
-

@@ -7,17 +7,17 @@
 
 import Foundation
 
-public enum SubscriptionGroupCategory : Hashable {
+public enum SubscriptionGroupCategory: Hashable {
     case date(Date)
     case subscriptionCategory(SubscriptionCategory)
 }
 
-extension SubscriptionGroupCategory : Identifiable {
+extension SubscriptionGroupCategory: Identifiable {
     public var id: String {
         switch self {
-        case .date(let date):
+        case let .date(date):
             return "date:\(date)"
-        case .subscriptionCategory(let category):
+        case let .subscriptionCategory(category):
             return "category:\(category)"
         }
     }
@@ -26,11 +26,10 @@ extension SubscriptionGroupCategory : Identifiable {
 extension SubscriptionGroupCategory: Comparable {
     public static func < (lhs: Self, rhs: Self) -> Bool {
         switch (lhs, rhs) {
-
-        case (.subscriptionCategory(let l), .subscriptionCategory(let r)):
+        case let (.subscriptionCategory(l), .subscriptionCategory(r)):
             return l < r
 
-        case (.date(let l), .date(let r)):
+        case let (.date(l), .date(r)):
             return l < r
 
         case (.subscriptionCategory, .date):

@@ -5,10 +5,10 @@
 //  Created by Oleh Rozkvas on 03.03.2026.
 //
 
-import SwiftUI
-import Models
 import DesignSystem
+import Models
 import Navigation
+import SwiftUI
 
 struct GroupListView: View {
     @Environment(\.locale) private var locale
@@ -21,11 +21,10 @@ struct GroupListView: View {
         LazyVStack(alignment: .leading, spacing: theme.layout.spacing.m) {
             ForEach(groupSections) { section in
                 VStack(alignment: .leading, spacing: theme.layout.spacing.sm) {
-
                     sectionHeader(days: section.days)
 
                     ForEach(section.groups) { group in
-                        NavigationButton(sheet: .groupDescription(group: group)){
+                        NavigationButton(sheet: .groupDescription(group: group)) {
                             GroupRow(group: group, presentHallImage: !isLoading)
                         }
                         .redacted(reason: isLoading ? .placeholder : [])

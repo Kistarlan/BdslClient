@@ -9,15 +9,17 @@ import Foundation
 import Models
 import OSLog
 
-final class TeachersServiceImpl : TeachersService {
+final class TeachersServiceImpl: TeachersService {
     private let cache = Cache<String, TeacherModel>()
     private let logger = Logger.forCategory(String(describing: TeachersServiceImpl.self))
 
     private let teacherRepository: TeachersRepository
     private let usersService: UsersService
 
-    init(teacherRepository: TeachersRepository,
-         usersService: UsersService) {
+    init(
+        teacherRepository: TeachersRepository,
+        usersService: UsersService
+    ) {
         self.teacherRepository = teacherRepository
         self.usersService = usersService
     }
@@ -52,7 +54,7 @@ final class TeachersServiceImpl : TeachersService {
             do {
                 try Task.checkCancellation()
 
-                guard let userInfo = users.first(where: {$0.id == dto.userId}) else {
+                guard let userInfo = users.first(where: { $0.id == dto.userId }) else {
                     continue
                 }
 
@@ -69,7 +71,6 @@ final class TeachersServiceImpl : TeachersService {
             } catch is CancellationError {
                 logger.warning("Cancelled while fetching teachers")
             }
-
         }
 
         return await cache.getAll()

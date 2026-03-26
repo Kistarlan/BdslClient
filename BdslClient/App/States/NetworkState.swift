@@ -5,9 +5,9 @@
 //  Created by Oleh Rozkvas on 24.03.2026.
 //
 
+import Combine
 import Services
 import SwiftUI
-import Combine
 
 @MainActor
 final class NetworkState: ObservableObject, NetworkMonitorDelegate {
@@ -19,7 +19,7 @@ final class NetworkState: ObservableObject, NetworkMonitorDelegate {
         self.monitor = monitor
 
         monitor.setObserver(self)
-        self.isConnected = monitor.isConnected
+        isConnected = monitor.isConnected
     }
 
     func networkMonitor(_ monitor: NetworkMonitor, didChangeConnection isConnected: Bool) {

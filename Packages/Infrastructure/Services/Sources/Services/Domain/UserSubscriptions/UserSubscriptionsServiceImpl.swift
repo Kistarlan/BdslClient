@@ -6,10 +6,10 @@
 //
 
 import Foundation
-import OSLog
 import Models
+import OSLog
 
-final class UserSubscriptionsServiceImpl : UserSubscriptionsService {
+final class UserSubscriptionsServiceImpl: UserSubscriptionsService {
     private let attendeesCache = Cache<UserSubscription, [AttendeeModel]>()
     private let classesCache = Cache<String, ClassModel>()
     private let userSubscriptionsCache = Cache<String, UserSubscription>()
@@ -19,9 +19,11 @@ final class UserSubscriptionsServiceImpl : UserSubscriptionsService {
     private let eventsService: EventsService
     private let activityService: ActivityService
 
-    init(userSubscriptionsRepository: UserSubscriptionsRepository,
-         eventsService: EventsService,
-         activityService: ActivityService) {
+    init(
+        userSubscriptionsRepository: UserSubscriptionsRepository,
+        eventsService: EventsService,
+        activityService: ActivityService
+    ) {
         self.userSubscriptionsRepository = userSubscriptionsRepository
         self.eventsService = eventsService
         self.activityService = activityService
@@ -29,15 +31,16 @@ final class UserSubscriptionsServiceImpl : UserSubscriptionsService {
 
     func fetchUserSubscriptions(for userId: String, forceReload: Bool) async throws -> [UserSubscription] {
         let isCacheEmpty = await userSubscriptionsCache.isEmpty
-        if !forceReload && !isCacheEmpty {
+        if !forceReload, !isCacheEmpty {
             return await userSubscriptionsCache.getAll()
         }
 
         let subscriptions = try await fetchSubscriptions(for: userId, forceReload: forceReload)
 
         return subscriptions.filter { subscription in
-            if subscription.category == .credit &&
-                subscription.closed == true {
+            if subscription.category == .credit,
+               subscription.closed == true
+            {
                 return false
             } else {
                 return true
@@ -45,9 +48,13 @@ final class UserSubscriptionsServiceImpl : UserSubscriptionsService {
         }
     }
 
-    func fetchSubscriptionAttendees(userSubscription: UserSubscription, forceReload: Bool) async throws -> [AttendeeModel] {
+    func fetchSubscriptionAttendees(
+        userSubscription: UserSubscription,
+        forceReload: Bool
+    ) async throws -> [AttendeeModel] {
         if !forceReload,
-           let cached = await attendeesCache[userSubscription] {
+           let cached = await attendeesCache[userSubscription]
+        {
             return cached
         }
 
@@ -78,10 +85,11 @@ final class UserSubscriptionsServiceImpl : UserSubscriptionsService {
             now: Date()
         )
 
-        return upcommingClasses.sorted { return $0.concreateTime > $1.concreateTime}
+        return upcommingClasses.sorted { $0.concreateTime > $1.concreateTime }
     }
 
-    //MARK: - load data from repositories and fill cache
+    // MARK: - load data from repositories and fill cache
+
     func fetchSubscriptions(for id: String, forceReload: Bool) async throws -> [UserSubscription] {
         let dtos = try await userSubscriptionsRepository.fetchUserSubscriptions(for: id)
 
@@ -110,12 +118,15 @@ final class UserSubscriptionsServiceImpl : UserSubscriptionsService {
             $0.eventId.split(separator: ".").first.map(String.init)
         }
         let events: [EventModel] = try await eventsService.fetchEvents(for: eventIds, forceReload: forceReload)
-        let subscriptionsCache: [UserSubscription] = try await fetchUserSubscriptions(for: userId, forceReload: forceReload)
+        let subscriptionsCache: [UserSubscription] = try await fetchUserSubscriptions(
+            for: userId,
+            forceReload: forceReload
+        )
 
         await attendeesCache.clear()
 
         for subscription in subscriptionsCache {
-            let filteredAttendees = attendeeDtos.filter{
+            let filteredAttendees = attendeeDtos.filter {
                 subscription.visitsIds.contains($0.id)
             }
 
@@ -135,15 +146,18 @@ final class UserSubscriptionsServiceImpl : UserSubscriptionsService {
         var classModels = [ClassModel]()
 
         for dto in dtos.filter({ $0.status == .suggested }) {
-            guard let parsedId = try? parseAttendeeId(dto.id),
+            guard let parsedId = try? dto.parseAttendeeId(),
                   let event = events.first(where: { $0.id == parsedId.eventId }),
-                  dto.enroll == nil else {
+                  dto.enroll == nil
+            else {
                 continue
             }
 
-            classModels.append( ClassModel(id: dto.id,
-                                           event: event,
-                                           concreateTime: parsedId.eventTime))
+            classModels.append(ClassModel(
+                id: dto.id,
+                event: event,
+                concreateTime: parsedId.eventTime
+            ))
         }
 
         return classModels
@@ -153,42 +167,25 @@ final class UserSubscriptionsServiceImpl : UserSubscriptionsService {
         var attendeeModels = [AttendeeModel]()
 
         for attendee in dtos {
-            guard let parsedId = try? parseAttendeeId(attendee.id),
+            guard let parsedId = try? attendee.parseAttendeeId(),
                   let event = events.first(where: { $0.id == parsedId.eventId }),
-                  let enroll = attendee.enroll else {
+                  let enroll = attendee.enroll
+            else {
                 continue
             }
 
-            attendeeModels.append( AttendeeModel(id: attendee.id,
-                                                 event: event,
-                                                 enrollTime: enroll.time))
+            attendeeModels.append(AttendeeModel(
+                id: attendee.id,
+                event: event,
+                enrollTime: enroll.time
+            ))
         }
 
         return attendeeModels
     }
 
-    func parseAttendeeId(_ id: String) throws -> (eventId: String, eventTime: Date?, userId: String) {
-        let parts = id.split(separator: ":")
-        guard parts.count == 2 else { throw UserSubscriptionsServiceError.attendeeParseError(id: id) }
+    // MARK: - clear cache
 
-        let leftParts = parts[0].split(separator: ".")
-
-        let eventId = String(leftParts[0])
-        let eventTime = leftParts.count > 1 ? parseDate(String(leftParts[1])) : nil
-        let userId = String(parts[1])
-
-        return (eventId, eventTime, userId)
-    }
-
-    func parseDate(_ value: String) -> Date? {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyyMMddHHmm"
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        return formatter.date(from: value)
-    }
-
-//MARK: - clear cache
     func clearCache() async {
         await attendeesCache.clear()
         await userSubscriptionsCache.clear()
@@ -199,7 +196,7 @@ final class UserSubscriptionsServiceImpl : UserSubscriptionsService {
     }
 }
 
-enum UserSubscriptionsServiceError : Error {
+enum UserSubscriptionsServiceError: Error {
     case noData(id: String)
     case attendeeParseError(id: String)
 }

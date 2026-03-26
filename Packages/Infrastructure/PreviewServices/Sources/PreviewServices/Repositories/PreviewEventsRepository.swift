@@ -4,12 +4,11 @@
 //
 //  Created by Oleh Rozkvas on 25.02.2026.
 //
+import Foundation
 import Models
 import Services
-import Foundation
 
 final class PreviewEventsRepository: EventsRepository {
-
     let previewDataProvider: PreviewDataProvider
 
     init(previewDataProvider: PreviewDataProvider) {
@@ -39,7 +38,7 @@ final class PreviewEventsRepository: EventsRepository {
         let allEvents = try await fetchEvents()
         return allEvents.filter { event in
             !exceptIds.contains(event.id)
-            && event.endDate > minEndDate
+                && event.endDate > minEndDate
         }
     }
 }

@@ -5,8 +5,8 @@
 //  Created by Oleh Rozkvas on 10.02.2026.
 //
 
-import SwiftUI
 import DesignSystem
+import SwiftUI
 
 struct CollapsingHeaderView<Content: View>: View {
     @Environment(\.theme) private var theme
@@ -34,7 +34,10 @@ struct CollapsingHeaderView<Content: View>: View {
                             .background(
                                 GeometryReader { geo in
                                     Color.clear
-                                        .preference(key: HeaderMinYPreferenceKey.self, value: geo.frame(in: .named("scroll")).minY)
+                                        .preference(
+                                            key: HeaderMinYPreferenceKey.self,
+                                            value: geo.frame(in: .named("scroll")).minY
+                                        )
                                 }
                             )
                             .onPreferenceChange(HeaderMinYPreferenceKey.self) { minY in
@@ -82,10 +85,10 @@ struct CollapsingHeaderView<Content: View>: View {
         }
     }
 }
+
 private struct HeaderMinYPreferenceKey: PreferenceKey {
     static var defaultValue: CGFloat = 0
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
         value = nextValue()
     }
 }
-

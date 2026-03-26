@@ -5,10 +5,10 @@
 //  Created by Oleh Rozkvas on 23.03.2026.
 //
 
-import SwiftUI
-import Models
 import DesignSystem
+import Models
 import Navigation
+import SwiftUI
 
 struct MyClassesScreen: View {
     @Environment(\.theme) private var theme
@@ -20,7 +20,7 @@ struct MyClassesScreen: View {
             return [
                 GroupedSection<Date, UpcomingClassModel>(
                     Date(),
-                    (0..<5).map { _ in UpcomingClassModel.placeholder() }
+                    (0 ..< 5).map { _ in UpcomingClassModel.placeholder() }
                 )
             ]
         }
@@ -28,7 +28,7 @@ struct MyClassesScreen: View {
         return viewModel.groupedClasses
     }
 
-    init(viewModel: MyClassesViewModel){
+    init(viewModel: MyClassesViewModel) {
         self.viewModel = viewModel
     }
 
@@ -47,7 +47,7 @@ struct MyClassesScreen: View {
         .navigationTitle(Text(.myClasses))
         .background(theme.colors.appBackground)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing){
+            ToolbarItem(placement: .topBarTrailing) {
                 SettingsButton()
             }
         }
@@ -63,7 +63,6 @@ struct MyClassesScreen: View {
 }
 
 extension MyClassesScreen {
-
     var itemList: some View {
         List {
             ForEach(displayedSections) { group in
@@ -77,7 +76,7 @@ extension MyClassesScreen {
     }
 
     func classScetion(_ section: GroupedSection<Date, UpcomingClassModel>) -> some View {
-        Section() {
+        Section {
             ForEach(section.items) { upcomingClass in
                 NavigationButton(sheet: .eventDescription(event: upcomingClass.event)) {
                     ClassCard(

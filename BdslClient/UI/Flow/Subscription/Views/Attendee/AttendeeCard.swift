@@ -5,11 +5,11 @@
 //  Created by Oleh Rozkvas on 26.02.2026.
 //
 
-import SwiftUI
-import Models
 import DesignSystem
+import Models
+import SwiftUI
 
-struct AttendeeCard : View {
+struct AttendeeCard: View {
     @Environment(\.theme) private var theme
 
     let attendee: AttendeeModel
@@ -20,7 +20,6 @@ struct AttendeeCard : View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: theme.layout.spacing.xs) {
-
             Text(attendee.event.title)
                 .font(theme.typography.cardTitle)
                 .foregroundColor(theme.colors.textPrimary)

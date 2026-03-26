@@ -11,13 +11,13 @@ import SwiftUI
 @Observable
 @MainActor
 public final class NetworkMonitor {
-
     private let monitor = NWPathMonitor()
     private let queue = DispatchQueue(label: "NetworkMonitor")
 
     public var isConnected: Bool = true
 
     // MARK: - Delegate
+
     private var delegate: NetworkMonitorDelegate?
 
     public init() {
@@ -29,7 +29,6 @@ public final class NetworkMonitor {
                     if let delegate = self.delegate {
                         delegate.networkMonitor(self, didChangeConnection: connected)
                     }
-
                 }
             }
         }

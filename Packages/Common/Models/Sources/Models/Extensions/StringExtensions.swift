@@ -9,7 +9,7 @@ import Foundation
 
 public extension String {
     func caseInsensitiveContains(_ other: String) -> Bool {
-        return self.range(of: other, options: .caseInsensitive) != nil
+        return range(of: other, options: .caseInsensitive) != nil
     }
 
     var nilIfEmpty: String? {
@@ -18,8 +18,8 @@ public extension String {
 
     var isValidPhone: Bool {
         count == 10 &&
-        first == "0" &&
-        allSatisfy(\.isNumber)
+            first == "0" &&
+            allSatisfy(\.isNumber)
     }
 }
 

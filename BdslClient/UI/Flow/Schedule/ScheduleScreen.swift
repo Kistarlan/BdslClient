@@ -5,10 +5,10 @@
 //  Created by Oleh Rozkvas on 27.02.2026.
 //
 
-import SwiftUI
 import DesignSystem
-import Navigation
 import Models
+import Navigation
+import SwiftUI
 
 struct ScheduleScreen: View {
     @Environment(\.theme) private var theme
@@ -18,8 +18,10 @@ struct ScheduleScreen: View {
     var displayedSections: [ScheduleGroupSection] {
         if !viewModel.isInitialized {
             return [
-                ScheduleGroupSection(days: Set([DayRecurrenceType.monday]),
-                                     events: (0..<5).map { _ in .placeholder() })
+                ScheduleGroupSection(
+                    days: Set([DayRecurrenceType.monday]),
+                    events: (0 ..< 5).map { _ in .placeholder() }
+                )
             ]
         }
 
@@ -27,7 +29,7 @@ struct ScheduleScreen: View {
     }
 
     init(viewModel: ScheduleViewModel) {
-        self._viewModel = State(initialValue: viewModel)
+        _viewModel = State(initialValue: viewModel)
     }
 
     var body: some View {
@@ -54,7 +56,7 @@ struct ScheduleScreen: View {
         }
         .navigationTitle(Text(.schedule))
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing){
+            ToolbarItem(placement: .topBarTrailing) {
                 SettingsButton()
             }
         }

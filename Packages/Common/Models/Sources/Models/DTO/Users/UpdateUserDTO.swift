@@ -13,6 +13,7 @@ public struct UpdateUserDTO: Codable {
     public let avatar: AvatarDTO?
 
     // MARK: - CodingKeys
+
     private enum CodingKeys: String, CodingKey {
         case name
         case surname
@@ -22,6 +23,7 @@ public struct UpdateUserDTO: Codable {
     }
 
     // MARK: - Manual initializer
+
     public init(
         name: String,
         surname: String,
@@ -37,14 +39,15 @@ public struct UpdateUserDTO: Codable {
     }
 
     // MARK: - Codable
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.name = try container.decode(String.self, forKey: .name)
-        self.surname = try container.decode(String.self, forKey: .surname)
-        self.role = try container.decode(String.self, forKey: .role)
-        self.contacts = try container.decode(ContactDTO.self, forKey: .contacts)
-        self.avatar = try container.decodeIfPresent(AvatarDTO.self, forKey: .avatar)
+        name = try container.decode(String.self, forKey: .name)
+        surname = try container.decode(String.self, forKey: .surname)
+        role = try container.decode(String.self, forKey: .role)
+        contacts = try container.decode(ContactDTO.self, forKey: .contacts)
+        avatar = try container.decodeIfPresent(AvatarDTO.self, forKey: .avatar)
     }
 
     public func encode(to encoder: Encoder) throws {

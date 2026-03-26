@@ -6,9 +6,9 @@
 //
 
 import Foundation
-import Security
 import Models
 import OSLog
+import Security
 
 public final class KeychainTokenStore: TokenStore {
     private let service: String
@@ -18,6 +18,7 @@ public final class KeychainTokenStore: TokenStore {
     }
 
     // MARK: - Save token
+
     public func save(tokenType: TokenType, token: String) async {
         let deleteQuery: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,
@@ -44,6 +45,7 @@ public final class KeychainTokenStore: TokenStore {
     }
 
     // MARK: - Load token
+
     public func load(tokenType: TokenType) async -> String? {
         let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,
@@ -67,6 +69,7 @@ public final class KeychainTokenStore: TokenStore {
     }
 
     // MARK: - Clear specific token
+
     public func clear(tokenType: TokenType) async {
         let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,
@@ -77,6 +80,7 @@ public final class KeychainTokenStore: TokenStore {
     }
 
     // MARK: - Clear all tokens for this service
+
     public func clearAll() async {
         let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,

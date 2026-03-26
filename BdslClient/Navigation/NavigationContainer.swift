@@ -5,9 +5,9 @@
 //  Created by Oleh Rozkvas on 27.01.2026.
 //
 
+import Navigation
 import OSLog
 import SwiftUI
-import Navigation
 
 /// ``NavigationStack`` container that works with the ``Router``
 /// to resolve the routes based on the ``Router``'s state

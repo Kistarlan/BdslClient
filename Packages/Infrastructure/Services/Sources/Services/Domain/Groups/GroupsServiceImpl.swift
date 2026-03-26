@@ -5,8 +5,8 @@
 //  Created by Oleh Rozkvas on 19.03.2026.
 //
 
-import OSLog
 import Models
+import OSLog
 
 final class GroupsServiceImpl: GroupsService {
     private let logger = Logger.forCategory(String(describing: GroupsService.self))
@@ -20,7 +20,7 @@ final class GroupsServiceImpl: GroupsService {
     func fetchGroups(forceReload: Bool) async throws -> [GroupModel] {
         let isEmpty = await cache.isEmpty
 
-        if !forceReload && !isEmpty  {
+        if !forceReload, !isEmpty {
             return await cache.getAll()
         }
 

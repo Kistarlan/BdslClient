@@ -5,11 +5,9 @@
 //  Created by Oleh Rozkvas on 03.03.2026.
 //
 
-
 import SwiftUI
 
 struct FlowLayout: Layout {
-
     var spacing: CGFloat = 8
 
     func sizeThatFits(
@@ -17,7 +15,6 @@ struct FlowLayout: Layout {
         subviews: Subviews,
         cache: inout ()
     ) -> CGSize {
-
         let maxWidth = proposal.width ?? 0
 
         var currentX: CGFloat = 0
@@ -25,7 +22,6 @@ struct FlowLayout: Layout {
         var totalHeight: CGFloat = 0
 
         for subview in subviews {
-
             let size = subview.sizeThatFits(.unspecified)
 
             if currentX + size.width > maxWidth {
@@ -49,13 +45,11 @@ struct FlowLayout: Layout {
         subviews: Subviews,
         cache: inout ()
     ) {
-
         var x = bounds.minX
         var y = bounds.minY
         var rowHeight: CGFloat = 0
 
         for subview in subviews {
-
             let size = subview.sizeThatFits(.unspecified)
 
             if x + size.width > bounds.maxX {

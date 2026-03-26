@@ -5,8 +5,8 @@
 //  Created by Oleh Rozkvas on 24.03.2026.
 //
 
-import SwiftUI
 import DesignSystem
+import SwiftUI
 
 struct ErrorView: View {
     @Environment(\.theme) private var theme

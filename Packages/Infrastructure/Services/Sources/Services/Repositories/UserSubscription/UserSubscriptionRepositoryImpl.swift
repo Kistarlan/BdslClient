@@ -6,8 +6,8 @@
 //
 
 import Models
-import OSLog
 import MongoFilters
+import OSLog
 
 final class UserSubscriptionRepositoryImpl: UserSubscriptionsRepository {
     private let logger = Logger.forCategory(String(describing: UserSubscriptionsRepository.self))
@@ -32,7 +32,7 @@ final class UserSubscriptionRepositoryImpl: UserSubscriptionsRepository {
         }
     }
 
-    func fetchSubscriptionAttendees(for userId: String) async throws -> [AttendeeDTO]{
+    func fetchSubscriptionAttendees(for userId: String) async throws -> [AttendeeDTO] {
         let endpoint = try getEndpointWithUserFilters(path: "/attendees", userId: userId)
 
         return try await apiClient.request(endpoint)
@@ -51,4 +51,3 @@ final class UserSubscriptionRepositoryImpl: UserSubscriptionsRepository {
         )
     }
 }
-

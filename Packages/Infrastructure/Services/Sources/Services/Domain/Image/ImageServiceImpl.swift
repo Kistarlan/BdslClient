@@ -8,7 +8,7 @@
 import Foundation
 import Models
 
-final class ImageServiceImpl : ImageService {
+final class ImageServiceImpl: ImageService {
     private let cache = Cache<String, AvatarData>()
     private let imageRepository: ImageRepository
 

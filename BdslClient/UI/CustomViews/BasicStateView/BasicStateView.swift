@@ -5,8 +5,8 @@
 //  Created by Oleh Rozkvas on 03.02.2026.
 //
 
-import SwiftUI
 import Models
+import SwiftUI
 
 public struct BasicStateView<ViewData, LoadingContent: View, DataContent: View>: View {
     let state: BasicLoadingState<ViewData>

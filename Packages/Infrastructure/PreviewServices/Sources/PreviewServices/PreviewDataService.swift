@@ -9,7 +9,6 @@ import Foundation
 
 final class PreviewDataService: PreviewDataProvider {
     func load<T: Decodable>(_ type: T.Type, from file: String) throws -> T {
-
         if let url = Bundle.module.url(forResource: file, withExtension: "json") {
             do {
                 let data = try! Data(contentsOf: url)
@@ -26,6 +25,6 @@ final class PreviewDataService: PreviewDataProvider {
     }
 }
 
-private enum PreviewDataError : Error {
+private enum PreviewDataError: Error {
     case fileNotFound
 }

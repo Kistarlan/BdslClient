@@ -14,8 +14,7 @@ extension View {
         borderColor: Color,
         lineWidth: CGFloat = 1
     ) -> some View {
-        self
-            .clipShape(RoundedCorner(radius: radius, corners: corners))
+        clipShape(RoundedCorner(radius: radius, corners: corners))
             .overlay(
                 RoundedCorner(radius: radius, corners: corners)
                     .stroke(borderColor, lineWidth: lineWidth)

@@ -17,8 +17,8 @@ public struct UserIdentifierDTO: Codable, Sendable {
     }
 }
 
-extension UserIdentifierDTO {
-    public func toDomain() -> UserIdentifier {
+public extension UserIdentifierDTO {
+    func toDomain() -> UserIdentifier {
         UserIdentifier(
             id: id,
             fullName: fullName,

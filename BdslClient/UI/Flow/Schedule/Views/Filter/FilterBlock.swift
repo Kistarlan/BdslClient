@@ -5,9 +5,8 @@
 //  Created by Oleh Rozkvas on 03.03.2026.
 //
 
-
-import SwiftUI
 import DesignSystem
+import SwiftUI
 
 struct FilterBlock<Item>: View {
     @Environment(\.theme) private var theme
@@ -22,10 +21,11 @@ struct FilterBlock<Item>: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: theme.layout.spacing.s) {
-
-            FilterSectionHeader(title: title,
-                                isExpanded: isExpanded,
-                                onHeaderTap: onHeaderTap)
+            FilterSectionHeader(
+                title: title,
+                isExpanded: isExpanded,
+                onHeaderTap: onHeaderTap
+            )
 
             if isExpanded {
                 filterItems
@@ -36,7 +36,6 @@ struct FilterBlock<Item>: View {
     var filterItems: some View {
         WrapLayout {
             ForEach(items, id: id) { item in
-
                 let itemId = item[keyPath: id]
                 let isSelected = selection.contains(itemId)
 

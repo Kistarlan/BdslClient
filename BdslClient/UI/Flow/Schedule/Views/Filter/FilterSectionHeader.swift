@@ -5,8 +5,8 @@
 //  Created by Oleh Rozkvas on 06.03.2026.
 //
 
-import SwiftUI
 import DesignSystem
+import SwiftUI
 
 struct FilterSectionHeader: View {
     @Environment(\.theme) private var theme
@@ -17,7 +17,6 @@ struct FilterSectionHeader: View {
 
     var body: some View {
         HStack {
-
             Text(title)
                 .font(theme.typography.secondary.weight(.semibold))
                 .foregroundStyle(theme.colors.textPrimary)

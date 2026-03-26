@@ -8,7 +8,7 @@
 import Models
 import Services
 
-final class PreviewGroupsRepository : GroupsRepository {
+final class PreviewGroupsRepository: GroupsRepository {
     let previewDataProvider: PreviewDataProvider
 
     init(previewDataProvider: PreviewDataProvider) {

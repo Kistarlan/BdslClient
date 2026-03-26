@@ -7,8 +7,7 @@
 
 import Models
 
-final class GroupsRepositoryImpl : GroupsRepository {
-
+final class GroupsRepositoryImpl: GroupsRepository {
     let apiClient: APIClient
 
     init(apiClient: APIClient) {
@@ -18,7 +17,7 @@ final class GroupsRepositoryImpl : GroupsRepository {
     func fetchGroups() async throws -> [GroupDTO] {
         let endpoint = Endpoint(
             path: "/calendar/groups",
-            method: .get,
+            method: .get
         )
 
         return try await apiClient.request(endpoint)

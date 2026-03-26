@@ -7,7 +7,6 @@
 import Models
 
 final class LocationsRepositoryImpl: LocationsRepository {
-
     let apiClient: APIClient
 
     init(apiClient: APIClient) {

@@ -5,9 +5,9 @@
 //  Created by Oleh Rozkvas on 26.02.2026.
 //
 
-import SwiftUI
-import Models
 import DesignSystem
+import Models
+import SwiftUI
 
 struct SubscriptionBadge: View {
     @Environment(\.theme) private var theme

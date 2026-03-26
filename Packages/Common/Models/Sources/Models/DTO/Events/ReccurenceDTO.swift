@@ -21,7 +21,7 @@ public enum ReccurenceDTO: Identifiable, Decodable {
         let type = try container.decode(EventRccurenceType.self, forKey: .type)
 
         switch type {
-            case .weekly: self = try .weekly(WeeklyRecurrenceDTO(from: decoder))
+        case .weekly: self = try .weekly(WeeklyRecurrenceDTO(from: decoder))
         }
     }
 

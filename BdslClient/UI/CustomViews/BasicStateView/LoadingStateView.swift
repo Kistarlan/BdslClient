@@ -4,8 +4,8 @@
 //
 //  Created by Oleh Rozkvas on 03.02.2026.
 //
-import SwiftUI
 import DesignSystem
+import SwiftUI
 
 public struct LoadingStateView: View {
     @Environment(\.theme) private var theme

@@ -76,7 +76,8 @@ public struct DSColors {
     public let chipSelectedBorder: Color
     public let chipSelectedText: Color
 
-    //MARK: Login
+    // MARK: Login
+
     public let backgroundSecondary: Color
     public let buttonDisabled: Color
     public let loadingOverlay: Color

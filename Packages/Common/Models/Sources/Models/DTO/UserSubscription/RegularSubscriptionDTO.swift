@@ -69,6 +69,10 @@ public struct RegularSubscriptionDTO: Decodable {
             return Date(timeIntervalSince1970: timestamp)
         }
 
-        throw DecodingError.dataCorruptedError(forKey: .endDate, in: container, debugDescription: "Invalid endDate format")
+        throw DecodingError.dataCorruptedError(
+            forKey: .endDate,
+            in: container,
+            debugDescription: "Invalid endDate format"
+        )
     }
 }

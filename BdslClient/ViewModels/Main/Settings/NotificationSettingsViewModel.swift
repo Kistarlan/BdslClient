@@ -5,8 +5,8 @@
 //  Created by Oleh Rozkvas on 25.03.2026.
 //
 
-import SwiftUI
 import Models
+import SwiftUI
 
 @Observable
 @MainActor
@@ -23,16 +23,16 @@ final class NotificationSettingsViewModel {
         return false
     }
 
-    var isChanged : Bool {
+    var isChanged: Bool {
         initialValue != selected
     }
 
     static let presets = NotificationLeadTime.presets
 
-    init(appState: AppState){
+    init(appState: AppState) {
         self.appState = appState
-        self.selected = appState.notificationLeadTime
-        self.initialValue = appState.notificationLeadTime
+        selected = appState.notificationLeadTime
+        initialValue = appState.notificationLeadTime
     }
 
     func selectPreset(_ value: NotificationLeadTime) {
@@ -48,6 +48,6 @@ final class NotificationSettingsViewModel {
     }
 
     func save() {
-        self.appState.notificationLeadTime = selected
+        appState.notificationLeadTime = selected
     }
 }

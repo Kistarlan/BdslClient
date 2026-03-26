@@ -10,12 +10,12 @@ let package = Package(
         .library(
             name: "PreviewServices",
             targets: ["PreviewServices"]
-        ),
+        )
     ],
     dependencies: [
         .package(path: "../../Common/Models"),
         .package(path: "../Services"),
-        .package(path: "../../Common/Configs"),
+        .package(path: "../../Common/Configs")
     ],
     targets: [
         .target(
@@ -24,6 +24,6 @@ let package = Package(
             resources: [
                 .process("Resources")
             ]
-        ),
+        )
     ]
 )

@@ -5,8 +5,8 @@
 //  Created by Oleh Rozkvas on 04.03.2026.
 //
 
-import Models
 import Foundation
+import Models
 
 extension JwtPayloadDTO {
     static func previewValue(

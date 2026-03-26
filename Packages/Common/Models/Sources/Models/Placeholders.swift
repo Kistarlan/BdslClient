@@ -33,7 +33,6 @@ public extension ContactDTO {
         telegram: String = "@previewUser",
         email: String = "previewUser@gmail.com"
     ) -> Self {
-
         let json: [String: Any] = [
             "_id": _id,
             "phone": phone,
@@ -83,69 +82,75 @@ public extension UserDTO {
 
 public extension UserSubscription {
     static func placeholder() -> Self {
-        UserSubscription(id: UUID().uuidString,
-                         activities: [],
-                         visitsIds: [],
-                         userId: "",
-                         title: "Month of Zouk and Bachata",
-                         startDate:
-                            Calendar.current.date(
-                                byAdding: .day,
-                                value: -1,
-                                to: .now
-                            )!,
-                         endDate:
-                            Calendar.current.date(
-                                byAdding: .day,
-                                value: 1,
-                                to: .now
-                            )!,
-                         unlimited: false,
-                         visitsLimit: 16,
-                         paymentMethod: .cash,
-                         price: 1600,
-                         closed: nil,
-                         category: .volonteer)
+        UserSubscription(
+            id: UUID().uuidString,
+            activities: [],
+            visitsIds: [],
+            userId: "",
+            title: "Month of Zouk and Bachata",
+            startDate:
+            Calendar.current.date(
+                byAdding: .day,
+                value: -1,
+                to: .now
+            )!,
+            endDate:
+            Calendar.current.date(
+                byAdding: .day,
+                value: 1,
+                to: .now
+            )!,
+            unlimited: false,
+            visitsLimit: 16,
+            paymentMethod: .cash,
+            price: 1600,
+            closed: nil,
+            category: .volonteer
+        )
     }
 }
 
 public extension AttendeeModel {
     static func placeholder() -> Self {
-        AttendeeModel(id: UUID().uuidString,
-                      event: .placeholder(),
-                      enrollTime: Date.now
+        AttendeeModel(
+            id: UUID().uuidString,
+            event: .placeholder(),
+            enrollTime: Date.now
         )
     }
 }
 
 public extension EventModel {
     static func placeholder() -> Self {
-        EventModel(id: "123",
-                   teachers: [],
-                   type: .group,
-                   weeklyReccurance: WeeklyRecurrence.previewValue(),
-                   startDate: Date.now,
-                   endDate: Date.now,
-                   location: Location.previewValue(),
-                   level: Level.previewValue(),
-                   title: "Bachata Month",
-                   activity: Activity.previewValue())
+        EventModel(
+            id: "123",
+            teachers: [],
+            type: .group,
+            weeklyReccurance: WeeklyRecurrence.previewValue(),
+            startDate: Date.now,
+            endDate: Date.now,
+            location: Location.previewValue(),
+            level: Level.previewValue(),
+            title: "Bachata Month",
+            activity: Activity.previewValue()
+        )
     }
 }
 
 public extension GroupModel {
     static func placeholder() -> Self {
-        GroupModel(id: UUID().uuidString,
-                   teachers: [],
-                   type: .group,
-                   startDate: Date.now,
-                   endDate: Date.now,
-                   recurrence: WeeklyRecurrence.previewValue(),
-                   location: Location.previewValue(),
-                   level: Level.previewValue(),
-                   title: "Bachata Month",
-                   activity: Activity.previewValue(),
-                   duration: 60
+        GroupModel(
+            id: UUID().uuidString,
+            teachers: [],
+            type: .group,
+            startDate: Date.now,
+            endDate: Date.now,
+            recurrence: WeeklyRecurrence.previewValue(),
+            location: Location.previewValue(),
+            level: Level.previewValue(),
+            title: "Bachata Month",
+            activity: Activity.previewValue(),
+            duration: 60
         )
     }
 }
@@ -167,7 +172,8 @@ public extension Location {
             title: "Green hall",
             address: "м. Львів, вул. Джерельна, буд. 38",
             colorHex: "#0000ff",
-            color2Hex: "#0000ff")
+            color2Hex: "#0000ff"
+        )
     }
 }
 
@@ -197,7 +203,7 @@ public extension UpcomingClassModel {
         .init(
             id: UUID().uuidString,
             event: .placeholder(),
-            concreateTime: Date(),
+            concreateTime: Date()
         )
     }
 }

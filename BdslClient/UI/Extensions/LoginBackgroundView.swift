@@ -5,9 +5,9 @@
 //  Created by Oleh Rozkvas on 05.02.2026.
 //
 
-import SwiftUI
-import Models
 import DesignSystem
+import Models
+import SwiftUI
 
 struct LoginBackgroundView: View {
     @Environment(\.theme) private var theme

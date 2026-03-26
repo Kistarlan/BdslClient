@@ -1,12 +1,12 @@
 //
-//  DefaultActivityService.swift
+//  ActivityServiceImpl.swift
 //  BdslClient
 //
 //  Created by Oleh Rozkvas on 02.03.2026.
 //
 
-import OSLog
 import Models
+import OSLog
 
 final class ActivityServiceImpl: ActivityService {
     private let logger = Logger.forCategory(String(describing: ActivityServiceImpl.self))
@@ -39,7 +39,7 @@ final class ActivityServiceImpl: ActivityService {
                 return activities
             }
         }
-        
+
         try await loadCache()
 
         return await cache.getAll()

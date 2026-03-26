@@ -6,7 +6,6 @@
 //
 
 struct GtFilter<Value: Encodable>: MongoFilter {
-
     let field: String
     let value: Value
 

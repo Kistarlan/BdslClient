@@ -12,7 +12,6 @@ public enum Credentials: Sendable {
 }
 
 extension Credentials: Encodable {
-
     enum CodingKeys: String, CodingKey {
         case method
         case login
@@ -25,7 +24,6 @@ extension Credentials: Encodable {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         switch self {
-
         case let .telegram(phone):
             try container.encode("phone", forKey: .method)
             try container.encode(phone, forKey: .login)

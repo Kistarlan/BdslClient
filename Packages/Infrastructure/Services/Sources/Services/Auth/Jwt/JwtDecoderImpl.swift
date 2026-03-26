@@ -9,7 +9,6 @@ import Foundation
 import Models
 
 public final class JwtDecoderImpl: JwtDecoder {
-
     public init() {}
 
     public func decode<T: Decodable>(_ token: String, as type: T.Type) throws -> T {

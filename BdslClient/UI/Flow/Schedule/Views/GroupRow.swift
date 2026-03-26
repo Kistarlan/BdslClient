@@ -5,9 +5,9 @@
 //  Created by Oleh Rozkvas on 03.03.2026.
 //
 
-import SwiftUI
-import Models
 import DesignSystem
+import Models
+import SwiftUI
 
 struct GroupRow: View {
     @Environment(\.theme) private var theme
@@ -17,7 +17,6 @@ struct GroupRow: View {
 
     var body: some View {
         HStack(spacing: theme.layout.spacing.s) {
-
             datesView
 
             infoView
@@ -76,7 +75,7 @@ extension GroupRow {
             .foregroundStyle(Color(hex: houseColorHex))
     }
 
-    private var houseColorHex : String {
+    private var houseColorHex: String {
         theme.scheme == .dark ? group.location.color2Hex : group.location.colorHex
     }
 

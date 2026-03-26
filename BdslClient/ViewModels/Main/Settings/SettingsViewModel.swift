@@ -7,10 +7,10 @@
 
 import Combine
 import Foundation
-import OSLog
-import SwiftUI
 import Models
+import OSLog
 import Services
+import SwiftUI
 
 @MainActor
 @Observable
@@ -40,7 +40,6 @@ final class SettingsViewModel {
 
         updateUser(cachedUser)
     }
-
 
     func updateUser(_ user: User) {
         self.user = user

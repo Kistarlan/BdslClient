@@ -5,8 +5,8 @@
 //  Created by Oleh Rozkvas on 25.02.2026.
 //
 
-import Models
 import Foundation
+import Models
 
 public protocol EventsRepository: Sendable {
     func fetchEvents() async throws -> [EventDTO]

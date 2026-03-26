@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import OSLog
 import Models
+import OSLog
 
 final class EventsServiceImpl: EventsService {
     private let logger = Logger.forCategory(String(describing: EventsServiceImpl.self))
@@ -20,11 +20,13 @@ final class EventsServiceImpl: EventsService {
     private let locationsService: LocationService
     private let levelsService: LevelsService
 
-    init(eventsRepository: EventsRepository,
-         teacherService: TeachersService,
-         activityService: ActivityService,
-         locationsService: LocationService,
-         levelsService: LevelsService) {
+    init(
+        eventsRepository: EventsRepository,
+        teacherService: TeachersService,
+        activityService: ActivityService,
+        locationsService: LocationService,
+        levelsService: LevelsService
+    ) {
         self.eventsRepository = eventsRepository
         self.teacherService = teacherService
         self.activityService = activityService
@@ -51,7 +53,7 @@ final class EventsServiceImpl: EventsService {
             }
         }
 
-        let dtos = try await eventsRepository.fetchActualEvents(minEndDate:  Date(), forceReload ? [] : cacheIds)
+        let dtos = try await eventsRepository.fetchActualEvents(minEndDate: Date(), forceReload ? [] : cacheIds)
 
         for eventDTO in dtos {
             do {
@@ -188,7 +190,7 @@ final class EventsServiceImpl: EventsService {
             return try await locationsService.getLocaction(id: eventDTO.locationId, forceReload: false)
         } catch {
             logger.warning("Can't load locationModel for id = \(eventDTO.locationId)")
-            
+
             return nil
         }
     }
@@ -228,6 +230,6 @@ final class EventsServiceImpl: EventsService {
     }
 }
 
-enum EventsServiceErrors : Error {
+enum EventsServiceErrors: Error {
     case eventNotFoundError(id: String)
 }

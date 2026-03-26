@@ -1,6 +1,6 @@
-import SwiftUI
-import Navigation
 import Models
+import Navigation
+import SwiftUI
 
 @ViewBuilder func view(for destination: PushDestination) -> some View {
     let vmFactory = AppContainer.shared.viewModelsFactory

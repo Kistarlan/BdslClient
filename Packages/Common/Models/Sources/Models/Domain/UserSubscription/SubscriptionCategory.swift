@@ -13,11 +13,11 @@ public enum SubscriptionCategory: String, CaseIterable, Hashable, Sendable {
     case oneClassTicket
 }
 
-extension SubscriptionCategory : Identifiable {
+extension SubscriptionCategory: Identifiable {
     public var id: String { rawValue }
 }
 
-extension SubscriptionCategory : Comparable {
+extension SubscriptionCategory: Comparable {
     public static func < (lhs: SubscriptionCategory, rhs: SubscriptionCategory) -> Bool {
         lhs.sortOrder < rhs.sortOrder
     }

@@ -11,7 +11,6 @@ public protocol MongoFilter: Encodable {}
 
 public extension MongoFilter {
     func makeFilterQuery() throws -> String {
-
         let data = try JSONEncoder().encode(AnyEncodable(self))
 
         guard let string = String(data: data, encoding: .utf8) else {

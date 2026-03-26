@@ -12,6 +12,7 @@ public struct ContactDTO: Codable {
     public let email: String?
 
     // MARK: - CodingKeys
+
     private enum CodingKeys: String, CodingKey {
         case _id
         case phone
@@ -20,6 +21,7 @@ public struct ContactDTO: Codable {
     }
 
     // MARK: - Manual initializer
+
     public init(
         _id: String,
         phone: String?,
@@ -33,13 +35,14 @@ public struct ContactDTO: Codable {
     }
 
     // MARK: - Codable
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self._id = try container.decode(String.self, forKey: ._id)
-        self.phone = try container.decodeIfPresent(String.self, forKey: .phone)
-        self.telegram = try container.decodeIfPresent(String.self, forKey: .telegram)
-        self.email = try container.decodeIfPresent(String.self, forKey: .email)
+        _id = try container.decode(String.self, forKey: ._id)
+        phone = try container.decodeIfPresent(String.self, forKey: .phone)
+        telegram = try container.decodeIfPresent(String.self, forKey: .telegram)
+        email = try container.decodeIfPresent(String.self, forKey: .email)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -52,8 +55,8 @@ public struct ContactDTO: Codable {
     }
 }
 
-extension ContactDTO {
-    public func toDomain() -> Contact {
+public extension ContactDTO {
+    func toDomain() -> Contact {
         Contact(
             id: _id, phone: phone, telegram: telegram, email: email
         )

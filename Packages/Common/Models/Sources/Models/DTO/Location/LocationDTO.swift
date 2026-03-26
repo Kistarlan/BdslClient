@@ -21,8 +21,8 @@ public struct LocationDTO: Identifiable, Decodable {
     }
 }
 
-extension LocationDTO {
-    public func toDomain() -> Location {
+public extension LocationDTO {
+    func toDomain() -> Location {
         Location(
             id: id,
             title: title,

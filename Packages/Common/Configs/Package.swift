@@ -9,12 +9,11 @@ let package = Package(
         .library(
             name: "Configs",
             targets: ["Configs"]
-        ),
+        )
     ],
     targets: [
         .target(
             name: "Configs"
-        ),
-
+        )
     ]
 )

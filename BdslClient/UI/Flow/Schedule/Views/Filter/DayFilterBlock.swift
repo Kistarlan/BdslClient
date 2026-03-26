@@ -5,9 +5,9 @@
 //  Created by Oleh Rozkvas on 03.03.2026.
 //
 
-import SwiftUI
-import Models
 import DesignSystem
+import Models
+import SwiftUI
 
 struct DayFilterBlock: View {
     @Environment(\.theme) private var theme
@@ -20,12 +20,13 @@ struct DayFilterBlock: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: theme.layout.spacing.s) {
+            FilterSectionHeader(
+                title: title,
+                isExpanded: isExpanded,
+                onHeaderTap: onHeaderTap
+            )
 
-            FilterSectionHeader(title: title,
-                                isExpanded: isExpanded,
-                                onHeaderTap: onHeaderTap)
-
-            if isExpanded{
+            if isExpanded {
                 filterItems
             }
         }

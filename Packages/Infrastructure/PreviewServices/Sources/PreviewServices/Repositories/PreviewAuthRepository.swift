@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import OSLog
 import Models
+import OSLog
 import Services
 
 final class PreviewAuthRepository: AuthRepository {

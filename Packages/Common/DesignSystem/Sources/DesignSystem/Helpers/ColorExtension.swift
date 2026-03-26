@@ -6,8 +6,8 @@
 //
 import SwiftUI
 
-extension Color {
-    public init(_ hex: String) {
+public extension Color {
+    init(_ hex: String) {
         let hex = hex.trimmingCharacters(in: .alphanumerics.inverted)
         var int: UInt64 = 0
         Scanner(string: hex).scanHexInt64(&int)

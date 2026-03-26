@@ -5,9 +5,9 @@
 //  Created by Oleh Rozkvas on 05.03.2026.
 //
 
-import SwiftUI
 import DesignSystem
 import Models
+import SwiftUI
 
 struct FiltersView: View {
     @Environment(\.theme) private var theme
@@ -16,7 +16,7 @@ struct FiltersView: View {
     @Binding private var viewModel: ScheduleViewModel
 
     init(viewModel: Binding<ScheduleViewModel>) {
-        self._viewModel = viewModel
+        _viewModel = viewModel
     }
 
     var body: some View {
@@ -24,7 +24,6 @@ struct FiltersView: View {
             alignment: .leading,
             spacing: theme.layout.spacing.sm
         ) {
-
             header
                 .redacted(reason: !viewModel.isInitialized ? .placeholder : [])
                 .shimmer(active: !viewModel.isInitialized)
@@ -47,7 +46,6 @@ struct FiltersView: View {
 }
 
 private extension FiltersView {
-
     var header: some View {
         HStack {
             HStack {

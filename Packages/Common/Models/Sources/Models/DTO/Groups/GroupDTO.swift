@@ -35,11 +35,11 @@ public struct GroupDTO: Identifiable, Decodable {
     }
 }
 
-extension GroupDTO {
-    public func toDomain() -> GroupModel {
+public extension GroupDTO {
+    func toDomain() -> GroupModel {
         GroupModel(
             id: id,
-            teachers: teachers.map { $0.toDomain()},
+            teachers: teachers.map { $0.toDomain() },
             type: type,
             startDate: start,
             endDate: end,

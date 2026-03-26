@@ -17,8 +17,8 @@ public struct GroupTeacherDTO: Identifiable, Decodable {
     }
 }
 
-extension GroupTeacherDTO {
-    public func toDomain() -> GroupTeacher {
+public extension GroupTeacherDTO {
+    func toDomain() -> GroupTeacher {
         GroupTeacher(
             id: id,
             name: user.name,

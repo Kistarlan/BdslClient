@@ -5,10 +5,10 @@
 //  Created by Oleh Rozkvas on 03.03.2026.
 //
 
-import SwiftUI
-import Models
 import DesignSystem
+import Models
 import Navigation
+import SwiftUI
 
 struct GroupDetailsSheet: View {
     @Environment(\.locale) private var locale
@@ -70,7 +70,6 @@ struct GroupDetailsSheet: View {
 
     func detailsRow(title: LocalizedStringResource, value: String) -> some View {
         HStack(alignment: .bottom, spacing: theme.layout.spacing.s) {
-
             Text("\(title.localized(locale: locale)):")
                 .font(theme.typography.label)
                 .foregroundStyle(theme.colors.textSecondary)
@@ -92,6 +91,6 @@ struct GroupDetailsSheet: View {
 
     var time: String {
         "\(group.startDate.formatted(date: .omitted, time: .shortened))"
-        + "– \(group.endDate.formatted(date: .omitted, time: .shortened))"
+            + "– \(group.endDate.formatted(date: .omitted, time: .shortened))"
     }
 }

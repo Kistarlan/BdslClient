@@ -8,7 +8,6 @@
 import Models
 
 final class LevelsRepositoryImpl: LevelsRepository {
-
     let apiClient: APIClient
 
     init(apiClient: APIClient) {

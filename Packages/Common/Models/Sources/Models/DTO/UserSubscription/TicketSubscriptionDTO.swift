@@ -54,7 +54,10 @@ public struct TicketSubscriptionDTO: Decodable {
         endDate = try Self.parseDate(container, forKey: .endDate)
     }
 
-    private static func parseDate(_ container: KeyedDecodingContainer<CodingKeys>, forKey key: CodingKeys) throws -> Date {
+    private static func parseDate(
+        _ container: KeyedDecodingContainer<CodingKeys>,
+        forKey key: CodingKeys
+    ) throws -> Date {
         if let stringValue = try? container.decode(String.self, forKey: key) {
             let formatter = ISO8601DateFormatter()
             formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
@@ -70,6 +73,10 @@ public struct TicketSubscriptionDTO: Decodable {
             return Date(timeIntervalSince1970: timestamp)
         }
 
-        throw DecodingError.dataCorruptedError(forKey: key, in: container, debugDescription: "Invalid date format for key \(key.stringValue)")
+        throw DecodingError.dataCorruptedError(
+            forKey: key,
+            in: container,
+            debugDescription: "Invalid date format for key \(key.stringValue)"
+        )
     }
 }

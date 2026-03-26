@@ -13,7 +13,7 @@ public struct AvatarData: Identifiable, Hashable, Sendable {
 
     public init(
         id: String,
-        data: Data,
+        data: Data
     ) {
         self.id = id
         self.data = data

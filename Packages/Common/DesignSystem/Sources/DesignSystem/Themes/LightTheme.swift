@@ -8,7 +8,6 @@
 import SwiftUI
 
 public struct LightTheme: AppTheme {
-
     public init() {}
 
     public let scheme: ThemeScheme = .light
@@ -62,6 +61,7 @@ public struct LightTheme: AppTheme {
         buttonPrimaryDisabledForeground: .white.opacity(0.7),
 
         // MARK: - badges
+
         badgeActive: Color.green.opacity(0.85),
         badgeCredit: Color.red.opacity(0.85),
         badgeInactive: Color.blue.opacity(0.85),
@@ -70,6 +70,7 @@ public struct LightTheme: AppTheme {
         badgeTextOnColor: .white,
 
         // MARK: - Chips
+
         chipBackground: Color("E0E1E3"),
         chipBorder: Color("D1D2D6"),
         chipText: .black.opacity(0.9),
@@ -79,10 +80,11 @@ public struct LightTheme: AppTheme {
         chipSelectedBorder: Color("0A84FF"),
         chipSelectedText: .white,
 
-        //MARK: Login
+        // MARK: Login
+
         backgroundSecondary: Color.white.opacity(0.1),
         buttonDisabled: Color.gray.opacity(0.3),
-        loadingOverlay: Color.black.opacity(0.2),
+        loadingOverlay: Color.black.opacity(0.2)
     )
 
     public let typography = DSTypography(

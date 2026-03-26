@@ -30,7 +30,7 @@ final class UsersRepositoryImpl: UsersRepository {
     func fetchUsersInfo(for ids: [String]) async throws -> [UserDTO] {
         let filter = Filter.In("_id", ids)
         let filterString = try filter.makeFilterQuery()
-        
+
         let endpoint = Endpoint(
             path: "/users",
             method: .get,
@@ -65,4 +65,3 @@ final class UsersRepositoryImpl: UsersRepository {
         return try await apiClient.request(endpoint)
     }
 }
-

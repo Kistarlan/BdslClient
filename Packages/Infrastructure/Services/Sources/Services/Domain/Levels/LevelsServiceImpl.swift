@@ -5,8 +5,8 @@
 //  Created by Oleh Rozkvas on 01.03.2026.
 //
 
-import OSLog
 import Models
+import OSLog
 
 final class LevelsServiceImpl: LevelsService {
     private let logger = Logger.forCategory(String(describing: LevelsServiceImpl.self))

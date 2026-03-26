@@ -10,12 +10,11 @@ let package = Package(
         .library(
             name: "MongoFilters",
             targets: ["MongoFilters"]
-        ),
+        )
     ],
     targets: [
         .target(
             name: "MongoFilters"
-        ),
-
+        )
     ]
 )

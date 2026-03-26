@@ -8,6 +8,6 @@
 import Foundation
 import Models
 
-public protocol GroupsService : CacheableService {
+public protocol GroupsService: CacheableService {
     func fetchGroups(forceReload: Bool) async throws -> [GroupModel]
 }

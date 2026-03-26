@@ -5,10 +5,10 @@
 //  Created by Oleh Rozkvas on 19.02.2026.
 //
 
-import SwiftUI
-import Models
 import DesignSystem
+import Models
 import Navigation
+import SwiftUI
 
 struct SubscriptionsScreen: View {
     @Environment(\.theme) private var theme
@@ -17,8 +17,10 @@ struct SubscriptionsScreen: View {
     var displayedGroups: [GroupedSection<SubscriptionGroupCategory, UserSubscription>] {
         if !viewModel.isInitialized {
             return [
-                GroupedSection(.subscriptionCategory(.active),
-                               (0..<5).map { _ in .placeholder() })
+                GroupedSection(
+                    .subscriptionCategory(.active),
+                    (0 ..< 5).map { _ in .placeholder() }
+                )
             ]
         }
 
@@ -26,7 +28,7 @@ struct SubscriptionsScreen: View {
         return grouped
     }
 
-    init(subscriptionsViewModel: SubscriptionsViewModel){
+    init(subscriptionsViewModel: SubscriptionsViewModel) {
         viewModel = subscriptionsViewModel
     }
 
@@ -51,24 +53,23 @@ struct SubscriptionsScreen: View {
                 }
                 .searchable(text: $viewModel.searchText)
             }
-
         }
         .navigationTitle(Text(LocalizedStringResource.mySubscriptions))
         .background(theme.colors.appBackground)
         .toolbar {
-            ToolbarItem(placement: .topBarLeading){
+            ToolbarItem(placement: .topBarLeading) {
                 Button {
                     viewModel.togleGroupingMode()
                 } label: {
                     Image(systemName:
-                            viewModel.groupingMode == .category
-                          ? "calendar"
-                          : "square.grid.2x2"
+                        viewModel.groupingMode == .category
+                            ? "calendar"
+                            : "square.grid.2x2"
                     )
                 }
             }
 
-            ToolbarItem(placement: .topBarTrailing){
+            ToolbarItem(placement: .topBarTrailing) {
                 SettingsButton()
             }
         }
@@ -83,7 +84,7 @@ struct SubscriptionsScreen: View {
     }
 
     func subscriptionsGroup(group: GroupedSection<SubscriptionGroupCategory, UserSubscription>) -> some View {
-        Section() {
+        Section {
             ForEach(group.items) { subscription in
                 subscriptionsCard(subscription)
             }
@@ -94,9 +95,9 @@ struct SubscriptionsScreen: View {
     }
 
     func subscriptionsCard(_ subscription: UserSubscription) -> some View {
-        return NavigationButton(push: PushDestination.subsctiptionDetails(userSubscription: subscription)){
+        return NavigationButton(push: PushDestination.subsctiptionDetails(userSubscription: subscription)) {
             SubscriptionCard(
-                subscription: subscription,
+                subscription: subscription
             )
             .redacted(reason: !viewModel.isInitialized ? .placeholder : [])
             .shimmer(active: !viewModel.isInitialized)
@@ -108,9 +109,9 @@ struct SubscriptionsScreen: View {
     func groupHeader(_ groupCategory: SubscriptionGroupCategory) -> some View {
         Group {
             switch groupCategory {
-            case .date(let date):
+            case let .date(date):
                 Text(date, format: .dateTime.month(.wide).year())
-            case .subscriptionCategory(let subscriptionCategory):
+            case let .subscriptionCategory(subscriptionCategory):
                 Text(subscriptionCategory.title)
             }
         }

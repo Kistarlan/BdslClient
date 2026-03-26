@@ -4,10 +4,10 @@
 //
 //  Created by Oleh Rozkvas on 23.01.2026.
 //
-import OSLog
-import SwiftUI
 import Models
 import Navigation
+import OSLog
+import SwiftUI
 
 struct RootView: View {
     @EnvironmentObject private var appState: AppState

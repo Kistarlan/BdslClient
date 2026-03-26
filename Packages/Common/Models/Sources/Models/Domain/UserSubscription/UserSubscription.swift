@@ -8,8 +8,8 @@
 import Foundation
 
 public struct UserSubscription: Identifiable, Hashable, Sendable {
-
     // MARK: - Common properties
+
     public let id: String
     public let activities: [Activity]
     public let visitsIds: [String]
@@ -18,6 +18,7 @@ public struct UserSubscription: Identifiable, Hashable, Sendable {
     public let startDate: Date
 
     // MARK: - Regular subscription properties
+
     public let endDate: Date?
     public let unlimited: Bool?
     public let visitsLimit: Int?
@@ -25,12 +26,15 @@ public struct UserSubscription: Identifiable, Hashable, Sendable {
     public let price: Double?
 
     // MARK: - Credit subscription property
+
     public let closed: Bool?
 
     // MARK: - Calculated properties
+
     public let category: SubscriptionCategory
 
     // MARK: - Public initializer
+
     public init(
         id: String,
         activities: [Activity],
@@ -109,7 +113,7 @@ public extension UserSubscription {
 
     var isExpiredSoon: Bool {
         if let endDate = endDate {
-            //Less than 5 days
+            // Less than 5 days
             return endDate.timeIntervalSinceNow < 60 * 60 * 24 * 5
         }
 

@@ -6,9 +6,9 @@
 //
 
 import Foundation
-import UIKit
 import Models
 import Services
+import UIKit
 
 final class PreviewImageRepository: ImageRepository {
     private let cache = Cache<String, Data>()

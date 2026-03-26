@@ -5,8 +5,8 @@
 //  Created by Oleh Rozkvas on 26.03.2026.
 //
 
-import SwiftUI
 import DesignSystem
+import SwiftUI
 
 struct OptionRow: View {
     @Environment(\.theme) private var theme
@@ -26,10 +26,9 @@ struct OptionRow: View {
     init(title: String, isSelected: Bool, action: @escaping () -> Void) {
         self.title = title
         self.isSelected = isSelected
-        self.value = nil
+        value = nil
         self.action = action
     }
-
 
     var body: some View {
         Button(action: action) {

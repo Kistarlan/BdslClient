@@ -5,11 +5,11 @@
 //  Created by Oleh Rozkvas on 12.02.2026.
 //
 
+import DesignSystem
+import Models
+import Navigation
 import PhotosUI
 import SwiftUI
-import Models
-import DesignSystem
-import Navigation
 
 struct EditUserInfoView: View {
     @Environment(\.dismiss) private var dismiss
@@ -79,7 +79,7 @@ private extension EditUserInfoView {
                         .clipShape(Circle())
                 }
             }
-//TODO: implement when it will be available in API
+            // TODO: implement when it will be available in API
 //            changeAvatarButton
         }
     }
@@ -147,7 +147,6 @@ private extension EditUserInfoView {
             )
             .focused($focusedField, equals: .phone)
 
-
             CustomTextField(
                 title: .email,
                 text: $viewModel.email,
@@ -176,13 +175,13 @@ private extension EditUserInfoView {
                 .padding(theme.layout.spacing.m)
                 .background(
                     viewModel.isSaveEnabled
-                    ? theme.colors.buttonPrimaryBackground
-                    : theme.colors.buttonPrimaryDisabledBackground
+                        ? theme.colors.buttonPrimaryBackground
+                        : theme.colors.buttonPrimaryDisabledBackground
                 )
                 .foregroundColor(
                     viewModel.isSaveEnabled
-                    ? theme.colors.buttonPrimaryForeground
-                    : theme.colors.buttonPrimaryDisabledForeground
+                        ? theme.colors.buttonPrimaryForeground
+                        : theme.colors.buttonPrimaryDisabledForeground
                 )
                 .cornerRadius(theme.layout.cornerRadius.l)
         }

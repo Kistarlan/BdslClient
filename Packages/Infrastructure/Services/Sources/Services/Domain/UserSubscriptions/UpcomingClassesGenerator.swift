@@ -5,13 +5,11 @@
 //  Created by Oleh Rozkvas on 22.03.2026.
 //
 
-
 import Foundation
-import OSLog
 import Models
+import OSLog
 
 final class UpcomingClassesGenerator: UpcomingClassesGenerating {
-
     private let calendar: Calendar
 
     init(calendar: Calendar = Calendar.mondayFirst) {
@@ -38,13 +36,11 @@ final class UpcomingClassesGenerator: UpcomingClassesGenerating {
 }
 
 private extension UpcomingClassesGenerator {
-
     func generateRecurring(
         classModel: ClassModel,
         now: Date,
         endOfWeek: Date
     ) -> [UpcomingClassModel] {
-
         let event = classModel.event
         let recurrence = event.weeklyReccurance
 
@@ -130,4 +126,3 @@ extension DayRecurrenceType {
         }
     }
 }
-

@@ -5,10 +5,10 @@
 //  Created by Oleh Rozkvas on 23.01.2026.
 //
 
+import Configs
 import Foundation
 import Models
 import OSLog
-import Configs
 
 public final class AuthRepositoryImpl: AuthRepository {
     private let baseUrl = Config.baseURL
@@ -17,10 +17,12 @@ public final class AuthRepositoryImpl: AuthRepository {
     private let jwtDecoder: JwtDecoder
     private let sseClient: SSEClient
 
-    init(apiClient: APIClient,
-         tokenStore: TokenStore,
-         jwtDecoder: JwtDecoder,
-         sseClient: SSEClient) {
+    init(
+        apiClient: APIClient,
+        tokenStore: TokenStore,
+        jwtDecoder: JwtDecoder,
+        sseClient: SSEClient
+    ) {
         self.apiClient = apiClient
         self.tokenStore = tokenStore
         self.jwtDecoder = jwtDecoder
@@ -53,7 +55,6 @@ public final class AuthRepositoryImpl: AuthRepository {
 }
 
 extension AuthRepositoryImpl {
-
     func loginViaTelegram(credentials: Credentials) async throws -> UserIdentifier {
         do {
             let sessionId = try await startTelegramLogin(credentials: credentials)
@@ -102,7 +103,7 @@ extension AuthRepositoryImpl {
     }
 }
 
-enum AuthRepositoryError : Error {
+enum AuthRepositoryError: Error {
     case notImplemented(Credentials)
     case sessionExpired
 }

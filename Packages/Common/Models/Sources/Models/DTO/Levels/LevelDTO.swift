@@ -17,8 +17,8 @@ public struct LevelDTO: Identifiable, Decodable {
     }
 }
 
-extension LevelDTO {
-    public func toDomain() -> Level {
+public extension LevelDTO {
+    func toDomain() -> Level {
         Level(id: id, colorHex: colorHex, title: title)
     }
 }

@@ -8,7 +8,6 @@
 import Models
 
 final class TeachersRepositoryImpl: TeachersRepository {
-
     let apiClient: APIClient
 
     init(apiClient: APIClient) {

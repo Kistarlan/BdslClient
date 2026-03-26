@@ -5,10 +5,10 @@
 //  Created by Oleh Rozkvas on 03.02.2026.
 //
 
-import SwiftUI
-import Models
 import DesignSystem
+import Models
 import Navigation
+import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.theme) private var theme
@@ -26,7 +26,6 @@ struct SettingsView: View {
         ZStack {
             ScrollView {
                 VStack(spacing: theme.layout.spacing.ml) {
-
                     if let user = viewModel.user {
                         ProfileHeaderView(user: user, avatarImage: avatarImage)
 
@@ -118,7 +117,7 @@ struct SettingsView: View {
                 value: appState.notificationLeadTime.displayName(locale: locale),
                 destination: .push(.notificationSettings)
             )
-//TODO: implement when it will be possible
+            // TODO: implement when it will be possible
 //            SettingsRowView(
 //                leftIcon: "lock",
 //                title: .changePassword,
@@ -138,7 +137,6 @@ struct SettingsView: View {
 }
 
 #Preview {
-
     let router: Router = .previewRouter()
     NavigationContainer(parentRouter: router) {
         ZStack {

@@ -63,11 +63,10 @@ public enum UserSubscriptionDTO: Identifiable, Decodable {
     }
 }
 
-extension UserSubscriptionDTO {
-    public func toDomain(_ activities: [Activity]) -> UserSubscription {
+public extension UserSubscriptionDTO {
+    func toDomain(_ activities: [Activity]) -> UserSubscription {
         switch self {
-
-        case .regular(let dto):
+        case let .regular(dto):
             return UserSubscription(
                 id: dto.id,
                 activities: activities,
@@ -87,7 +86,7 @@ extension UserSubscriptionDTO {
                 category: dto.endDate < Date() ? .expired : .active
             )
 
-        case .credit(let dto):
+        case let .credit(dto):
             return UserSubscription(
                 id: dto.id,
                 activities: activities,
@@ -107,7 +106,7 @@ extension UserSubscriptionDTO {
                 category: .credit
             )
 
-        case .volunteer(let dto):
+        case let .volunteer(dto):
             return UserSubscription(
                 id: dto.id,
                 activities: activities,
@@ -127,7 +126,7 @@ extension UserSubscriptionDTO {
                 category: .volonteer
             )
 
-        case .ticket(let dto):
+        case let .ticket(dto):
             return UserSubscription(
                 id: dto.id,
                 activities: activities,

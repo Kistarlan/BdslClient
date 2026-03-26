@@ -7,10 +7,10 @@
 
 import Foundation
 import OSLog
-import SwiftUI
 import Services
+import SwiftUI
 #if DEBUG
-import PreviewServices
+    import PreviewServices
 #endif
 
 final class AppContainer {

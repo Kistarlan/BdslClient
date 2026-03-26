@@ -10,10 +10,10 @@ let package = Package(
         .library(
             name: "Navigation",
             targets: ["Navigation"]
-        ),
+        )
     ],
     dependencies: [
-        .package(path: "../../Common/Models"),
+        .package(path: "../../Common/Models")
     ],
     targets: [
         .target(

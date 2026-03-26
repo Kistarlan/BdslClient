@@ -5,7 +5,7 @@
 //  Created by Oleh Rozkvas on 16.03.2026.
 //
 
-public actor CachingManagerImpl : CachingManager {
+public actor CachingManagerImpl: CachingManager {
     private var services: [any CacheableService] = []
 
     public init(services: [any CacheableService] = []) {
@@ -25,7 +25,7 @@ public actor CachingManagerImpl : CachingManager {
             await service.clearUserCache()
         }
     }
-    
+
     public func register(service: any CacheableService) {
         services.append(service)
     }

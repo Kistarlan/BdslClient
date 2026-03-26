@@ -5,9 +5,9 @@
 //  Created by Oleh Rozkvas on 24.02.2026.
 //
 
-import SwiftUI
-import Models
 import DesignSystem
+import Models
+import SwiftUI
 
 struct AttendeesScreen: View {
     @Environment(\.theme) private var theme
@@ -15,20 +15,19 @@ struct AttendeesScreen: View {
 
     var displayedAttendees: [AttendeeModel] {
         if viewModel.isLoading {
-            return (0..<5).map { _ in .placeholder() }
+            return (0 ..< 5).map { _ in .placeholder() }
         }
 
         return viewModel.attendees
     }
 
     init(attendeesViewModel: AttendeesViewModel) {
-        self.viewModel = attendeesViewModel
+        viewModel = attendeesViewModel
     }
 
     var body: some View {
         ScrollView {
             VStack(spacing: theme.layout.spacing.l) {
-
                 SubscriptionDetailCard(subscription: viewModel.userSubscription)
 
                 attendeesHeaderSection
@@ -62,7 +61,7 @@ struct AttendeesScreen: View {
     }
 
     var attendeesHeaderSection: some View {
-        HStack() {
+        HStack {
             VStack {
                 Spacer()
                 HStack(spacing: 0) {
@@ -90,7 +89,6 @@ struct AttendeesScreen: View {
 
             Spacer()
         }
-
     }
 
     var emptyStateView: some View {

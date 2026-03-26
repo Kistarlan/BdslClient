@@ -16,6 +16,7 @@ public struct UserDTO: Codable {
     public let avatar: AvatarDTO?
 
     // MARK: - CodingKeys
+
     private enum CodingKeys: String, CodingKey {
         case id
         case name
@@ -27,6 +28,7 @@ public struct UserDTO: Codable {
     }
 
     // MARK: - Manual initializer
+
     public init(
         id: String,
         name: String,
@@ -46,16 +48,17 @@ public struct UserDTO: Codable {
     }
 
     // MARK: - Codable
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.surname = try container.decodeIfPresent(String.self, forKey: .surname)
-        self.fullName = try container.decode(String.self, forKey: .fullName)
-        self.role = try container.decode(String.self, forKey: .role)
-        self.contacts = try container.decode(ContactDTO.self, forKey: .contacts)
-        self.avatar = try container.decodeIfPresent(AvatarDTO.self, forKey: .avatar)
+        id = try container.decode(String.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        surname = try container.decodeIfPresent(String.self, forKey: .surname)
+        fullName = try container.decode(String.self, forKey: .fullName)
+        role = try container.decode(String.self, forKey: .role)
+        contacts = try container.decode(ContactDTO.self, forKey: .contacts)
+        avatar = try container.decodeIfPresent(AvatarDTO.self, forKey: .avatar)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -71,8 +74,8 @@ public struct UserDTO: Codable {
     }
 }
 
-extension UserDTO {
-    public func toDomain() -> User {
+public extension UserDTO {
+    func toDomain() -> User {
         User(
             id: id,
             fullName: fullName,

@@ -5,9 +5,9 @@
 //  Created by Oleh Rozkvas on 12.02.2026.
 //
 
-import SwiftUI
-import Models
 import DesignSystem
+import Models
+import SwiftUI
 
 struct CustomTextField: View {
     // MARK: - Environment
@@ -74,7 +74,7 @@ private extension CustomTextField {
                     Text(prefix)
                 }
 
-                TextField(text: $text) { }
+                TextField(text: $text) {}
                     .focused($isFocused)
                     .keyboardType(keyboardType)
                     .textContentType(textContentType)

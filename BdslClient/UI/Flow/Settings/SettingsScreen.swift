@@ -5,9 +5,9 @@
 //  Created by Oleh Rozkvas on 04.02.2026.
 //
 
-import SwiftUI
 import Models
 import Navigation
+import SwiftUI
 
 struct SettingsScreen: View {
     @Environment(\.locale) private var locale
