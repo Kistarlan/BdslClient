@@ -109,7 +109,11 @@ extension Calendar {
     }
 
     func endOfWeek(for date: Date) -> Date {
-        dateInterval(of: .weekOfYear, for: date)!.end
+        guard let interval = dateInterval(of: .weekOfYear, for: date) else {
+            return date
+        }
+
+        return self.date(byAdding: .second, value: -1, to: interval.end)!
     }
 }
 
