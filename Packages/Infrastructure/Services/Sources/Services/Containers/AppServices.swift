@@ -26,6 +26,10 @@ public struct AppServices {
     public let groupsService: GroupsService
     public let cachingManager: CachingManager
 
+    // MARK: - Settings
+
+    public let appSettings: AppSettings
+
     // MARK: - Designated initializer (builds service graph)
     public init(
         tokenStore: TokenStore,
@@ -95,6 +99,8 @@ public struct AppServices {
         ))
 
         groupsService = GroupsServiceImpl(groupsRepository: groupsRepository)
+
+        appSettings = AppSettingsImpl()
     }
 }
 

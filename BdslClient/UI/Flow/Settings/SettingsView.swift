@@ -15,6 +15,7 @@ struct SettingsView: View {
     @EnvironmentObject private var appState: AppState
     @Bindable var viewModel: SettingsViewModel
     @Environment(Router.self) private var router
+    @Environment(\.locale) private var locale
 
     var avatarImage: UIImage? {
         guard let avatarData = viewModel.avatarData else { return nil }
@@ -111,6 +112,12 @@ struct SettingsView: View {
 
             getDivider()
 
+            SettingsRowView(
+                leftIcon: "bell",
+                title: .notification,
+                value: appState.notificationLeadTime.displayName(locale: locale),
+                destination: .push(.notificationSettings)
+            )
 //TODO: implement when it will be possible
 //            SettingsRowView(
 //                leftIcon: "lock",

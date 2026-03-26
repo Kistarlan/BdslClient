@@ -192,6 +192,17 @@
         }
       }
     },
+    "Custom" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Власний"
+          }
+        }
+      }
+    },
     "Dark" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -298,6 +309,51 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Головна"
+          }
+        }
+      }
+    },
+    "hour" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "годину"
+          }
+        }
+      }
+    },
+    "hoursFew" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hours"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "години"
+          }
+        }
+      }
+    },
+    "hoursMany" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hours"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "годин"
           }
         }
       }
@@ -517,6 +573,17 @@
         }
       }
     },
+    "never" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ніколи"
+          }
+        }
+      }
+    },
     "No Internet Connection" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -539,6 +606,28 @@
         }
       }
     },
+    "Notification" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нагадування"
+          }
+        }
+      }
+    },
+    "Notifications" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нагадування"
+          }
+        }
+      }
+    },
     "noVisitsYetDescription" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -552,6 +641,17 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "За цим абонементом ще не зафіксовано жодного відвідування.\n"
+          }
+        }
+      }
+    },
+    "Off" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вимкнено"
           }
         }
       }
@@ -662,6 +762,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Абонемент"
+          }
+        }
+      }
+    },
+    "Reminder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нагадування"
           }
         }
       }

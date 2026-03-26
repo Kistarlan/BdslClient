@@ -18,6 +18,8 @@ import Models
         AttendeesScreen(attendeesViewModel: vmFactory.makeAttendeesViewModel(userSubscription: userSubscription))
     case .login:
         LoginScreen(vmFactory.makeLoginViewModel())
+    case .notificationSettings:
+        NotificationSettingsScreen(viewModel: vmFactory.makeNotificationSettingsViewModel())
     default:
         LoginBackgroundView()
     }

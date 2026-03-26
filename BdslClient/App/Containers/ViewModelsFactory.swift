@@ -42,6 +42,12 @@ struct ViewModelsFactory {
         )
     }
 
+    func makeNotificationSettingsViewModel() -> NotificationSettingsViewModel {
+        NotificationSettingsViewModel(
+            appState: appState
+        )
+    }
+
     func makeMainViewModel() -> MainViewModel {
         MainViewModel(
             settingsViewModel: makeSettingsViewModel(),

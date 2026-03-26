@@ -81,3 +81,29 @@ extension ThemeMode {
         }
     }
 }
+
+extension NotificationLeadTime {
+    func displayName(locale: Locale) -> String {
+        switch self {
+        case .preset(let value), .custom(let value):
+            return localizedHours(value, locale: locale)
+        case .disabled:
+            return LocalizedStringResource.never.localized(locale: locale)
+        }
+    }
+}
+
+func localizedHours(_ value: Int, locale: Locale) -> String {
+    let hoursLocalized = localizedHours(value).localized(locale: locale)
+    return "\(value) \(hoursLocalized)"
+}
+
+fileprivate func localizedHours(_ value: Int) -> LocalizedStringResource {
+    if value % 10 == 1 && value != 11 {
+        return .hour
+    } else if (2...4).contains(value % 10) && !(12...14).contains(value) {
+        return .hoursFew
+    } else {
+        return .hoursMany
+    }
+}

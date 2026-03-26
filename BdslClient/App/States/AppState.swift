@@ -14,60 +14,62 @@ import Services
 
 @MainActor
 final class AppState: ObservableObject {
-    private static let themeModeKey = "themeMode"
-    private static let languageKey = "language"
+
     private let authRepository: AuthRepository
     private let cachingManager: CachingManager
     private let usersService: UsersService
+    private let networkState: NetworkState
     private var userDefaults: UserDefaults = .standard
     private var cancellables = Set<AnyCancellable>()
     private var isBootstrapping: Bool = false
+    private var settings: AppSettings
 
     @Published private(set) var state: AppFlowState = .splash
     @Published var isNetworkAvailable: Bool
     @Published var themeMode: ThemeMode {
         didSet {
             guard oldValue != themeMode else { return }
-            userDefaults.set(themeMode.rawValue, forKey: AppState.themeModeKey)
+            settings.themeMode = themeMode
         }
     }
     @Published var appLanguage: AppLanguage {
         didSet {
             guard oldValue != appLanguage else { return }
-            userDefaults.set(appLanguage.rawValue, forKey: AppState.languageKey)
+            settings.appLanguage = appLanguage
+        }
+    }
+    @Published var notificationLeadTime: NotificationLeadTime {
+        didSet {
+            guard oldValue != notificationLeadTime else { return }
+            settings.notificationLeadTime = notificationLeadTime
         }
     }
 
     init(authRepository: AuthRepository,
          usersService: UsersService,
          cachingManager: CachingManager,
-         networkState: NetworkState) {
+         networkState: NetworkState,
+         appSettings: AppSettings) {
+
         self.authRepository = authRepository
         self.usersService = usersService
         self.cachingManager = cachingManager
-
-        if let raw = userDefaults.string(forKey: AppState.themeModeKey),
-           let saved = ThemeMode(rawValue: raw)
-        {
-            themeMode = saved
-        } else {
-            themeMode = .system
-        }
-
-        if let raw = userDefaults.string(forKey: AppState.languageKey),
-           let saved = AppLanguage(rawValue: raw)
-        {
-            appLanguage = saved
-        } else {
-            appLanguage = .system
-        }
+        self.settings = appSettings
+        self.networkState = networkState
+        self.themeMode = settings.themeMode
+        self.appLanguage = settings.appLanguage
+        self.notificationLeadTime = settings.notificationLeadTime
 
         isNetworkAvailable = networkState.isConnected
 
+        subscribeToEvents()
+    }
+
+    func subscribeToEvents() {
         networkState.$isConnected
             .sink { [weak self] connected in
                 guard self != nil,
-                        self?.isNetworkAvailable != connected else { return }
+                      self?.isNetworkAvailable != connected else { return }
 
                 self!.isNetworkAvailable = connected
                 if !self!.state.isAuthenticated {

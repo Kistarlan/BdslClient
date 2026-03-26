@@ -47,6 +47,7 @@ public enum PushDestination: Hashable, CustomStringConvertible {
     case changePassword
     case themeSettings
     case profileInfo
+    case notificationSettings
 
     // MARK: - Home
 
@@ -66,6 +67,7 @@ public enum PushDestination: Hashable, CustomStringConvertible {
         case let .subsctiptionDetails(userSubscription): return ".subsctiptionDetails(\(userSubscription.id))"
         case .profileInfo: return ".profileInfo"
         case .settings: return ".settings"
+        case .notificationSettings: return ".notificationSettings"
         }
     }
 }
