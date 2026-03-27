@@ -34,7 +34,8 @@ final class AppContainer {
             usersService: services.usersService,
             cachingManager: services.cachingManager,
             networkState: NetworkState(monitor: NetworkMonitor()),
-            appSettings: services.appSettings
+            appSettings: services.appSettings,
+            notificationManager: services.notificationManager
         )
 
         viewModelsFactory = ViewModelsFactory(appServices: services, appState: appState)

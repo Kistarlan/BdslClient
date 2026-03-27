@@ -7,7 +7,7 @@
 
 import Models
 
-public protocol AppSettings {
+public protocol AppSettings : Sendable {
     var themeMode: ThemeMode { get set }
     var appLanguage: AppLanguage { get set }
     var notificationLeadTime: NotificationLeadTime { get set }

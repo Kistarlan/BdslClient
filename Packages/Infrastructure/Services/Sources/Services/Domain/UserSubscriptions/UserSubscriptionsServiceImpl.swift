@@ -18,15 +18,18 @@ final class UserSubscriptionsServiceImpl: UserSubscriptionsService {
     private let userSubscriptionsRepository: UserSubscriptionsRepository
     private let eventsService: EventsService
     private let activityService: ActivityService
+    private let upcommingClassGenerator: UpcomingClassesGenerating
 
     init(
         userSubscriptionsRepository: UserSubscriptionsRepository,
         eventsService: EventsService,
-        activityService: ActivityService
+        activityService: ActivityService,
+        upcommingClassGenerator: UpcomingClassesGenerating
     ) {
         self.userSubscriptionsRepository = userSubscriptionsRepository
         self.eventsService = eventsService
         self.activityService = activityService
+        self.upcommingClassGenerator = upcommingClassGenerator
     }
 
     func fetchUserSubscriptions(for userId: String, forceReload: Bool) async throws -> [UserSubscription] {
@@ -67,25 +70,44 @@ final class UserSubscriptionsServiceImpl: UserSubscriptionsService {
         }
     }
 
-    func loadUpcommingClasses(for userId: String, forceReload: Bool) async throws -> [UpcomingClassModel] {
+    func loadUpcomingClasses(
+        for userId: String,
+        range: ClassGeneratingRange,
+        forceReload: Bool
+    ) async throws -> [UpcomingClassModel] {
         let isCacheEmpty = await classesCache.isEmpty
 
         if forceReload || isCacheEmpty {
-            try await fetchClassAttendees(userId: userId, forceReload: forceReload)
+            try await fetchClassAttendees(userId: userId, forceReload: false)
         }
 
         let userClasses = await classesCache.getAll()
+        let actual = userClasses.filter {
+            $0.event.weeklyReccurance.untilDate > Date()
+        }
 
-        let actualClasses = userClasses.filter { $0.event.weeklyReccurance.untilDate > Date() }
-
-        let generator = UpcomingClassesGenerator()
-
-        let upcommingClasses = generator.generate(
-            from: actualClasses,
-            now: Date()
+        let upcommingClasses = upcommingClassGenerator.generate(
+            from: actual,
+            now: Date(),
+            horizon: getHorizonForClassGenerating(range)
         )
 
-        return upcommingClasses.sorted { $0.concreateTime > $1.concreateTime }
+        logger.info("Loaded \(upcommingClasses.count) upcoming classes from \(actual.count) instances for \(range.description) range")
+
+        return upcommingClasses
+    }
+
+    private func getHorizonForClassGenerating(_ range: ClassGeneratingRange) -> TimeInterval {
+        switch range {
+        case .week:
+            return TimeInterval.week
+        case .endOfWeek:
+            return TimeInterval.endOfWeek
+        case .month:
+            return TimeInterval.month
+        case let .days(daysCount):
+            return TimeInterval.from(days: daysCount)
+        }
     }
 
     // MARK: - load data from repositories and fill cache

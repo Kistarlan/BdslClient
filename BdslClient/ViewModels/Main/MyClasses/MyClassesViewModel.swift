@@ -84,8 +84,9 @@ final class MyClassesViewModel {
             localizedError = nil
 
             upcomingClasses = try await fetchWithNetworkCheck(.seconds(5)) {
-                try await self.userSubscriptionsService.loadUpcommingClasses(
+                try await self.userSubscriptionsService.loadUpcomingClasses(
                     for: user.id,
+                    range: .week,
                     forceReload: forceReload
                 )
             }

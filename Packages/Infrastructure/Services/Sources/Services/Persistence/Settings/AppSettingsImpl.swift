@@ -8,7 +8,7 @@
 import Foundation
 import Models
 
-final class AppSettingsImpl: AppSettings {
+final class AppSettingsImpl: @unchecked Sendable, AppSettings {
     private let userDefaults: UserDefaults
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()

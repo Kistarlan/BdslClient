@@ -12,5 +12,9 @@ public protocol UserSubscriptionsService: CacheableService, UserCacheableService
     func fetchUserSubscriptions(for userId: String, forceReload: Bool) async throws -> [UserSubscription]
     func fetchSubscriptionAttendees(userSubscription: UserSubscription, forceReload: Bool) async throws
         -> [AttendeeModel]
-    func loadUpcommingClasses(for userId: String, forceReload: Bool) async throws -> [UpcomingClassModel]
+
+    func loadUpcomingClasses(
+        for userId: String,
+        range: ClassGeneratingRange,
+        forceReload: Bool) async throws -> [UpcomingClassModel]
 }

@@ -18,6 +18,7 @@ final class AppState: ObservableObject {
     private let cachingManager: CachingManager
     private let usersService: UsersService
     private let networkState: NetworkState
+    private let notificationManager: NotificationManager
     private var userDefaults: UserDefaults = .standard
     private var cancellables = Set<AnyCancellable>()
     private var isBootstrapping: Bool = false
@@ -51,13 +52,15 @@ final class AppState: ObservableObject {
         usersService: UsersService,
         cachingManager: CachingManager,
         networkState: NetworkState,
-        appSettings: AppSettings
+        appSettings: AppSettings,
+        notificationManager: NotificationManager
     ) {
         self.authRepository = authRepository
         self.usersService = usersService
         self.cachingManager = cachingManager
-        settings = appSettings
+        self.settings = appSettings
         self.networkState = networkState
+        self.notificationManager = notificationManager
         themeMode = settings.themeMode
         appLanguage = settings.appLanguage
         notificationLeadTime = settings.notificationLeadTime
@@ -65,6 +68,32 @@ final class AppState: ObservableObject {
         isNetworkAvailable = networkState.isConnected
 
         subscribeToEvents()
+    }
+
+    func requestNotificationsPermission() async {
+        //TODO: extract it from here and use in normal place
+        let center = UNUserNotificationCenter.current()
+
+        do {
+            let granted = try await center.requestAuthorization(
+                options: [.alert, .sound, .badge]
+            )
+
+            if granted {
+                print("✅ Notifications allowed")
+            } else {
+                print("❌ Notifications denied")
+            }
+        } catch {
+            print("❌ Error: \(error)")
+        }
+    }
+
+    func updateNotificationSettings(_ leadTime: NotificationLeadTime) async {
+        notificationLeadTime = leadTime
+        if case let .authenticated(user) = state {
+            try? await notificationManager.initOrUpdateNotifications(for: user.id)
+        }
     }
 
     func subscribeToEvents() {
@@ -91,14 +120,23 @@ final class AppState: ObservableObject {
         Task {
             let authState = await restoreSession()
 
-            switch authState {
-            case let .authenticated(user):
-                state = .authenticated(user)
-            case .unauthenticated, .expired, .undefined:
-                state = .unauthenticated
-            }
+            await handleState(authState)
+            await requestNotificationsPermission()
 
             isBootstrapping = false
+        }
+    }
+
+    private func handleState(_ authState: AuthState) async {
+        switch authState {
+        case let .authenticated(user):
+            state = .authenticated(user)
+
+            try? await notificationManager.initOrUpdateNotifications(for: user.id)
+        case .unauthenticated, .expired, .undefined:
+            state = .unauthenticated
+
+            try? await notificationManager.cancelAll()
         }
     }
 

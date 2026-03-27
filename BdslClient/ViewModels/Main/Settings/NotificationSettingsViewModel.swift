@@ -13,7 +13,7 @@ import SwiftUI
 final class NotificationSettingsViewModel {
     private let appState: AppState
 
-    var selected: NotificationLeadTime = .preset(1)
+    var selected: NotificationLeadTime
     var initialValue: NotificationLeadTime
 
     var isCustom: Bool {
@@ -48,6 +48,8 @@ final class NotificationSettingsViewModel {
     }
 
     func save() {
-        appState.notificationLeadTime = selected
+        Task {
+            await appState.updateNotificationSettings(selected)
+        }
     }
 }

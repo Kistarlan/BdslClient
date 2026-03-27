@@ -25,6 +25,7 @@ public struct AppServices {
     public let eventsService: EventsService
     public let groupsService: GroupsService
     public let cachingManager: CachingManager
+    public let notificationManager: NotificationManager
 
     // MARK: - Settings
 
@@ -47,6 +48,11 @@ public struct AppServices {
     ) {
         self.tokenStore = tokenStore
         self.authRepository = authRepository
+
+        let notificationScheduler = NotificationSchedulerImpl(
+            service: NotificationBuilderImpl(),
+            manager: NotificationServiceImpl()
+        )
 
         usersService = UsersServiceImpl(
             usersRepository: usersRepository
@@ -84,7 +90,8 @@ public struct AppServices {
         userSubscriptionsService = UserSubscriptionsServiceImpl(
             userSubscriptionsRepository: userSubscriptionsRepository,
             eventsService: eventsService,
-            activityService: activityService
+            activityService: activityService,
+            upcommingClassGenerator: UpcomingClassesGenerator()
         )
 
         cachingManager = CachingManagerImpl(services: [any CacheableService](
@@ -102,6 +109,12 @@ public struct AppServices {
         groupsService = GroupsServiceImpl(groupsRepository: groupsRepository)
 
         appSettings = AppSettingsImpl()
+
+        notificationManager = NotificationManagerImpl(
+            notificationScheduler: notificationScheduler,
+            appSettings: appSettings,
+            userSubscriptionsService: userSubscriptionsService
+        )
     }
 }
 
