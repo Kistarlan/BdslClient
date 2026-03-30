@@ -26,11 +26,14 @@ actor NotificationServiceImpl: NotificationService {
             NotificationServiceImpl.bodyKey: notification.body
         ]
 
-        let trigger = UNCalendarNotificationTrigger(
-            dateMatching: Calendar.current.dateComponents(
-                [.year, .month, .day, .hour, .minute],
-                from: notification.fireDate
-            ),
+        let interval = notification.fireDate.timeIntervalSinceNow// + TimeInterval(minutes * 60) - for debug only
+
+        //for debug only
+        print("interval: \(Int(interval) / 3600)h \(Int(interval)%3600 / 60)m \(Int(interval) % 60) where fireDate: \(notification.fireDate) and classDate: \(notification.classDate)")
+        guard interval > 0 else { return }
+
+        let trigger = UNTimeIntervalNotificationTrigger(
+            timeInterval: interval,
             repeats: false
         )
 

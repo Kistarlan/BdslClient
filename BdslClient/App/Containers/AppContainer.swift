@@ -16,7 +16,7 @@ import SwiftUI
 final class AppContainer {
     static let shared: AppContainer = {
         #if DEBUG
-            return AppContainer(services: AppServices.shared)
+        return AppContainer(services: AppServices.buildServices(NotificationBuilderImpl()))
         #else
             return AppContainer(services: AppServices.shared)
         #endif
@@ -35,7 +35,8 @@ final class AppContainer {
             cachingManager: services.cachingManager,
             networkState: NetworkState(monitor: NetworkMonitor()),
             appSettings: services.appSettings,
-            notificationManager: services.notificationManager
+            notificationManager: services.notificationManager,
+            permissionService: services.permissionService
         )
 
         viewModelsFactory = ViewModelsFactory(appServices: services, appState: appState)

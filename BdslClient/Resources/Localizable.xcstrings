@@ -628,6 +628,17 @@
         }
       }
     },
+    "Notifications Disabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нотифікації не дозволені"
+          }
+        }
+      }
+    },
     "noVisitsYetDescription" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -674,6 +685,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Онлайн"
+          }
+        }
+      }
+    },
+    "Open Settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Відкрити налаштування"
           }
         }
       }
@@ -861,6 +883,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Налаштування"
+          }
+        }
+      }
+    },
+    "startsSoon" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starts soon"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Скоро розпочнеться"
           }
         }
       }

@@ -51,9 +51,22 @@ struct NotificationSettingsScreen: View {
                 Button {
                     saveAndPop()
                 } label: {
-                    Text("Save")
+                    Text(.save)
                 }
                 .disabled(!viewModel.isChanged)
+            }
+        }
+        .task {
+            await viewModel.requestNotificationPermission()
+        }
+        .alert(.notificationsDisabled, isPresented: $viewModel.showWarning) {
+            Button(.openSettings) {
+                viewModel.openAppSettings()
+                router.pop()
+            }
+
+            Button(.cancel, role: .cancel) {
+                router.pop()
             }
         }
     }

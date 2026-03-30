@@ -7,7 +7,7 @@
 
 import Models
 
-protocol NotificationBuilder {
+public protocol NotificationBuilder: Sendable {
     func buildNotifications(
         from classes: [UpcomingClassModel],
         leadTime: NotificationLeadTime

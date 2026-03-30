@@ -10,7 +10,7 @@ import Models
 import Services
 
 public extension AppServices {
-    static var preview: AppServices {
+    static func buildPreviewServices(notificationBuilder: NotificationBuilder) -> AppServices {
         let tokenStore = KeychainTokenStore(service: Config.tokenStoreService)
 
         let previewDataProvider = PreviewDataService()
@@ -66,7 +66,8 @@ public extension AppServices {
             levelsRepository: levelsRepository,
             locationsRepository: locationsRepository,
             teachersRepository: teachersRepository,
-            groupsRepository: groupsRepository
+            groupsRepository: groupsRepository,
+            notificationBuilder: notificationBuilder
         )
     }
 }

@@ -26,6 +26,7 @@ public struct AppServices {
     public let groupsService: GroupsService
     public let cachingManager: CachingManager
     public let notificationManager: NotificationManager
+    public let permissionService: PermissionService
 
     // MARK: - Settings
 
@@ -44,13 +45,14 @@ public struct AppServices {
         levelsRepository: LevelsRepository,
         locationsRepository: LocationsRepository,
         teachersRepository: TeachersRepository,
-        groupsRepository: GroupsRepository
+        groupsRepository: GroupsRepository,
+        notificationBuilder: NotificationBuilder
     ) {
         self.tokenStore = tokenStore
         self.authRepository = authRepository
 
         let notificationScheduler = NotificationSchedulerImpl(
-            service: NotificationBuilderImpl(),
+            service: notificationBuilder,
             manager: NotificationServiceImpl()
         )
 
@@ -115,11 +117,13 @@ public struct AppServices {
             appSettings: appSettings,
             userSubscriptionsService: userSubscriptionsService
         )
+
+        permissionService = PermissionServiceImpl()
     }
 }
 
 public extension AppServices {
-    static var shared: AppServices {
+    static func buildServices(_ notificationBuilder: NotificationBuilder) -> AppServices {
         let tokenStore = KeychainTokenStore(service: Config.tokenStoreService)
         let jwtDecoder = JwtDecoderImpl()
         let apiClient = APIClientImpl(tokenStore: tokenStore, jwtDecoder: jwtDecoder)
@@ -180,7 +184,8 @@ public extension AppServices {
             levelsRepository: levelsRepository,
             locationsRepository: locationsRepository,
             teachersRepository: teachersRepository,
-            groupsRepository: groupsRepository
+            groupsRepository: groupsRepository,
+            notificationBuilder: notificationBuilder
         )
     }
 }

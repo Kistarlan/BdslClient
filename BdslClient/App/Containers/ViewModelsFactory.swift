@@ -44,7 +44,8 @@ struct ViewModelsFactory {
 
     func makeNotificationSettingsViewModel() -> NotificationSettingsViewModel {
         NotificationSettingsViewModel(
-            appState: appState
+            appState: appState,
+            permissionService: appServices.permissionService
         )
     }
 
