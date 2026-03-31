@@ -18,11 +18,9 @@ struct GroupListView: View {
     let groupSections: [ScheduleGroupSection]
 
     var body: some View {
-        LazyVStack(alignment: .leading, spacing: theme.layout.spacing.m) {
+        LazyVStack(alignment: .leading, spacing: theme.layout.spacing.m, pinnedViews: [.sectionHeaders]) {
             ForEach(groupSections) { section in
-                VStack(alignment: .leading, spacing: theme.layout.spacing.sm) {
-                    sectionHeader(days: section.days)
-
+                Section(header: sectionHeader(days: section.days)) {
                     ForEach(section.groups) { group in
                         NavigationButton(sheet: .groupDescription(group: group)) {
                             GroupRow(group: group, presentHallImage: !isLoading)

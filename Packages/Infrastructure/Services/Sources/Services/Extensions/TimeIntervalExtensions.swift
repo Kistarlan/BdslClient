@@ -12,14 +12,14 @@ extension TimeInterval {
 
     static var month: TimeInterval {
         if let days = Calendar.current.range(of: .day, in: .month, for: Date())?.count {
-            return Self.init(secondsInDay * days)
+            return from(days: days)
         } else {
-            return Self.init(secondsInDay * 30)
+            return from(days: 30)
         }
     }
 
     static var week: TimeInterval {
-        return Self.init(secondsInDay * 7)
+        return from(days: 7)
     }
 
     static var endOfWeek: TimeInterval {
@@ -29,6 +29,17 @@ extension TimeInterval {
     }
 
     static func from(days: Int) -> TimeInterval {
-        .init(secondsInDay * days)
+        guard let startOfTomorrow = Calendar.current.nextDate(
+            after: Date(),
+            matching: DateComponents(hour: 0, minute: 0, second: 0),
+            matchingPolicy: .nextTime
+        ) else {
+            return 0
+        }
+
+        let remainingToday = startOfTomorrow.timeIntervalSince(Date())
+        let sixFullDays = TimeInterval((days - 1) * secondsInDay)
+
+        return remainingToday + sixFullDays
     }
 }
