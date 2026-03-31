@@ -26,21 +26,24 @@ struct NotificationSettingsScreen: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 0) {
-                List {
-                    Section {
-                        offOption
+                ScrollView {
+                    VStack {
+                        VStack {
+                            offOption
 
-                        presetOptions
+                            presetOptions
 
-                        custopOption
+                            custopOption
+                        }
+                        .padding([.horizontal], theme.layout.spacing.m)
                     }
-                    .background(theme.colors.cardBackground)
+                    .applyGroupContainerStyle(theme)
                 }
-                .scrollContentBackground(.hidden)
+                .padding(theme.layout.spacing.m)
 
                 Spacer()
 
-                if viewModel.isCustom {
+                if viewModel.showCustomSelection {
                     pickerView
                 }
             }
@@ -84,6 +87,7 @@ struct NotificationSettingsScreen: View {
             ) {
                 viewModel.selectPreset(preset)
             }
+            .bottomDivider()
         }
     }
 
@@ -94,6 +98,7 @@ struct NotificationSettingsScreen: View {
         ) {
             viewModel.disable()
         }
+        .bottomDivider()
     }
 
     private var custopOption: some View {
@@ -108,6 +113,8 @@ struct NotificationSettingsScreen: View {
                 } else {
                     viewModel.selectCustom(1)
                 }
+            } else {
+                viewModel.showCustomSelection.toggle()
             }
         }
     }

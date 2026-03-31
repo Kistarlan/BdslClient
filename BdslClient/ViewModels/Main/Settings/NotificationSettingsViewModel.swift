@@ -19,6 +19,7 @@ final class NotificationSettingsViewModel {
     var initialValue: NotificationLeadTime
     var showWarning: Bool
 
+    var showCustomSelection: Bool
     var isCustom: Bool {
         if case .custom = selected {
             return true
@@ -40,6 +41,7 @@ final class NotificationSettingsViewModel {
         initialValue = appState.notificationLeadTime
 
         showWarning = false
+        showCustomSelection = false
     }
 
     func openAppSettings() {
@@ -54,14 +56,17 @@ final class NotificationSettingsViewModel {
 
     func selectPreset(_ value: NotificationLeadTime) {
         selected = value
+        showCustomSelection = false
     }
 
     func selectCustom(_ hours: Int) {
         selected = .custom(hours)
+        showCustomSelection = true
     }
 
     func disable() {
         selected = .disabled
+        showCustomSelection = false
     }
 
     func save() {

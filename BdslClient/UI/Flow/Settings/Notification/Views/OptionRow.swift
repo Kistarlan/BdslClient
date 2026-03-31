@@ -47,7 +47,7 @@ struct OptionRow: View {
                         .foregroundStyle(theme.colors.accent)
                 }
             }
-            .padding(.vertical, theme.layout.spacing.s)
+            .padding(.vertical, theme.layout.spacing.m)
         }
     }
 }

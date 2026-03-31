@@ -88,8 +88,7 @@ struct SettingsView: View {
                 localizedValue: appState.appLanguage.displayName,
                 destination: .push(.languageSettings)
             )
-
-            getDivider()
+            .bottomDivider([.leading, .trailing], theme.layout.spacing.m)
 
             SettingsRowView(
                 leftIcon: appState.themeMode.systemIcon,
@@ -108,8 +107,7 @@ struct SettingsView: View {
                 title: .userProfile,
                 destination: .push(.changeUserInfo(user: user))
             )
-
-            getDivider()
+            .bottomDivider([.leading, .trailing], theme.layout.spacing.m)
 
             SettingsRowView(
                 leftIcon: "bell",
@@ -125,14 +123,6 @@ struct SettingsView: View {
 //            )
         }
         .applyGroupContainerStyle(theme)
-    }
-
-    func getDivider() -> some View {
-        Divider()
-            .background(theme.colors.divider)
-            .frame(height: 1)
-            .padding(.leading, theme.layout.spacing.m)
-            .padding(.trailing, theme.layout.spacing.m)
     }
 }
 
