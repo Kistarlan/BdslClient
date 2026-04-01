@@ -36,8 +36,6 @@ struct SettingsView: View {
 
                     if appState.state.isAuthenticated {
                         logOutButton
-                    } else {
-                        loginButton
                     }
 
                     Spacer()
@@ -65,17 +63,6 @@ struct SettingsView: View {
                 }
                 .padding(theme.layout.spacing.m)
             }
-        }
-        .applyGroupContainerStyle(theme)
-    }
-
-    var loginButton: some View {
-        VStack {
-            SettingsRowView(
-                title: .login,
-                rightIcon: "person.crop.circle",
-                destination: .push(.login)
-            )
         }
         .applyGroupContainerStyle(theme)
     }

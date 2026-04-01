@@ -14,6 +14,7 @@ struct ScheduleScreen: View {
     @Environment(\.theme) private var theme
 
     @State private var viewModel: ScheduleViewModel
+    @Environment(AppState.self) private var appState
 
     var displayedSections: [ScheduleGroupSection] {
         if !viewModel.isInitialized {
@@ -56,6 +57,15 @@ struct ScheduleScreen: View {
         }
         .navigationTitle(Text(.schedule))
         .toolbar {
+            if !appState.state.isAuthenticated {
+                ToolbarItem(placement: .topBarLeading) {
+                    NavigationButton(push: PushDestination.login) {
+                        Text(.login)
+                            .foregroundColor(theme.colors.accent)
+                    }
+                }
+            }
+
             ToolbarItem(placement: .topBarTrailing) {
                 SettingsButton()
             }

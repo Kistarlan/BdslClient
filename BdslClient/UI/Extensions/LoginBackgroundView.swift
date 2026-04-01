@@ -29,28 +29,6 @@ struct LoginBackgroundView: View {
             startPoint: .top,
             endPoint: .bottom
         )
-
-//        if appState.themeMode == .dark {
-//            return LinearGradient(
-//                stops: [
-//                    Gradient.Stop(color: .white.opacity(0.1), location: 0),
-//                    Gradient.Stop(color: .clear, location: 0.6),
-//                    Gradient.Stop(color: .black.opacity(0.5), location: 1)
-//                ],
-//                startPoint: .top,
-//                endPoint: .bottom
-//            )
-//        } else {
-//            return LinearGradient(
-//                stops: [
-//                    Gradient.Stop(color: .black.opacity(0.05), location: 0),
-//                    Gradient.Stop(color: .clear, location: 0.6),
-//                    Gradient.Stop(color: .white.opacity(0.2), location: 1)
-//                ],
-//                startPoint: .top,
-//                endPoint: .bottom
-//            )
-//        }
     }
 }
 

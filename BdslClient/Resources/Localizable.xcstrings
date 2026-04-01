@@ -460,10 +460,16 @@
     "Login" : {
       "extractionState" : "manual",
       "localizations" : {
-        "uk" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Логін"
+            "value" : "Sign in"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Увійти"
           }
         }
       }
@@ -496,7 +502,7 @@
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Увійти за через"
+            "value" : "Увійти за допомогою"
           }
         }
       }
@@ -1005,10 +1011,16 @@
     "Telegram" : {
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Telegram Bot"
+          }
+        },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Телеграм"
+            "value" : "Телеграм Бот"
           }
         }
       }
