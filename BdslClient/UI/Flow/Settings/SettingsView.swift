@@ -12,7 +12,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.theme) private var theme
-    @EnvironmentObject private var appState: AppState
+    @Environment(AppState.self) private var appState
     @Bindable var viewModel: SettingsViewModel
     @Environment(Router.self) private var router
     @Environment(\.locale) private var locale

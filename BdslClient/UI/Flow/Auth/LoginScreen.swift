@@ -11,7 +11,7 @@ import Navigation
 import SwiftUI
 
 struct LoginScreen: View {
-    @EnvironmentObject private var appState: AppState
+    @Environment(AppState.self) private var appState
     @Environment(Router.self) private var router
     @Environment(\.theme) private var theme
     @State private var viewModel: LoginViewModel

@@ -26,6 +26,6 @@ extension View {
         )
         .environment(router ?? .previewRouter())
         .preferredColorScheme(themeMode == .dark ? .dark : .light)
-        .environmentObject(appState)
+        .environment(appState)
     }
 }

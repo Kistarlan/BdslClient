@@ -9,7 +9,7 @@ import DesignSystem
 import SwiftUI
 
 struct SplashView: View {
-    @EnvironmentObject private var appState: AppState
+    @Environment(AppState.self) private var appState
     @Environment(\.theme) private var theme
 
     var body: some View {

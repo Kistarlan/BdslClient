@@ -5,7 +5,6 @@
 //  Created by Oleh Rozkvas on 23.01.2026.
 //
 
-import Combine
 import DesignSystem
 import Foundation
 import Models
@@ -13,38 +12,34 @@ import Services
 import SwiftUI
 
 @MainActor
-final class AppState: ObservableObject {
+@Observable
+final class AppState {
     private let authRepository: AuthRepository
     private let cachingManager: CachingManager
     private let usersService: UsersService
     private let networkState: NetworkState
     private let notificationManager: NotificationManager
     private let permissionService: PermissionService
-    private var cancellables = Set<AnyCancellable>()
     private var isBootstrapping: Bool = false
-    private var settings: AppSettings
+    private var appSettings: AppSettings
 
-    @Published private(set) var state: AppFlowState = .splash
-    @Published var isNetworkAvailable: Bool
-    @Published var themeMode: ThemeMode {
+    private(set) var state: AppFlowState = .splash
+    var isNetworkAvailable: Bool = true {
         didSet {
-            guard oldValue != themeMode else { return }
-            settings.themeMode = themeMode
+            guard oldValue != isNetworkAvailable else { return }
+            if !state.isAuthenticated {
+                bootstrap()
+            }
         }
     }
-
-    @Published var appLanguage: AppLanguage {
-        didSet {
-            guard oldValue != appLanguage else { return }
-            settings.appLanguage = appLanguage
-        }
+    var themeMode: ThemeMode {
+        didSet { appSettings.themeMode = themeMode }
     }
-
-    @Published var notificationLeadTime: NotificationLeadTime {
-        didSet {
-            guard oldValue != notificationLeadTime else { return }
-            settings.notificationLeadTime = notificationLeadTime
-        }
+    var appLanguage: AppLanguage {
+        didSet { appSettings.appLanguage = appLanguage }
+    }
+    var notificationLeadTime: NotificationLeadTime {
+        didSet { Task { await updateNotificationSettings(notificationLeadTime) } }
     }
 
     init(
@@ -59,13 +54,13 @@ final class AppState: ObservableObject {
         self.authRepository = authRepository
         self.usersService = usersService
         self.cachingManager = cachingManager
-        self.settings = appSettings
+        self.appSettings = appSettings
         self.networkState = networkState
         self.notificationManager = notificationManager
         self.permissionService = permissionService
-        themeMode = settings.themeMode
-        appLanguage = settings.appLanguage
-        notificationLeadTime = settings.notificationLeadTime
+        themeMode = appSettings.themeMode
+        appLanguage = appSettings.appLanguage
+        notificationLeadTime = appSettings.notificationLeadTime
 
         isNetworkAvailable = networkState.isConnected
 
@@ -91,17 +86,24 @@ final class AppState: ObservableObject {
     }
 
     func subscribeToEvents() {
-        networkState.$isConnected
-            .sink { [weak self] connected in
-                guard self != nil,
-                      self?.isNetworkAvailable != connected else { return }
-
-                self!.isNetworkAvailable = connected
-                if !self!.state.isAuthenticated {
-                    self!.bootstrap()
-                }
+        // Start a task that watches for changes in networkState.isConnected
+        Task { [weak self] in
+            guard let self else { return }
+            // Polling-free observation using withObservationTracking
+            while true {
+                await withTaskCancellationHandler {
+                    await withCheckedContinuation { continuation in
+                        withObservationTracking {
+                            _ = self.networkState.isConnected
+                        } onChange: {
+                            continuation.resume()
+                        }
+                    }
+                } onCancel: {}
+                // Apply changes after a change is detected
+                self.isNetworkAvailable = self.networkState.isConnected
             }
-            .store(in: &cancellables)
+        }
     }
 
     func bootstrap() {

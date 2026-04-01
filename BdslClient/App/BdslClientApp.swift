@@ -11,7 +11,7 @@ import SwiftUI
 @main
 struct BdslClientApp: App {
     @Environment(\.colorScheme) private var systemScheme
-    @StateObject private var appState = AppContainer.shared.appState
+    @State private var appState = AppContainer.shared.appState
 
     var body: some Scene {
         WindowGroup {
@@ -26,7 +26,7 @@ struct BdslClientApp: App {
                         : (appState.themeMode == .dark ? .dark : .light)
                 )
                 .environment(\.locale, resolvedLocale)
-                .environmentObject(appState)
+                .environment(appState)
         }
     }
 

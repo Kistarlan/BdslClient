@@ -11,7 +11,7 @@ import SwiftUI
 
 struct LoginBackgroundView: View {
     @Environment(\.theme) private var theme
-    @EnvironmentObject private var appState: AppState
+    @Environment(AppState.self) private var appState
 
     var body: some View {
         theme.colors.loginBackground

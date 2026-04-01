@@ -10,7 +10,7 @@ import OSLog
 import SwiftUI
 
 struct RootView: View {
-    @EnvironmentObject private var appState: AppState
+    @Environment(AppState.self) private var appState
     @State private var mainVM: MainViewModel = AppContainer.shared.viewModelsFactory.makeMainViewModel()
     @State var router: Router = .init(level: 0, identifierDestination: nil)
 

@@ -11,7 +11,7 @@ import Navigation
 import SwiftUI
 
 struct MainTabView: View {
-    @EnvironmentObject private var appState: AppState
+    @Environment(AppState.self) private var appState
     @Environment(\.theme) private var theme
     @Bindable var router: Router
     @State private var mainViewModel: MainViewModel

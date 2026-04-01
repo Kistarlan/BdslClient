@@ -11,7 +11,7 @@ import SwiftUI
 
 struct BackgroundView: View {
     @Environment(\.theme) private var theme
-    @EnvironmentObject private var appState: AppState
+    @Environment(AppState.self) private var appState
 
     var body: some View {
         if appState.themeMode == .dark {
