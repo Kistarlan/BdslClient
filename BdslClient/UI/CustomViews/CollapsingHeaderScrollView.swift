@@ -28,7 +28,7 @@ struct CollapsingHeaderView<Content: View>: View {
                     VStack(spacing: 0) {
                         Text(title)
                             .font(theme.typography.largeTitle)
-                            .fontWeight(.bold)
+                            .bold()
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
                             .background(

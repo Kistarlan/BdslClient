@@ -17,15 +17,15 @@ struct MyClassesScreen: View {
     @State private var viewModel: MyClassesViewModel
     var displayedSections: [GroupedSection<Date, UpcomingClassModel>] {
         if !viewModel.isInitialized {
-            return [
+            [
                 GroupedSection<Date, UpcomingClassModel>(
                     Date(),
                     (0 ..< 5).map { _ in UpcomingClassModel.placeholder() }
                 )
             ]
+        } else {
+            viewModel.groupedClasses
         }
-
-        return viewModel.groupedClasses
     }
 
     init(viewModel: MyClassesViewModel) {

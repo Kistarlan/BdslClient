@@ -20,22 +20,22 @@ struct ErrorView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 64, height: 64)
-                .foregroundColor(theme.colors.textError)
+                .foregroundStyle(theme.colors.textError)
 
             Text(errorMessage)
                 .font(theme.typography.error)
                 .multilineTextAlignment(.center)
-                .foregroundColor(theme.colors.textPrimary)
+                .foregroundStyle(theme.colors.textPrimary)
                 .padding(.horizontal, theme.layout.spacing.m)
 
             Button(action: retryAction) {
                 Text(.retry)
                     .font(theme.typography.button)
-                    .foregroundColor(theme.colors.buttonPrimaryForeground)
+                    .foregroundStyle(theme.colors.buttonPrimaryForeground)
                     .padding(.vertical, theme.layout.spacing.sm)
                     .padding(.horizontal, theme.layout.spacing.l)
                     .background(theme.colors.buttonPrimaryBackground)
-                    .cornerRadius(theme.layout.cornerRadius.m)
+                    .clipShape(.rect(cornerRadius: theme.layout.cornerRadius.m))
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

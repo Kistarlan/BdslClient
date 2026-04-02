@@ -22,14 +22,14 @@ struct SubscriptionDetailCard: View {
         VStack(alignment: .leading, spacing: theme.layout.spacing.s) {
             Text(userSubscription.title)
                 .font(theme.typography.sectionTitle)
-                .foregroundColor(theme.colors.textPrimary)
+                .foregroundStyle(theme.colors.textPrimary)
 
             SubscriptionBadge(userSubscription: userSubscription)
 
             if let metaText = subscriptionMetaText {
                 Text(metaText)
                     .font(theme.typography.body)
-                    .foregroundColor(theme.colors.textSecondary)
+                    .foregroundStyle(theme.colors.textSecondary)
             }
 
             if !userSubscription.activities.isEmpty {
@@ -39,13 +39,13 @@ struct SubscriptionDetailCard: View {
             if let dateText = userSubscription.dateRangeText(locale: locale) {
                 Text(dateText)
                     .font(theme.typography.caption)
-                    .foregroundColor(theme.colors.textSecondary)
+                    .foregroundStyle(theme.colors.textSecondary)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(theme.layout.spacing.m)
         .background(theme.colors.cardBackground)
-        .cornerRadius(theme.layout.cornerRadius.m)
+        .clipShape(.rect(cornerRadius: theme.layout.cornerRadius.m))
         .roundedBorder(
             radius: theme.layout.cornerRadius.m,
             borderColor: theme.colors.materialBorder

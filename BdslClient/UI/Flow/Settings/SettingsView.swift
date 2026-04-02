@@ -59,7 +59,7 @@ struct SettingsView: View {
                     Spacer()
 
                     Image(systemName: "rectangle.portrait.and.arrow.right")
-                        .foregroundColor(theme.colors.textSecondary)
+                        .foregroundStyle(theme.colors.textSecondary)
                 }
                 .padding(theme.layout.spacing.m)
             }
@@ -75,7 +75,7 @@ struct SettingsView: View {
                 localizedValue: appState.appLanguage.displayName,
                 destination: .push(.languageSettings)
             )
-            .bottomDivider([.leading, .trailing], theme.layout.spacing.m)
+            .bottomDivider(.horizontal, theme.layout.spacing.m)
 
             SettingsRowView(
                 leftIcon: appState.themeMode.systemIcon,
@@ -94,7 +94,7 @@ struct SettingsView: View {
                 title: .userProfile,
                 destination: .push(.changeUserInfo(user: user))
             )
-            .bottomDivider([.leading, .trailing], theme.layout.spacing.m)
+            .bottomDivider(.horizontal, theme.layout.spacing.m)
 
             SettingsRowView(
                 leftIcon: "bell",

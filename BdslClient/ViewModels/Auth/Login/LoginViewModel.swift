@@ -5,7 +5,7 @@
 //  Created by Oleh Rozkvas on 23.01.2026.
 //
 
-import Combine
+import SwiftUI
 import Foundation
 import Models
 import Services
@@ -75,5 +75,11 @@ final class LoginViewModel {
         password = ""
         loginError = nil
         phoneError = nil
+    }
+
+    func toggleLoginByPassword() {
+        withAnimation {
+            loginByPassword.toggle()
+        }
     }
 }

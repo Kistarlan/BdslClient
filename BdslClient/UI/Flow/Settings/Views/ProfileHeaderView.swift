@@ -35,7 +35,7 @@ struct ProfileHeaderView: View {
                 Image(systemName: "person.crop.circle.fill")
                     .resizable()
                     .frame(width: 96, height: 96)
-                    .foregroundColor(theme.colors.iconSecondary)
+                    .foregroundStyle(theme.colors.iconSecondary)
                     .clipShape(Circle())
             }
 
@@ -43,16 +43,16 @@ struct ProfileHeaderView: View {
                 .multilineTextAlignment(.center)
                 .font(theme.typography.screenTitle)
                 .fontWeight(.semibold)
-                .foregroundColor(theme.colors.textPrimary)
+                .foregroundStyle(theme.colors.textPrimary)
 
             Text(getProfileDescription())
                 .font(.subheadline)
-                .foregroundColor(.gray)
+                .foregroundStyle(.gray)
 
             if let email = user.contacts.email, !email.isEmpty {
                 Text(email)
                     .font(.subheadline)
-                    .foregroundColor(.gray)
+                    .foregroundStyle(.gray)
             }
         }
     }

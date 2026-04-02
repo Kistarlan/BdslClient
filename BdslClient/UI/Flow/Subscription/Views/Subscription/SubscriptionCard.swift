@@ -19,7 +19,7 @@ struct SubscriptionCard: View {
             VStack(alignment: .leading, spacing: theme.layout.spacing.xs) {
                 Text(subscription.title)
                     .font(theme.typography.body.weight(.semibold))
-                    .foregroundColor(theme.colors.textPrimary)
+                    .foregroundStyle(theme.colors.textPrimary)
 
                 description
             }
@@ -45,7 +45,7 @@ struct SubscriptionCard: View {
         }
         .padding(theme.layout.spacing.m)
         .background(theme.colors.cardBackground)
-        .cornerRadius(theme.layout.cornerRadius.m)
+        .clipShape(.rect(cornerRadius: theme.layout.cornerRadius.m))
         .roundedBorder(
             radius: theme.layout.cornerRadius.m,
             borderColor: theme.colors.materialBorder
@@ -57,7 +57,7 @@ private extension SubscriptionCard {
     var chevron: some View {
         Image(systemName: "chevron.right")
             .font(.system(size: 14, weight: .semibold))
-            .foregroundColor(theme.colors.textSecondary)
+            .foregroundStyle(theme.colors.textSecondary)
     }
 }
 
@@ -71,7 +71,7 @@ private extension SubscriptionCard {
             }
         }
         .font(theme.typography.secondary)
-        .foregroundColor(theme.colors.textSecondary)
+        .foregroundStyle(theme.colors.textSecondary)
     }
 
     var tintText: LocalizedStringResource {

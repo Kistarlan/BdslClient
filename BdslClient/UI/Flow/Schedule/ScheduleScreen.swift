@@ -35,7 +35,7 @@ struct ScheduleScreen: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: theme.layout.spacing.m) {
+            LazyVStack(spacing: theme.layout.spacing.m) {
                 if let localizedError = viewModel.localizedError {
                     ErrorView(errorMessage: localizedError) {
                         Task {
@@ -43,11 +43,9 @@ struct ScheduleScreen: View {
                         }
                     }
                 } else {
-                    VStack {
-                        FiltersView(viewModel: $viewModel)
+                    FiltersView(viewModel: $viewModel)
 
-                        GroupListView(isLoading: !viewModel.isInitialized, groupSections: displayedSections)
-                    }
+                    GroupListView(isLoading: !viewModel.isInitialized, groupSections: displayedSections)
                 }
             }
             .padding()
@@ -61,7 +59,7 @@ struct ScheduleScreen: View {
                 ToolbarItem(placement: .topBarLeading) {
                     NavigationButton(push: PushDestination.login) {
                         Text(.login)
-                            .foregroundColor(theme.colors.accent)
+                            .foregroundStyle(theme.colors.accent)
                     }
                 }
             }

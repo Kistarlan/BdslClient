@@ -75,7 +75,7 @@ private extension EditUserInfoView {
                     Image(systemName: "person.crop.circle.fill")
                         .resizable()
                         .frame(width: 96, height: 96)
-                        .foregroundColor(theme.colors.iconSecondary)
+                        .foregroundStyle(theme.colors.iconSecondary)
                         .clipShape(Circle())
                 }
             }
@@ -89,8 +89,8 @@ private extension EditUserInfoView {
             viewModel.showSourceDialog = true
         } label: {
             Text(.changeAvatar)
-                .fontWeight(.bold)
-                .foregroundColor(theme.colors.accent)
+                .bold()
+                .foregroundStyle(theme.colors.accent)
         }
         .confirmationDialog(.selectSource, isPresented: $viewModel.showSourceDialog) {
             Button(.camera) { viewModel.showCamera = true }
@@ -178,12 +178,12 @@ private extension EditUserInfoView {
                         ? theme.colors.buttonPrimaryBackground
                         : theme.colors.buttonPrimaryDisabledBackground
                 )
-                .foregroundColor(
+                .foregroundStyle(
                     viewModel.isSaveEnabled
                         ? theme.colors.buttonPrimaryForeground
                         : theme.colors.buttonPrimaryDisabledForeground
                 )
-                .cornerRadius(theme.layout.cornerRadius.l)
+                .clipShape(.rect(cornerRadius: theme.layout.cornerRadius.l))
         }
         .disabled(!isSaveEnabled)
         .opacity(isSaveEnabled ? 1 : 0.6)
@@ -193,7 +193,7 @@ private extension EditUserInfoView {
     private var loadingView: some View {
         VStack(spacing: theme.layout.spacing.s) {
             ProgressView()
-                .progressViewStyle(CircularProgressViewStyle(tint: theme.colors.accent))
+                .tint(theme.colors.accent)
         }
         .padding()
     }

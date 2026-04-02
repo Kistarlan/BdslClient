@@ -67,11 +67,11 @@ struct AttendeesScreen: View {
                 HStack(spacing: 0) {
                     Text(.visits)
                         .font(theme.typography.sectionTitle)
-                        .foregroundColor(theme.colors.textPrimary)
+                        .foregroundStyle(theme.colors.textPrimary)
 
                     Text(": ")
                         .font(theme.typography.sectionTitle)
-                        .foregroundColor(theme.colors.textPrimary)
+                        .foregroundStyle(theme.colors.textPrimary)
                 }
                 Spacer()
             }
@@ -95,15 +95,15 @@ struct AttendeesScreen: View {
         VStack(spacing: theme.layout.spacing.m) {
             Image(systemName: "person.3")
                 .font(.system(size: 40))
-                .foregroundColor(theme.colors.textSecondary)
+                .foregroundStyle(theme.colors.textSecondary)
 
             Text(.noVisitsYet)
                 .font(theme.typography.sectionTitle)
-                .foregroundColor(theme.colors.textPrimary)
+                .foregroundStyle(theme.colors.textPrimary)
 
             Text(.noVisitsYetDescription)
                 .font(theme.typography.body)
-                .foregroundColor(theme.colors.textSecondary)
+                .foregroundStyle(theme.colors.textSecondary)
                 .multilineTextAlignment(.center)
         }
         .multilineTextAlignment(.center)

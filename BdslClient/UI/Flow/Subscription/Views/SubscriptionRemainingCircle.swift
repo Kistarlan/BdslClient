@@ -23,7 +23,7 @@ struct SubscriptionRemainingCircle: View {
 
             Text("\(badgeLessonsCount)")
                 .font(theme.typography.label)
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
         }
     }
 

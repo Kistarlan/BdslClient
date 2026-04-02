@@ -41,7 +41,7 @@ struct SettingsRowView: View {
                 if let icon = leftIcon {
                     Image(systemName: icon)
                         .frame(width: 24)
-                        .foregroundColor(.gray)
+                        .foregroundStyle(.gray)
                 }
 
                 Text(title)
@@ -61,7 +61,7 @@ struct SettingsRowView: View {
                 }
 
                 Image(systemName: rightIcon)
-                    .foregroundColor(theme.colors.textSecondary)
+                    .foregroundStyle(theme.colors.textSecondary)
             }
             .padding(theme.layout.spacing.m)
         }

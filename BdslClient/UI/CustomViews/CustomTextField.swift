@@ -36,7 +36,7 @@ struct CustomTextField: View {
         VStack(alignment: .leading, spacing: theme.layout.spacing.xs) {
             Text(title)
                 .font(theme.typography.label)
-                .foregroundColor(labelColor)
+                .foregroundStyle(labelColor)
 
             inputField
                 .padding(.horizontal, theme.layout.spacing.m)
@@ -53,7 +53,7 @@ struct CustomTextField: View {
             if let error {
                 Text(error)
                     .font(theme.typography.error)
-                    .foregroundColor(theme.colors.textError)
+                    .foregroundStyle(theme.colors.textError)
             }
         }
     }

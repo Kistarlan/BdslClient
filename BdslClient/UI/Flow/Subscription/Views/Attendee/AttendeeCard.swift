@@ -22,12 +22,12 @@ struct AttendeeCard: View {
         VStack(alignment: .leading, spacing: theme.layout.spacing.xs) {
             Text(attendee.event.title)
                 .font(theme.typography.cardTitle)
-                .foregroundColor(theme.colors.textPrimary)
+                .foregroundStyle(theme.colors.textPrimary)
 
             if !attendee.event.teachers.isEmpty {
                 Text(teachersText(for: attendee))
                     .font(theme.typography.secondary)
-                    .foregroundColor(theme.colors.textSecondary)
+                    .foregroundStyle(theme.colors.textSecondary)
             }
 
             Text(
@@ -35,12 +35,12 @@ struct AttendeeCard: View {
                     .formatted(date: .abbreviated, time: .shortened)
             )
             .font(theme.typography.caption)
-            .foregroundColor(theme.colors.textSecondary)
+            .foregroundStyle(theme.colors.textSecondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(theme.layout.spacing.m)
         .background(theme.colors.cardBackground)
-        .cornerRadius(theme.layout.cornerRadius.m)
+        .clipShape(.rect(cornerRadius: theme.layout.cornerRadius.m))
         .roundedBorder(
             radius: theme.layout.cornerRadius.m,
             borderColor: theme.colors.materialBorder

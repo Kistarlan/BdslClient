@@ -11,6 +11,6 @@ import SwiftUI
 extension VStack {
     func applyGroupContainerStyle(_ theme: AppTheme) -> some View {
         background(theme.colors.cardBackground)
-            .cornerRadius(theme.layout.cornerRadius.l)
+            .clipShape(.rect(cornerRadius: theme.layout.cornerRadius.l))
     }
 }

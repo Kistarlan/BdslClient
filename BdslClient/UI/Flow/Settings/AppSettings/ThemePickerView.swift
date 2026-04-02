@@ -50,13 +50,13 @@ struct ThemePickerView: View {
                     .frame(width: 24)
 
                 Text(themeMode.displayName)
-                    .foregroundColor(colors.textPrimary)
+                    .foregroundStyle(colors.textPrimary)
 
                 Spacer()
 
                 if appState.themeMode == themeMode {
                     Image(systemName: "checkmark")
-                        .foregroundColor(colors.accent)
+                        .foregroundStyle(colors.accent)
                 }
             }
         }

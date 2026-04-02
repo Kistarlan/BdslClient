@@ -47,13 +47,13 @@ struct LanguagePickerView: View {
         } label: {
             HStack {
                 Text(language.displayName)
-                    .foregroundColor(colors.textPrimary)
+                    .foregroundStyle(colors.textPrimary)
 
                 Spacer()
 
                 if appState.appLanguage == language {
                     Image(systemName: "checkmark")
-                        .foregroundColor(colors.accent)
+                        .foregroundStyle(colors.accent)
                 }
             }
         }

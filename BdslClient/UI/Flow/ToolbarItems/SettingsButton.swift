@@ -47,7 +47,7 @@ extension SettingsButton {
         image()
             .resizable()
             .frame(width: 36, height: 36)
-            .foregroundColor(theme.colors.iconSecondary)
+            .foregroundStyle(theme.colors.iconSecondary)
             .clipShape(Circle())
     }
 

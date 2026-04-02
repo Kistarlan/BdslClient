@@ -16,12 +16,12 @@ struct ProfileSectionView: View {
             Image(systemName: "person.crop.circle.fill")
                 .resizable()
                 .frame(width: 48, height: 48)
-                .foregroundColor(.gray)
+                .foregroundStyle(.gray)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(.welcome)
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
 
                 Text(user.fullName)
                     .font(.headline)
@@ -30,7 +30,7 @@ struct ProfileSectionView: View {
             Spacer()
 
             Image(systemName: "arrow.right.square")
-                .foregroundColor(.blue)
+                .foregroundStyle(.blue)
         }
     }
 }

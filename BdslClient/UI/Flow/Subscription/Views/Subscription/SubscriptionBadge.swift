@@ -19,7 +19,7 @@ struct SubscriptionBadge: View {
             if let title = localizedTitle {
                 Text(title)
                     .font(theme.typography.label)
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .padding(.horizontal, theme.layout.spacing.s)
                     .padding(.vertical, theme.layout.spacing.xs)
                     .background(backgroundColor)
