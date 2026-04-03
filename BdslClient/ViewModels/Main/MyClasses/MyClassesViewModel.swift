@@ -21,7 +21,24 @@ final class MyClassesViewModel {
     var isLoaded: Bool = false
     var isInitialized: Bool = false
     var localizedError: LocalizedStringResource?
-    var upcomingClasses: [UpcomingClassModel] = []
+    var upcomingClasses: [UpcomingClassModel] = [] {
+        didSet { rebuildGroupedClasses() }
+    }
+
+    private(set) var groupedClasses: [GroupedSection<Date, UpcomingClassModel>] = []
+
+    var displayedSections: [GroupedSection<Date, UpcomingClassModel>] {
+        if !isInitialized {
+            [
+                GroupedSection<Date, UpcomingClassModel>(
+                    .now,
+                    (0 ..< 5).map { _ in UpcomingClassModel.placeholder() }
+                )
+            ]
+        } else {
+            groupedClasses
+        }
+    }
 
     init(
         userSubscriptionsService: UserSubscriptionsService,
@@ -31,28 +48,20 @@ final class MyClassesViewModel {
         self.appState = appState
     }
 
-    var groupedClasses: [GroupedSection<Date, UpcomingClassModel>] {
-        let calendar = Calendar.current
-
-        let grouped = Dictionary(grouping: upcomingClasses) {
-            calendar.startOfDay(for: $0.concreateTime)
-        }
-        .map { key, items in
-            GroupedSection(
-                key,
-                items.sorted { $0.concreateTime < $1.concreateTime }
-            )
-        }
-        .sorted { $0.key < $1.key }
-
-        return grouped
-    }
-
     func loadClasses(forceReload: Bool) async {
         guard handleNetwork(forceReload: forceReload) else { return }
         guard let user = resolveUser() else { return }
 
         await performLoad(for: user, forceReload: forceReload)
+    }
+
+    private func rebuildGroupedClasses() {
+        let calendar = Calendar.current
+        groupedClasses = Dictionary(grouping: upcomingClasses) {
+            calendar.startOfDay(for: $0.concreateTime)
+        }
+        .map { GroupedSection($0.key, $0.value.sorted { $0.concreateTime < $1.concreateTime }) }
+        .sorted { $0.key < $1.key }
     }
 
     private func handleNetwork(forceReload: Bool) -> Bool {
@@ -100,6 +109,12 @@ final class MyClassesViewModel {
 
         } catch {
             logger.warning("Error: \(error.localizedDescription)")
+        }
+    }
+
+    func retryLoad() {
+        Task {
+            await loadClasses(forceReload: false)
         }
     }
 }

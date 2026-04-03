@@ -70,8 +70,6 @@ final class NotificationSettingsViewModel {
     }
 
     func save() {
-        Task {
-            await appState.updateNotificationSettings(selected)
-        }
+        appState.notificationLeadTime = selected
     }
 }

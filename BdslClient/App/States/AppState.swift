@@ -31,14 +31,29 @@ final class AppState {
             }
         }
     }
+
     var themeMode: ThemeMode {
-        didSet { appSettings.themeMode = themeMode }
+        didSet {
+            guard oldValue != themeMode else { return }
+            appSettings.themeMode = themeMode
+        }
+
     }
     var appLanguage: AppLanguage {
-        didSet { appSettings.appLanguage = appLanguage }
+        didSet {
+            guard oldValue != appLanguage else { return }
+            appSettings.appLanguage = appLanguage
+        }
     }
     var notificationLeadTime: NotificationLeadTime {
-        didSet { Task { await updateNotificationSettings(notificationLeadTime) } }
+        didSet {
+            guard oldValue != notificationLeadTime else { return }
+            appSettings.notificationLeadTime = notificationLeadTime
+
+            Task {
+                await initOrUpdateNotifications()
+            }
+        }
     }
 
     init(
@@ -64,12 +79,6 @@ final class AppState {
         isNetworkAvailable = networkState.isConnected
 
         subscribeToEvents()
-    }
-
-    func updateNotificationSettings(_ leadTime: NotificationLeadTime) async {
-        notificationLeadTime = leadTime
-
-        await initOrUpdateNotifications()
     }
 
     func initOrUpdateNotifications() async {

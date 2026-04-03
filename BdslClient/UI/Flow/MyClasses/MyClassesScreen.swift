@@ -15,18 +15,6 @@ struct MyClassesScreen: View {
     @Environment(\.locale) private var locale
 
     @State private var viewModel: MyClassesViewModel
-    var displayedSections: [GroupedSection<Date, UpcomingClassModel>] {
-        if !viewModel.isInitialized {
-            [
-                GroupedSection<Date, UpcomingClassModel>(
-                    Date(),
-                    (0 ..< 5).map { _ in UpcomingClassModel.placeholder() }
-                )
-            ]
-        } else {
-            viewModel.groupedClasses
-        }
-    }
 
     init(viewModel: MyClassesViewModel) {
         self.viewModel = viewModel
@@ -35,11 +23,7 @@ struct MyClassesScreen: View {
     var body: some View {
         VStack(alignment: .leading) {
             if let localizedError = viewModel.localizedError {
-                ErrorView(errorMessage: localizedError) {
-                    Task {
-                        await viewModel.loadClasses(forceReload: false)
-                    }
-                }
+                ErrorView(errorMessage: localizedError, retryAction: viewModel.retryLoad)
             } else {
                 itemList
             }
@@ -65,7 +49,7 @@ struct MyClassesScreen: View {
 extension MyClassesScreen {
     var itemList: some View {
         List {
-            ForEach(displayedSections) { group in
+            ForEach(viewModel.displayedSections) { group in
                 classScetion(group)
             }
         }
@@ -92,8 +76,8 @@ extension MyClassesScreen {
             }
         } header: {
             groupHeader(section.key)
-                .headerProminence(.standard)
         }
+        .headerProminence(.standard)
         .listRowSeparator(.hidden)
     }
 
@@ -104,7 +88,7 @@ extension MyClassesScreen {
             } else if Calendar.current.isDateInTomorrow(date) {
                 Text(.tomorrow)
             } else {
-                Text(dayOfWeek(for: date))
+                Text(date, format: .dateTime.weekday(.wide))
             }
         }
         .font(theme.typography.label)
@@ -112,13 +96,5 @@ extension MyClassesScreen {
         .textCase(.uppercase)
         .redacted(reason: !viewModel.isInitialized ? .placeholder : [])
         .shimmer(active: !viewModel.isInitialized)
-    }
-
-    func dayOfWeek(for date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.locale = locale
-        formatter.dateFormat = "EEEE"
-
-        return formatter.string(from: date)
     }
 }
