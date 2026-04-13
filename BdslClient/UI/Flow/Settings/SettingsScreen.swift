@@ -30,7 +30,7 @@ struct SettingsScreen: View {
         .onAppear {
             viewModel.onAppear()
         }
-        .onChange(of: router.popResults) {
+        .onChange(of: router.popResults) { _, _ in
             if let currentUser = viewModel.user,
                let updatedUser: User = router.consumePopResult(for: .changeUserInfo(user: currentUser))
             {

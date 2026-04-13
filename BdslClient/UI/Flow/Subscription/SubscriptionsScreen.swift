@@ -67,6 +67,7 @@ struct SubscriptionsScreen: View {
                             : "square.grid.2x2"
                     )
                 }
+                .accessibilityLabel(Text(viewModel.groupingMode == .category ? .groupByDate : .groupByCategory))
             }
 
             ToolbarItem(placement: .topBarTrailing) {

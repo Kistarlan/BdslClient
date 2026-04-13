@@ -14,21 +14,19 @@ import SwiftUI
 struct SettingsButton: View {
     @Environment(\.theme) private var theme
     @Environment(AppState.self) private var appState
-    @State var avatarImage: UIImage?
+    @State private var avatarImage: UIImage?
 
-    private let imageSerbvice = AppContainer.shared.services.imageService
+    private let imageService = AppContainer.shared.services.imageService
 
     var body: some View {
         NavigationButton(push: PushDestination.settings) {
             settingsImage
         }
-        .onAppear {
+        .task {
             if case let .authenticated(user) = appState.state,
                let avatar = user.avatar
             {
-                Task {
-                    await loadAvatarImage(imageSource: avatar.small)
-                }
+                await loadAvatarImage(imageSource: avatar.small)
             }
         }
     }
@@ -53,7 +51,7 @@ extension SettingsButton {
 
     func loadAvatarImage(imageSource: String) async {
         do {
-            let avatarData = try await imageSerbvice.fetchImage(imageSource)
+            let avatarData = try await imageService.fetchImage(imageSource)
 
             avatarImage = UIImage(data: avatarData)
         } catch {

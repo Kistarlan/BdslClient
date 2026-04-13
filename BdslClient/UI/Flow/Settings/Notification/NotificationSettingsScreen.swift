@@ -33,7 +33,7 @@ struct NotificationSettingsScreen: View {
 
                             presetOptions
 
-                            custopOption
+                            customOption
                         }
                         .padding([.horizontal], theme.layout.spacing.m)
                     }
@@ -77,6 +77,16 @@ struct NotificationSettingsScreen: View {
         router.pop()
     }
 
+    private var customHourBinding: Binding<Int> {
+        Binding(
+            get: {
+                if case let .custom(value) = viewModel.selected { return value }
+                return 1
+            },
+            set: { viewModel.selectCustom($0) }
+        )
+    }
+
     private var presetOptions: some View {
         ForEach(NotificationSettingsViewModel.presets, id: \.self) { preset in
             OptionRow(
@@ -99,7 +109,7 @@ struct NotificationSettingsScreen: View {
         .bottomDivider()
     }
 
-    private var custopOption: some View {
+    private var customOption: some View {
         OptionRow(
             title: LocalizedStringResource.custom.localized(locale: locale),
             isSelected: viewModel.isCustom,
@@ -118,15 +128,7 @@ struct NotificationSettingsScreen: View {
     }
 
     private var inlinePicker: some View {
-        Picker("", selection: Binding(
-            get: {
-                if case let .custom(value) = viewModel.selected {
-                    return value
-                }
-                return 1
-            },
-            set: { viewModel.selectCustom($0) }
-        )) {
+        Picker("", selection: customHourBinding) {
             ForEach(1...24, id: \.self) { hour in
                 Text(localizedHours(hour, locale: locale))
                     .tag(hour)

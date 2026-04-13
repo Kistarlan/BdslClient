@@ -45,19 +45,19 @@ struct ProfileHeaderView: View {
                 .fontWeight(.semibold)
                 .foregroundStyle(theme.colors.textPrimary)
 
-            Text(getProfileDescription())
+            Text(profileDescription)
                 .font(.subheadline)
-                .foregroundStyle(.gray)
+                .foregroundStyle(theme.colors.textSecondary)
 
             if let email = user.contacts.email, !email.isEmpty {
                 Text(email)
                     .font(.subheadline)
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(theme.colors.textSecondary)
             }
         }
     }
 
-    private func getProfileDescription() -> String {
+    private var profileDescription: String {
         [
             user.contacts.phone,
             user.contacts.telegram

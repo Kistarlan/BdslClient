@@ -12,7 +12,7 @@ import SwiftUI
 struct SubscriptionDetailCard: View {
     @Environment(\.locale) private var locale
     @Environment(\.theme) private var theme
-    @State private var userSubscription: UserSubscription
+    let userSubscription: UserSubscription
 
     init(subscription: UserSubscription) {
         userSubscription = subscription

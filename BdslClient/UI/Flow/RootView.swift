@@ -15,7 +15,7 @@ struct RootView: View {
     @State var router: Router = .init(level: 0, identifierDestination: nil)
 
     var body: some View {
-        return Group {
+        Group {
             switch appState.state {
             case .splash:
                 SplashView()

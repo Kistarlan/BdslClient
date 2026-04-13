@@ -54,7 +54,7 @@ struct SettingsView: View {
                 HStack {
                     Text(.logOut)
                         .font(theme.typography.body)
-                        .tint(theme.colors.textPrimary)
+                        .foregroundStyle(theme.colors.textPrimary)
 
                     Spacer()
 

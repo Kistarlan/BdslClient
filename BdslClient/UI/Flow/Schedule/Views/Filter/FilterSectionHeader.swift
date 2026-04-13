@@ -16,23 +16,25 @@ struct FilterSectionHeader: View {
     let onHeaderTap: () -> Void
 
     var body: some View {
-        HStack {
-            Text(title)
-                .font(theme.typography.secondary.weight(.semibold))
-                .foregroundStyle(theme.colors.textPrimary)
-
-            Spacer()
-
-            Image(systemName: "chevron.down")
-                .rotationEffect(.degrees(isExpanded ? 0 : -90))
-                .foregroundStyle(theme.colors.iconSecondary)
-                .font(theme.typography.secondary)
-        }
-        .contentShape(Rectangle())
-        .onTapGesture {
+        Button {
             withAnimation {
                 onHeaderTap()
             }
+        } label: {
+            HStack {
+                Text(title)
+                    .font(theme.typography.secondary.weight(.semibold))
+                    .foregroundStyle(theme.colors.textPrimary)
+
+                Spacer()
+
+                Image(systemName: "chevron.down")
+                    .rotationEffect(.degrees(isExpanded ? 0 : -90))
+                    .foregroundStyle(theme.colors.iconSecondary)
+                    .font(theme.typography.secondary)
+            }
+            .contentShape(Rectangle())
         }
+        .buttonStyle(.plain)
     }
 }

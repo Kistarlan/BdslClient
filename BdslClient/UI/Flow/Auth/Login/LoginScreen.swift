@@ -43,8 +43,8 @@ struct LoginScreen: View {
         .onDisappear {
             viewModel.reset()
         }
-        .onChange(of: appState.state) {
-            if appState.state.isAuthenticated {
+        .onChange(of: appState.state) { _, newState in
+            if newState.isAuthenticated {
                 router.navigateToRoot()
             }
         }

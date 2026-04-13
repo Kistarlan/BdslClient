@@ -40,7 +40,7 @@ struct FilterChip: View {
                 .padding(.horizontal, theme.layout.spacing.sm)
                 .padding(.vertical, theme.layout.spacing.s)
                 .background(background)
-                .overlay(border)
+                .overlay { border }
                 .clipShape(Capsule())
         }
         .buttonStyle(.plain)

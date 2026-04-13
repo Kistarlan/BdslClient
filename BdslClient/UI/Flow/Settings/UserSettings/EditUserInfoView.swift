@@ -137,7 +137,7 @@ private extension EditUserInfoView {
                 text: $viewModel.surname,
                 error: viewModel.surnameError
             )
-            .focused($focusedField, equals: .name)
+            .focused($focusedField, equals: .surname)
 
             CustomTextField(
                 title: .phone,

@@ -46,18 +46,18 @@ struct SettingsRowView: View {
 
                 Text(title)
                     .font(theme.typography.body)
-                    .tint(theme.colors.textPrimary)
+                    .foregroundStyle(theme.colors.textPrimary)
 
                 Spacer()
 
                 if let unwrappedValue = value {
                     Text(unwrappedValue)
                         .font(theme.typography.body)
-                        .tint(theme.colors.textPrimary)
+                        .foregroundStyle(theme.colors.textPrimary)
                 } else if let unwrappedLocalizedValue = localizedValue {
                     Text(unwrappedLocalizedValue)
                         .font(theme.typography.body)
-                        .tint(theme.colors.textPrimary)
+                        .foregroundStyle(theme.colors.textPrimary)
                 }
 
                 Image(systemName: rightIcon)

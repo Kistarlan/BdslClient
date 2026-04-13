@@ -48,19 +48,21 @@ struct FiltersView: View {
 private extension FiltersView {
     var header: some View {
         HStack {
-            HStack {
-                Text(.filters)
-                    .font(theme.typography.sectionTitle)
-                    .foregroundStyle(theme.colors.textPrimary)
-
-                Spacer()
-            }
-            .contentShape(Rectangle())
-            .onTapGesture {
+            Button {
                 withAnimation {
                     isFilterExpanded.toggle()
                 }
+            } label: {
+                HStack {
+                    Text(.filters)
+                        .font(theme.typography.sectionTitle)
+                        .foregroundStyle(theme.colors.textPrimary)
+
+                    Spacer()
+                }
+                .contentShape(Rectangle())
             }
+            .buttonStyle(.plain)
 
             if !viewModel.filters.isEmpty {
                 Button {
@@ -73,7 +75,6 @@ private extension FiltersView {
                 .buttonStyle(.plain)
             }
 
-            // Chevron (окремо!)
             if !viewModel.isLoading {
                 Image(systemName: "chevron.down")
                     .rotationEffect(.degrees(isFilterExpanded ? 0 : -90))
@@ -84,6 +85,7 @@ private extension FiltersView {
                             isFilterExpanded.toggle()
                         }
                     }
+                    .accessibilityAddTraits(.isButton)
             }
         }
         .padding(.vertical, theme.layout.spacing.xs)
