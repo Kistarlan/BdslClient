@@ -7,10 +7,11 @@
 
 import Configs
 import Foundation
+import CryptoKit
 import Models
 import OSLog
 
-public final class AuthRepositoryImpl: AuthRepository {
+final class AuthRepositoryImpl: AuthRepository {
     private let baseUrl = Config.baseURL
     private let apiClient: APIClient
     private let tokenStore: TokenStore
@@ -29,28 +30,58 @@ public final class AuthRepositoryImpl: AuthRepository {
         self.sseClient = sseClient
     }
 
-    public func login(with credentials: Credentials) async throws -> UserIdentifier {
+    func login(with credentials: Credentials) async throws -> UserIdentifier {
         switch credentials {
         case .telegram:
             try await loginViaTelegram(credentials: credentials)
         default:
-            throw AuthRepositoryError.notImplemented(credentials)
+            throw AuthRepositoryError.notImplementedFor(credentials)
         }
     }
 
-    public func restoreSession() async -> UserIdentifier? {
+    func restoreSession() async -> UserIdentifier? {
         guard let token = await tokenStore.load(tokenType: .jwt) else { return nil }
         guard let payload = try? jwtDecoder.decode(token, as: JwtPayloadDTO.self) else { return nil }
 
         return payload.user.toDomain()
     }
 
-    public func hasValidSession() async -> Bool {
+    func hasValidSession() async -> Bool {
         (try? await apiClient.ensureValidToken()) != nil
     }
 
-    public func logout() async {
+    func logout() async {
         await tokenStore.clearAll()
+    }
+
+    func resetPasswordRequest(phone: String) async throws -> ResetPasswordInviteKey {
+        let endpoint = Endpoint(
+            path: "/auth/requestResetPassword",
+            method: .post,
+            headers: ["Content-Type": "application/json"],
+            body: try JSONEncoder().encode(RequestPasswordResetModel(phone))
+        )
+
+        return try await apiClient.request(endpoint)
+    }
+
+    func resetPassword(inviteKey: String, pin: Int, newPassword: String) async throws {
+        let hashedNewPassword = hmacSHA256(password: newPassword, salt: Config.hmacSalt)
+
+        let requestModel = PasswordResetModel(
+            inviteKey: inviteKey,
+            pin: pin,
+            newPassword: hashedNewPassword
+        )
+
+        let endpoint = Endpoint(
+            path: "/auth/resetPassword",
+            method: .post,
+            headers: ["Content-Type": "application/json"],
+            body: try JSONEncoder().encode(requestModel)
+        )
+
+        let responce: PasswordResetResponseModel = try await apiClient.request(endpoint)
     }
 }
 
@@ -103,7 +134,14 @@ extension AuthRepositoryImpl {
     }
 }
 
-enum AuthRepositoryError: Error {
-    case notImplemented(Credentials)
-    case sessionExpired
+extension AuthRepositoryImpl {
+    func hmacSHA256(password: String, salt: String) -> String {
+        let key = SymmetricKey(data: Data(salt.utf8))
+        let messageData = Data(password.utf8)
+
+        let signature = HMAC<SHA256>.authenticationCode(for: messageData, using: key)
+
+        // convert to hex string
+        return signature.map { String(format: "%02hhx", $0) }.joined()
+    }
 }

@@ -59,4 +59,12 @@ final class PreviewAuthRepository: AuthRepository {
     func logout() async {
         await tokenStore.clearAll()
     }
+
+    func resetPasswordRequest(phone: String) async throws -> Models.ResetPasswordInviteKey {
+        throw AuthRepositoryError.notImplemented("resetPasswordRequest")
+    }
+
+    func resetPassword(inviteKey: String, pin: Int, newPassword: String) async throws {
+        throw AuthRepositoryError.notImplemented("resetPassword")
+    }
 }
