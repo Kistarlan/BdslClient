@@ -54,12 +54,12 @@ final class AuthRepositoryImpl: AuthRepository {
         await tokenStore.clearAll()
     }
 
-    func resetPasswordRequest(phone: String) async throws -> ResetPasswordInviteKey {
+    func resetPasswordRequest(phone: String, channel: ResetPasswordChannel) async throws -> ResetPasswordInviteKey {
         let endpoint = Endpoint(
             path: "/auth/requestResetPassword",
             method: .post,
             headers: ["Content-Type": "application/json"],
-            body: try JSONEncoder().encode(RequestPasswordResetModel(phone))
+            body: try JSONEncoder().encode(RequestPasswordResetModel(phone, channel))
         )
 
         return try await apiClient.request(endpoint)

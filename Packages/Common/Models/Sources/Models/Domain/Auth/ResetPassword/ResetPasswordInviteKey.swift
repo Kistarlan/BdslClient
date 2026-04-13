@@ -6,7 +6,7 @@
 //
 
 public struct ResetPasswordInviteKey : Decodable, Sendable {
-    public let channel: String
+    public let channel: ResetPasswordChannel
     public let inviteKey: String
 
     enum CodingKeys: String, CodingKey {

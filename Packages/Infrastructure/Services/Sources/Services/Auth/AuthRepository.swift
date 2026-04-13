@@ -13,6 +13,6 @@ public protocol AuthRepository: Sendable {
     func logout() async
     func hasValidSession() async -> Bool
 
-    func resetPasswordRequest(phone: String) async throws -> ResetPasswordInviteKey
+    func resetPasswordRequest(phone: String, channel: ResetPasswordChannel) async throws -> ResetPasswordInviteKey
     func resetPassword(inviteKey: String, pin: Int, newPassword: String) async throws
 }
