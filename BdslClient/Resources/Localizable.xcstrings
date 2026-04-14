@@ -1025,13 +1025,13 @@
         }
       }
     },
-    "Reset Password" : {
+    "Reset password" : {
       "extractionState" : "manual",
       "localizations" : {
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Скинути Пароль"
+            "value" : "Скинути пароль"
           }
         }
       }
