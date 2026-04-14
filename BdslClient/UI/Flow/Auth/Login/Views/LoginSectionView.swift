@@ -7,10 +7,12 @@
 
 
 import DesignSystem
+import Navigation
 import SwiftUI
 
 struct LoginSectionView: View {
     @Environment(\.theme) private var theme
+    @Environment(Router.self) private var router
     @State private var viewModel: LoginViewModel
 
     init(_ loginViewModel: LoginViewModel) {
@@ -34,12 +36,22 @@ struct LoginSectionView: View {
             }
 
             if viewModel.isLoading {
-                LoadingIndicatorView()
+                LoadingIndicatorView(message: viewModel.loginByPassword ? nil : .confirmYourEntranceInTelegramBot)
             }
 
             LoginButtonView(isLoading: viewModel.isLoading, action: viewModel.login)
 
             InputTypeSelectionView(isLoginByPassword: viewModel.loginByPassword, onToggle: viewModel.toggleLoginByPassword)
+
+            if viewModel.loginByPassword {
+                Button {
+                    router.push(.forgotPassword)
+                } label: {
+                    Text(.forgotPassword)
+                        .font(theme.typography.secondary)
+                        .foregroundStyle(theme.colors.textSecondary)
+                }
+            }
         }
         .disabled(viewModel.isLoading)
         .padding(theme.layout.spacing.l)

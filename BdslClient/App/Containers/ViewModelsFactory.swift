@@ -87,6 +87,19 @@ struct ViewModelsFactory {
             groupsService: appServices.groupsService
         )
     }
+
+    func makeResetRequestPasswordViewModel() -> ResetRequestPasswordViewModel {
+        ResetRequestPasswordViewModel(
+            authRepository: appServices.authRepository
+        )
+    }
+
+    func makeResetPasswordViewModel(inviteKey: ResetPasswordInviteKey) -> ResetPasswordViewModel {
+        ResetPasswordViewModel(
+            authRepository: appServices.authRepository,
+            inviteKey: inviteKey
+        )
+    }
 }
 
 extension ViewModelsFactory {

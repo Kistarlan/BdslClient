@@ -20,6 +20,10 @@ import SwiftUI
         LoginScreen(vmFactory.makeLoginViewModel())
     case .notificationSettings:
         NotificationSettingsScreen(viewModel: vmFactory.makeNotificationSettingsViewModel())
+    case .forgotPassword:
+        ResetRequestPasswordScreen(viewModel: vmFactory.makeResetRequestPasswordViewModel())
+    case let .resetPassword(inviteKey):
+        ResetPasswordScreen(viewModel: vmFactory.makeResetPasswordViewModel(inviteKey: inviteKey))
     default:
         LoginBackgroundView()
     }

@@ -153,8 +153,9 @@ extension Router {
         result: T?
     ) {
         if let pushDestination = destination {
-            if let index = navigationStackPath.lastIndex(of: pushDestination) {
-                navigationStackPath.remove(at: index)
+            if let index = navigationStackPath.lastIndex(of: pushDestination),
+               index < (navigationStackPath.endIndex - 1) {
+                navigationStackPath.removeSubrange((index + 1)...)
             }
 
             if let result {

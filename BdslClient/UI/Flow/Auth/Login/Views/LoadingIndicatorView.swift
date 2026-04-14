@@ -11,14 +11,22 @@ import DesignSystem
 struct LoadingIndicatorView: View {
     @Environment(\.theme) private var theme
 
+    let message: LocalizedStringResource?
+
+    init(message: LocalizedStringResource? = nil) {
+        self.message = message
+    }
+
     var body: some View {
         VStack(spacing: theme.layout.spacing.s) {
             ProgressView()
                 .tint(theme.colors.accent)
 
-            Text(.confirmYourEntranceInTelegramBot)
-                .foregroundStyle(theme.colors.textSecondary)
-                .font(theme.typography.secondary)
+            if let message {
+                Text(message)
+                    .foregroundStyle(theme.colors.textSecondary)
+                    .font(theme.typography.secondary)
+            }
         }
         .padding()
     }

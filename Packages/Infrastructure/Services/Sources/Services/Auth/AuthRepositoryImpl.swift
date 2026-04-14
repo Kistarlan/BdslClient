@@ -34,6 +34,8 @@ final class AuthRepositoryImpl: AuthRepository {
         switch credentials {
         case .telegram:
             try await loginViaTelegram(credentials: credentials)
+        case let .phonePassword(phone, password):
+            try await loginViaPassword(phone, password)
         default:
             throw AuthRepositoryError.notImplementedFor(credentials)
         }
@@ -86,6 +88,22 @@ final class AuthRepositoryImpl: AuthRepository {
 }
 
 extension AuthRepositoryImpl {
+    func loginViaPassword(_ phone: String, _ password: String) async throws -> UserIdentifier {
+        let endpoint = Endpoint(
+            path: "/auth/login",
+            method: .post,
+            headers: ["Content-Type": "application/json"],
+            body: try? JSONEncoder().encode(Credentials.phonePassword(
+                phone: phone,
+                password: hmacSHA256(password: password, salt: Config.hmacSalt))
+            )
+        )
+
+        let sessionDTO: SessionDTO = try await apiClient.request(endpoint)
+
+        return try await procesSessionTokenDTO(sessionDTO)
+    }
+
     func loginViaTelegram(credentials: Credentials) async throws -> UserIdentifier {
         do {
             let sessionId = try await startTelegramLogin(credentials: credentials)
@@ -106,15 +124,7 @@ extension AuthRepositoryImpl {
                 continue
             }
 
-            await tokenStore.save(tokenType: .jwt, token: session.authToken)
-            await tokenStore.save(tokenType: .refresh, token: session.refreshToken)
-
-            let payload = try jwtDecoder.decode(
-                session.authToken,
-                as: JwtPayloadDTO.self
-            )
-
-            return payload.user.toDomain()
+            return try await procesSessionTokenDTO(session)
         }
 
         throw AuthRepositoryError.sessionExpired
@@ -131,6 +141,18 @@ extension AuthRepositoryImpl {
         let response: LoginViaTelegramResponseDTO = try await apiClient.request(endpoint)
 
         return response.session
+    }
+
+    func procesSessionTokenDTO(_ session: SessionDTO) async throws -> UserIdentifier {
+        await tokenStore.save(tokenType: .jwt, token: session.authToken)
+        await tokenStore.save(tokenType: .refresh, token: session.refreshToken)
+
+        let payload = try jwtDecoder.decode(
+            session.authToken,
+            as: JwtPayloadDTO.self
+        )
+
+        return payload.user.toDomain()
     }
 }
 

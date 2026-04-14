@@ -17,7 +17,7 @@ final class LoginViewModel {
     var phoneError: LocalizedStringResource?
     var password = ""
     var isLoading = false
-    var loginByPassword = false
+    var loginByPassword = true
     var loginError: LocalizedStringResource?
 
     private let authRepository: AuthRepository

@@ -145,6 +145,16 @@ router.select(tab: .schedule)
 router.navigateToRoot()
 ```
 
+### Pop to a specific screen in the stack (skip intermediate screens)
+Use `router.pop(destination:)` to jump back to a particular destination that is already in the stack, bypassing any screens pushed on top of it:
+```swift
+// e.g. from ResetPasswordScreen jump back to LoginScreen directly
+router.pop(destination: .login)
+```
+This removes the specified destination from `navigationStackPath`. SwiftUI then navigates back to it, skipping any screens between the current screen and the target.
+
+Use this instead of `navigateToRoot()` when you want to land on a specific intermediate screen rather than the root.
+
 ---
 
 ## 6. NavigationButton

@@ -38,6 +38,7 @@ public enum PushDestination: Hashable, CustomStringConvertible {
     case login
     case register
     case forgotPassword
+    case resetPassword(inviteKey: ResetPasswordInviteKey)
 
     // MARK: - Settings
 
@@ -68,6 +69,7 @@ public enum PushDestination: Hashable, CustomStringConvertible {
         case .profileInfo: return ".profileInfo"
         case .settings: return ".settings"
         case .notificationSettings: return ".notificationSettings"
+        case let .resetPassword(inviteKey): return ".resetPassword(\(inviteKey.inviteKey))"
         }
     }
 }
