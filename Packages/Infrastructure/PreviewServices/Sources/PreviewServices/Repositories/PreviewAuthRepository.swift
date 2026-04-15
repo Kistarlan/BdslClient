@@ -67,4 +67,8 @@ final class PreviewAuthRepository: AuthRepository {
     func resetPassword(inviteKey: String, pin: Int, newPassword: String) async throws {
         throw AuthRepositoryError.notImplemented("resetPassword")
     }
+
+    func changePassword(oldPassword: String, newPassword: String) async throws {
+        throw AuthRepositoryError.notImplemented("changePassword")
+    }
 }

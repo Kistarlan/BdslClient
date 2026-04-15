@@ -24,6 +24,8 @@ import SwiftUI
         ResetRequestPasswordScreen(viewModel: vmFactory.makeResetRequestPasswordViewModel())
     case let .resetPassword(inviteKey):
         ResetPasswordScreen(viewModel: vmFactory.makeResetPasswordViewModel(inviteKey: inviteKey))
+    case .changePassword:
+        ChangePasswordScreen(viewModel: vmFactory.makeChangePasswordViewModel())
     default:
         LoginBackgroundView()
     }

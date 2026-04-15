@@ -165,6 +165,23 @@
         }
       }
     },
+    "changePasswordFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to change password. Check your current password."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не вдалося змінити пароль. Перевірте поточний пароль."
+          }
+        }
+      }
+    },
     "Classes" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -222,6 +239,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Кредитні заняття"
+          }
+        }
+      }
+    },
+    "currentPassword" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current Password"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Поточний пароль"
           }
         }
       }
@@ -391,6 +425,9 @@
           }
         }
       }
+    },
+    "Hide password" : {
+
     },
     "Home" : {
       "extractionState" : "manual",
@@ -858,6 +895,23 @@
         }
       }
     },
+    "passwordNotSet" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password is not set for your account"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Для вашого акаунту пароль не встановлений"
+          }
+        }
+      }
+    },
     "passwordsDoNotMatch" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1180,6 +1234,9 @@
           }
         }
       }
+    },
+    "Show password" : {
+
     },
     "startsSoon" : {
       "localizations" : {

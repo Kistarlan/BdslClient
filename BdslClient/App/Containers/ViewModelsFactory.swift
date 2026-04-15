@@ -100,6 +100,10 @@ struct ViewModelsFactory {
             inviteKey: inviteKey
         )
     }
+
+    func makeChangePasswordViewModel() -> ChangePasswordViewModel {
+        ChangePasswordViewModel(authRepository: appServices.authRepository)
+    }
 }
 
 extension ViewModelsFactory {

@@ -102,6 +102,7 @@ struct SettingsView: View {
                 value: appState.notificationLeadTime.displayName(locale: locale),
                 destination: .push(.notificationSettings)
             )
+            .bottomDivider(.horizontal, theme.layout.spacing.m)
 
             SettingsRowView(
                 leftIcon: "lock",

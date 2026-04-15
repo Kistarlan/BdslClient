@@ -17,7 +17,7 @@ public struct ChangePasswordRequest: Encodable {
     }
 
     enum CodingKeys: String, CodingKey {
-        case userId
+        case userId = "user"
         case oldPassword
         case newPassword
     }

@@ -205,7 +205,6 @@
 				C0E2101DFC9A267E26BEA81A /* Auth */,
 				F69B2360AB4C20C6C7FD2AE2 /* Main */,
 			);
-			name = BdslClientTests;
 			path = BdslClientTests;
 			sourceTree = "<group>";
 		};
@@ -338,7 +337,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				639E51B92F27977000BA900F /* XCRemoteSwiftPackageReference "SwiftFormat" */,
-				6367D7C02F588DDA00932242 /* XCLocalSwiftPackageReference "Configs" */,
+				6367D7C02F588DDA00932242 /* XCLocalSwiftPackageReference "Packages/Common/Configs" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6310A61D2F23C2AF0090B2D2 /* Products */;
@@ -677,7 +676,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		6367D7C02F588DDA00932242 /* XCLocalSwiftPackageReference "Configs" */ = {
+		6367D7C02F588DDA00932242 /* XCLocalSwiftPackageReference "Packages/Common/Configs" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Common/Configs;
 		};
