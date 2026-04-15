@@ -25,58 +25,62 @@ final class APIClientImpl: APIClient {
     }
 
     func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T {
-        var request = try await buildRequest(endpoint)
-
-        let (data, response) = try await URLSession.shared.data(for: request)
-
-        guard let http = response as? HTTPURLResponse else {
-            throw URLError(.badServerResponse)
-        }
-
-        if http.statusCode == 401 {
-            _ = try await refreshActor.token {
-                try await self.refreshToken()
-            }
-
-            request = try await buildRequest(endpoint)
-
-            let (retryData, retryResponse) = try await URLSession.shared.data(for: request)
-
-            guard let retryHttp = retryResponse as? HTTPURLResponse else {
-                throw URLError(.badServerResponse)
-            }
-
-            guard (200 ..< 300).contains(retryHttp.statusCode) else {
-                throw APIError.http(retryHttp.statusCode)
-            }
-
-            return try JSONDecoder.apiDecoder.decode(T.self, from: retryData)
-        }
-
-        guard (200 ..< 300).contains(http.statusCode) else {
-            throw APIError.http(http.statusCode)
-        }
-
+        let data = try await performRequest(endpoint)
         return try JSONDecoder.apiDecoder.decode(T.self, from: data)
+    }
+
+    func request(_ endpoint: Endpoint) async throws {
+        _ = try await performRequest(endpoint)
     }
 
     func ensureValidToken() async throws -> String? {
         try await validToken()
     }
 
+    // MARK: - Private helpers
+
+    /// Builds, executes, and retries (on 401) a request, returning raw response data.
+    private func performRequest(_ endpoint: Endpoint) async throws -> Data {
+        let request = try await buildRequest(endpoint)
+        do {
+            return try await execute(request)
+        } catch APIError.http(401) {
+            _ = try await refreshActor.token { try await self.refreshToken() }
+            let retryRequest = try await buildRequest(endpoint)
+            return try await execute(retryRequest)
+        }
+    }
+
+    @discardableResult
+    private func execute(_ request: URLRequest) async throws -> Data {
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let http = response as? HTTPURLResponse else {
+            throw URLError(.badServerResponse)
+        }
+        guard (200 ..< 300).contains(http.statusCode) else {
+            throw APIError.http(http.statusCode)
+        }
+        return data
+    }
+
     private func buildRequest(_ endpoint: Endpoint) async throws -> URLRequest {
         let token = try await validToken()
 
-        var components = URLComponents(
+        guard var components = URLComponents(
             url: baseURL.appendingPathComponent(endpoint.path),
             resolvingAgainstBaseURL: false
-        )!
-
-        components.queryItems = endpoint.query.map {
-            URLQueryItem(name: $0.key, value: $0.value)
+        ) else {
+            throw URLError(.badURL)
         }
 
-        var request = URLRequest(url: components.url!)
+        if !endpoint.query.isEmpty {
+            components.queryItems = endpoint.query.map {
+                URLQueryItem(name: $0.key, value: $0.value)
+            }
+        }
+
+        guard let url = components.url else { throw URLError(.badURL) }
+        var request = URLRequest(url: url)
 
         request.httpMethod = endpoint.method.rawValue
         request.httpBody = endpoint.body

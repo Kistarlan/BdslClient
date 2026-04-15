@@ -12,6 +12,7 @@ import Models
 import OSLog
 
 final class AuthRepositoryImpl: AuthRepository {
+    private let logger = Logger.forCategory(String(describing: AuthRepositoryImpl.self))
     private let baseUrl = Config.baseURL
     private let apiClient: APIClient
     private let tokenStore: TokenStore
@@ -68,7 +69,7 @@ final class AuthRepositoryImpl: AuthRepository {
     }
 
     func resetPassword(inviteKey: String, pin: Int, newPassword: String) async throws {
-        let hashedNewPassword = hmacSHA256(password: newPassword, salt: Config.hmacSalt)
+        let hashedNewPassword = hmacSHA256(password: newPassword)
 
         let requestModel = PasswordResetModel(
             inviteKey: inviteKey,
@@ -84,6 +85,31 @@ final class AuthRepositoryImpl: AuthRepository {
         )
 
         let responce: PasswordResetResponseModel = try await apiClient.request(endpoint)
+
+        logger.info("Reset password successful for user : \(responce.contacts.description)")
+    }
+
+    func changePassword(oldPassword: String, newPassword: String) async throws {
+        let hashedNewPassword = hmacSHA256(password: newPassword)
+        let hashedOldPassword = hmacSHA256(password: oldPassword)
+        let userIdintifier = try await tryLoadUserIdentifier()
+
+        let requestModel = ChangePasswordRequest(
+            userId: userIdintifier.id,
+            oldPassword: hmacSHA256(password: oldPassword),
+            newPassword: hmacSHA256(password: newPassword)
+        )
+
+        let endpoint = Endpoint(
+            path: "/auth/changePassword",
+            method: .post,
+            headers: ["Content-Type": "application/json"],
+            body: try JSONEncoder().encode(requestModel)
+        )
+
+        let responce: PasswordResetResponseModel = try await apiClient.request(endpoint)
+
+        logger.info("Reset password successful for user : \(responce.contacts.description)")
     }
 }
 
@@ -95,7 +121,7 @@ extension AuthRepositoryImpl {
             headers: ["Content-Type": "application/json"],
             body: try? JSONEncoder().encode(Credentials.phonePassword(
                 phone: phone,
-                password: hmacSHA256(password: password, salt: Config.hmacSalt))
+                password: hmacSHA256(password: password))
             )
         )
 
@@ -154,11 +180,24 @@ extension AuthRepositoryImpl {
 
         return payload.user.toDomain()
     }
+
+    func tryLoadUserIdentifier() async throws -> UserIdentifier {
+        if let jwt = await tokenStore.load(tokenType: .jwt){
+            let payload = try jwtDecoder.decode(
+                jwt,
+                as: JwtPayloadDTO.self
+            )
+
+            return payload.user.toDomain()
+        }
+
+        throw AuthRepositoryError.notLoggedIn
+    }
 }
 
 extension AuthRepositoryImpl {
-    func hmacSHA256(password: String, salt: String) -> String {
-        let key = SymmetricKey(data: Data(salt.utf8))
+    func hmacSHA256(password: String) -> String {
+        let key = SymmetricKey(data: Data(Config.hmacSalt.utf8))
         let messageData = Data(password.utf8)
 
         let signature = HMAC<SHA256>.authenticationCode(for: messageData, using: key)

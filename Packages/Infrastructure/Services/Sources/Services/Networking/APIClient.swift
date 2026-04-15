@@ -10,5 +10,6 @@ import Models
 
 protocol APIClient: Sendable {
     func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T
+    func request(_ endpoint: Endpoint) async throws
     func ensureValidToken() async throws -> String?
 }

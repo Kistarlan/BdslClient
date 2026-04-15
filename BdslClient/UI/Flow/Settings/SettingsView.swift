@@ -102,12 +102,12 @@ struct SettingsView: View {
                 value: appState.notificationLeadTime.displayName(locale: locale),
                 destination: .push(.notificationSettings)
             )
-            // TODO: implement when it will be possible
-//            SettingsRowView(
-//                leftIcon: "lock",
-//                title: .changePassword,
-//                destination: .push(.changePassword)
-//            )
+
+            SettingsRowView(
+                leftIcon: "lock",
+                title: .changePassword,
+                destination: .push(.changePassword)
+            )
         }
         .applyGroupContainerStyle(theme)
     }

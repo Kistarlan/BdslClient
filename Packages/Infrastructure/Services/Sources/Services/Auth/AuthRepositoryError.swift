@@ -11,4 +11,5 @@ public enum AuthRepositoryError: Error {
     case notImplementedFor(Credentials)
     case sessionExpired
     case notImplemented(String)
+    case notLoggedIn
 }

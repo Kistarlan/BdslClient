@@ -15,4 +15,5 @@ public protocol AuthRepository: Sendable {
 
     func resetPasswordRequest(phone: String, channel: ResetPasswordChannel) async throws -> ResetPasswordInviteKey
     func resetPassword(inviteKey: String, pin: Int, newPassword: String) async throws
+    func changePassword(oldPassword: String, newPassword: String) async throws
 }

@@ -62,3 +62,9 @@ public extension ContactDTO {
         )
     }
 }
+
+public extension ContactDTO : CustomStringConvertible {
+    public var description: String {
+        "ContactDTO(id: \(_id), phone: \(phone ?? "nil"), telegram: \(telegram ?? "nil"), email: \(email ?? "nil"))"
+    }
+}
