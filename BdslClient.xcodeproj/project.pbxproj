@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		014D876052456BEF8C7B61AD /* MockAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997F8F3CFEA0D52D141E75C1 /* MockAuthRepository.swift */; };
+		078F5D48157436F2B76FCA27 /* MockUserSubscriptionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3E0EEA0882618ED0A14A90 /* MockUserSubscriptionsService.swift */; };
+		2901CBBF0B7CC808C481C9AC /* NotificationSettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80DB2F2F687BDDE78D95717 /* NotificationSettingsViewModelTests.swift */; };
+		3795894E7985E5D2756A627C /* MockAppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C7B6D26D7D03EEF01FE358 /* MockAppSettings.swift */; };
+		5CE956F14C4C0CC60C65A27E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0C3DFA55D6D646A951E0C21 /* Foundation.framework */; };
 		635A9C542F64536A003F8B95 /* MongoFilters in Frameworks */ = {isa = PBXBuildFile; productRef = 635A9C532F64536A003F8B95 /* MongoFilters */; };
 		6367D5A92F5843AA00932242 /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = 6367D5A82F5843AA00932242 /* Models */; };
 		6367D7272F586E0A00932242 /* Configs in Frameworks */ = {isa = PBXBuildFile; productRef = 6367D7262F586E0A00932242 /* Configs */; };
@@ -22,9 +27,37 @@
 		63A2BF6F2F8D57F7009A072A /* Navigation.md in Resources */ = {isa = PBXBuildFile; fileRef = 63A2BF6E2F8D57F7009A072A /* Navigation.md */; };
 		63A2BF712F8D5A94009A072A /* Services.md in Resources */ = {isa = PBXBuildFile; fileRef = 63A2BF702F8D5A94009A072A /* Services.md */; };
 		63A2BF732F8D5BB2009A072A /* Models.md in Resources */ = {isa = PBXBuildFile; fileRef = 63A2BF722F8D5BB2009A072A /* Models.md */; };
+		66CE2B116A1CA6CBBD26681E /* MockNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFC34B6D370140D832EAF8C /* MockNotificationManager.swift */; };
+		8178CDAC20A1D55E9D81DA4E /* AppStateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E3154C687470C1E3B0EAB /* AppStateFactory.swift */; };
+		841A84BAEAF7C2E5D4BC2D77 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CB7C943597CF12EBCE5E5A /* LoginViewModelTests.swift */; };
+		854CAA271561A5BC6989B844 /* Services in Frameworks */ = {isa = PBXBuildFile; productRef = 97122FF19E571AE2B8BA8143 /* Services */; };
+		942FEDAF2FA0EDF3321A0351 /* MockImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A071202101FC41585BECD59C /* MockImageService.swift */; };
+		9E6AD40DF5A36D5DAAD49FB5 /* ResetPasswordViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7399EF6EEF424ED4F75D1FB6 /* ResetPasswordViewModelTests.swift */; };
+		A131BC28A9E7FBE4A5738EA9 /* MockPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C882A54B5E24FEF0339CEA47 /* MockPermissionService.swift */; };
+		AD279C935033C9D5F99E7A5C /* EditUserInfoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1298878E24534BE5CA74EC /* EditUserInfoViewModelTests.swift */; };
+		BE392C6C91D6E8802B2D098A /* ScheduleViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B621101D185A1FAC0FB74B3A /* ScheduleViewModelTests.swift */; };
+		C32F7B141EED3DDDEB48FF79 /* MockUsersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85EE63D350DE29E6FECF441 /* MockUsersService.swift */; };
+		C58BDADF1F391B7815A3FF93 /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = 27ECAA86E9C58B6583DC3B3D /* Models */; };
+		C5D2CB9FF9056CEA4826BD94 /* GroupModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7487258084EEA8BB6C2A80 /* GroupModelFactory.swift */; };
+		E270D1A256515084A6FD1176 /* MockCachingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70110FA7C466EF5BA0D9AE08 /* MockCachingManager.swift */; };
+		EEFD14E8D46209BAC1AF140F /* MockGroupsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838F596720E4FD3EBE85F02E /* MockGroupsService.swift */; };
+		F629078229042B3D0B854801 /* ResetRequestPasswordViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E006BFAD84886D6411401589 /* ResetRequestPasswordViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		ED84CFE35BF4AE9D5A3DCAC9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6310A6142F23C2AF0090B2D2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6310A61B2F23C2AF0090B2D2;
+			remoteInfo = BdslClient;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		07CB7C943597CF12EBCE5E5A /* LoginViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LoginViewModelTests.swift; path = BdslClientTests/Auth/LoginViewModelTests.swift; sourceTree = SOURCE_ROOT; };
+		3C3E0EEA0882618ED0A14A90 /* MockUserSubscriptionsService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MockUserSubscriptionsService.swift; path = BdslClientTests/Mocks/MockUserSubscriptionsService.swift; sourceTree = SOURCE_ROOT; };
+		5E1298878E24534BE5CA74EC /* EditUserInfoViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EditUserInfoViewModelTests.swift; path = BdslClientTests/Main/EditUserInfoViewModelTests.swift; sourceTree = SOURCE_ROOT; };
 		6310A61C2F23C2AF0090B2D2 /* BdslClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BdslClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6395902E2F6C17F200ACBA00 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		6395902F2F6C17F200ACBA00 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -32,6 +65,22 @@
 		63A2BF6E2F8D57F7009A072A /* Navigation.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Navigation.md; sourceTree = "<group>"; };
 		63A2BF702F8D5A94009A072A /* Services.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Services.md; sourceTree = "<group>"; };
 		63A2BF722F8D5BB2009A072A /* Models.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Models.md; sourceTree = "<group>"; };
+		63C7B6D26D7D03EEF01FE358 /* MockAppSettings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MockAppSettings.swift; path = BdslClientTests/Mocks/MockAppSettings.swift; sourceTree = SOURCE_ROOT; };
+		70110FA7C466EF5BA0D9AE08 /* MockCachingManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MockCachingManager.swift; path = BdslClientTests/Mocks/MockCachingManager.swift; sourceTree = SOURCE_ROOT; };
+		7399EF6EEF424ED4F75D1FB6 /* ResetPasswordViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResetPasswordViewModelTests.swift; path = BdslClientTests/Auth/ResetPasswordViewModelTests.swift; sourceTree = SOURCE_ROOT; };
+		7B7487258084EEA8BB6C2A80 /* GroupModelFactory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GroupModelFactory.swift; path = BdslClientTests/Helpers/GroupModelFactory.swift; sourceTree = SOURCE_ROOT; };
+		838F596720E4FD3EBE85F02E /* MockGroupsService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MockGroupsService.swift; path = BdslClientTests/Mocks/MockGroupsService.swift; sourceTree = SOURCE_ROOT; };
+		997F8F3CFEA0D52D141E75C1 /* MockAuthRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MockAuthRepository.swift; path = BdslClientTests/Mocks/MockAuthRepository.swift; sourceTree = SOURCE_ROOT; };
+		A071202101FC41585BECD59C /* MockImageService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MockImageService.swift; path = BdslClientTests/Mocks/MockImageService.swift; sourceTree = SOURCE_ROOT; };
+		A80DB2F2F687BDDE78D95717 /* NotificationSettingsViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NotificationSettingsViewModelTests.swift; path = BdslClientTests/Main/NotificationSettingsViewModelTests.swift; sourceTree = SOURCE_ROOT; };
+		A85EE63D350DE29E6FECF441 /* MockUsersService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MockUsersService.swift; path = BdslClientTests/Mocks/MockUsersService.swift; sourceTree = SOURCE_ROOT; };
+		AEFC34B6D370140D832EAF8C /* MockNotificationManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MockNotificationManager.swift; path = BdslClientTests/Mocks/MockNotificationManager.swift; sourceTree = SOURCE_ROOT; };
+		B621101D185A1FAC0FB74B3A /* ScheduleViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScheduleViewModelTests.swift; path = BdslClientTests/Main/ScheduleViewModelTests.swift; sourceTree = SOURCE_ROOT; };
+		C882A54B5E24FEF0339CEA47 /* MockPermissionService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MockPermissionService.swift; path = BdslClientTests/Mocks/MockPermissionService.swift; sourceTree = SOURCE_ROOT; };
+		E006BFAD84886D6411401589 /* ResetRequestPasswordViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResetRequestPasswordViewModelTests.swift; path = BdslClientTests/Auth/ResetRequestPasswordViewModelTests.swift; sourceTree = SOURCE_ROOT; };
+		E0C3DFA55D6D646A951E0C21 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		EA744868188CB851634733D2 /* BdslClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BdslClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF1E3154C687470C1E3B0EAB /* AppStateFactory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppStateFactory.swift; path = BdslClientTests/Helpers/AppStateFactory.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -77,6 +126,16 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		377E40D9FDCDB6C1A0553AEE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CE956F14C4C0CC60C65A27E /* Foundation.framework in Frameworks */,
+				C58BDADF1F391B7815A3FF93 /* Models in Frameworks */,
+				854CAA271561A5BC6989B844 /* Services in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6310A6192F23C2AF0090B2D2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -96,6 +155,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1BB8D32B42045C6D46A21485 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				E0C3DFA55D6D646A951E0C21 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
 		6310A6132F23C2AF0090B2D2 = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +176,7 @@
 				6310A61E2F23C2AF0090B2D2 /* BdslClient */,
 				6367D5A72F5843AA00932242 /* Frameworks */,
 				6310A61D2F23C2AF0090B2D2 /* Products */,
+				8A9B43DFC109D1FE2D47E500 /* BdslClientTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -116,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				6310A61C2F23C2AF0090B2D2 /* BdslClient.app */,
+				EA744868188CB851634733D2 /* BdslClientTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -123,8 +192,66 @@
 		6367D5A72F5843AA00932242 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1BB8D32B42045C6D46A21485 /* iOS */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8A9B43DFC109D1FE2D47E500 /* BdslClientTests */ = {
+			isa = PBXGroup;
+			children = (
+				E19716460FDBC790FF7340DB /* Mocks */,
+				EDAB2BFE5ACFBAF6121EF2DE /* Helpers */,
+				C0E2101DFC9A267E26BEA81A /* Auth */,
+				F69B2360AB4C20C6C7FD2AE2 /* Main */,
+			);
+			name = BdslClientTests;
+			path = BdslClientTests;
+			sourceTree = "<group>";
+		};
+		C0E2101DFC9A267E26BEA81A /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				07CB7C943597CF12EBCE5E5A /* LoginViewModelTests.swift */,
+				E006BFAD84886D6411401589 /* ResetRequestPasswordViewModelTests.swift */,
+				7399EF6EEF424ED4F75D1FB6 /* ResetPasswordViewModelTests.swift */,
+			);
+			name = Auth;
+			sourceTree = "<group>";
+		};
+		E19716460FDBC790FF7340DB /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				997F8F3CFEA0D52D141E75C1 /* MockAuthRepository.swift */,
+				63C7B6D26D7D03EEF01FE358 /* MockAppSettings.swift */,
+				70110FA7C466EF5BA0D9AE08 /* MockCachingManager.swift */,
+				AEFC34B6D370140D832EAF8C /* MockNotificationManager.swift */,
+				C882A54B5E24FEF0339CEA47 /* MockPermissionService.swift */,
+				A85EE63D350DE29E6FECF441 /* MockUsersService.swift */,
+				838F596720E4FD3EBE85F02E /* MockGroupsService.swift */,
+				3C3E0EEA0882618ED0A14A90 /* MockUserSubscriptionsService.swift */,
+				A071202101FC41585BECD59C /* MockImageService.swift */,
+			);
+			name = Mocks;
+			sourceTree = "<group>";
+		};
+		EDAB2BFE5ACFBAF6121EF2DE /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				EF1E3154C687470C1E3B0EAB /* AppStateFactory.swift */,
+				7B7487258084EEA8BB6C2A80 /* GroupModelFactory.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		F69B2360AB4C20C6C7FD2AE2 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				A80DB2F2F687BDDE78D95717 /* NotificationSettingsViewModelTests.swift */,
+				5E1298878E24534BE5CA74EC /* EditUserInfoViewModelTests.swift */,
+				B621101D185A1FAC0FB74B3A /* ScheduleViewModelTests.swift */,
+			);
+			name = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,6 +289,28 @@
 			productReference = 6310A61C2F23C2AF0090B2D2 /* BdslClient.app */;
 			productType = "com.apple.product-type.application";
 		};
+		90AAA4A2955906941F5B085E /* BdslClientTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F29E657E56E7B360E72E9002 /* Build configuration list for PBXNativeTarget "BdslClientTests" */;
+			buildPhases = (
+				0DBE3C4CB3403C2037381F39 /* Sources */,
+				377E40D9FDCDB6C1A0553AEE /* Frameworks */,
+				D7DE95CA58E07105B6BFEA94 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B4F8499662A7D1452EA7FC47 /* PBXTargetDependency */,
+			);
+			name = BdslClientTests;
+			packageProductDependencies = (
+				27ECAA86E9C58B6583DC3B3D /* Models */,
+				97122FF19E571AE2B8BA8143 /* Services */,
+			);
+			productName = BdslClientTests;
+			productReference = EA744868188CB851634733D2 /* BdslClientTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -189,7 +338,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				639E51B92F27977000BA900F /* XCRemoteSwiftPackageReference "SwiftFormat" */,
-				6367D7C02F588DDA00932242 /* XCLocalSwiftPackageReference "Packages/Common/Configs" */,
+				6367D7C02F588DDA00932242 /* XCLocalSwiftPackageReference "Configs" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6310A61D2F23C2AF0090B2D2 /* Products */;
@@ -197,6 +346,7 @@
 			projectRoot = "";
 			targets = (
 				6310A61B2F23C2AF0090B2D2 /* BdslClient */,
+				90AAA4A2955906941F5B085E /* BdslClientTests */,
 			);
 		};
 /* End PBXProject section */
@@ -215,9 +365,40 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D7DE95CA58E07105B6BFEA94 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0DBE3C4CB3403C2037381F39 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				014D876052456BEF8C7B61AD /* MockAuthRepository.swift in Sources */,
+				3795894E7985E5D2756A627C /* MockAppSettings.swift in Sources */,
+				E270D1A256515084A6FD1176 /* MockCachingManager.swift in Sources */,
+				66CE2B116A1CA6CBBD26681E /* MockNotificationManager.swift in Sources */,
+				A131BC28A9E7FBE4A5738EA9 /* MockPermissionService.swift in Sources */,
+				C32F7B141EED3DDDEB48FF79 /* MockUsersService.swift in Sources */,
+				EEFD14E8D46209BAC1AF140F /* MockGroupsService.swift in Sources */,
+				078F5D48157436F2B76FCA27 /* MockUserSubscriptionsService.swift in Sources */,
+				942FEDAF2FA0EDF3321A0351 /* MockImageService.swift in Sources */,
+				8178CDAC20A1D55E9D81DA4E /* AppStateFactory.swift in Sources */,
+				C5D2CB9FF9056CEA4826BD94 /* GroupModelFactory.swift in Sources */,
+				841A84BAEAF7C2E5D4BC2D77 /* LoginViewModelTests.swift in Sources */,
+				F629078229042B3D0B854801 /* ResetRequestPasswordViewModelTests.swift in Sources */,
+				9E6AD40DF5A36D5DAAD49FB5 /* ResetPasswordViewModelTests.swift in Sources */,
+				2901CBBF0B7CC808C481C9AC /* NotificationSettingsViewModelTests.swift in Sources */,
+				AD279C935033C9D5F99E7A5C /* EditUserInfoViewModelTests.swift in Sources */,
+				BE392C6C91D6E8802B2D098A /* ScheduleViewModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6310A6182F23C2AF0090B2D2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -227,7 +408,47 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		B4F8499662A7D1452EA7FC47 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = BdslClient;
+			target = 6310A61B2F23C2AF0090B2D2 /* BdslClient */;
+			targetProxy = ED84CFE35BF4AE9D5A3DCAC9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		43247D77F45E3CB98B3B59E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bdslclient.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BdslClient.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BdslClient";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		54C9262505904D78ADDA377F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bdslclient.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BdslClient.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BdslClient";
+			};
+			name = Debug;
+		};
 		6310A6252F23C2B00090B2D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -444,10 +665,19 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		F29E657E56E7B360E72E9002 /* Build configuration list for PBXNativeTarget "BdslClientTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43247D77F45E3CB98B3B59E4 /* Release */,
+				54C9262505904D78ADDA377F /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		6367D7C02F588DDA00932242 /* XCLocalSwiftPackageReference "Packages/Common/Configs" */ = {
+		6367D7C02F588DDA00932242 /* XCLocalSwiftPackageReference "Configs" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Common/Configs;
 		};
@@ -465,6 +695,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		27ECAA86E9C58B6583DC3B3D /* Models */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Models;
+		};
 		635A9C532F64536A003F8B95 /* MongoFilters */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MongoFilters;
@@ -501,6 +735,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 639E51B92F27977000BA900F /* XCRemoteSwiftPackageReference "SwiftFormat" */;
 			productName = CommandLineTool;
+		};
+		97122FF19E571AE2B8BA8143 /* Services */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Services;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

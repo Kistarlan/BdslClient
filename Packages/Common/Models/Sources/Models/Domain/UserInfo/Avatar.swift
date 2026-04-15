@@ -10,4 +10,11 @@ public struct Avatar: Equatable, Hashable, Sendable {
     public let small: String
     public let medium: String
     public let large: String
+
+    public init(id: String, small: String, medium: String, large: String) {
+        self.id = id
+        self.small = small
+        self.medium = medium
+        self.large = large
+    }
 }
