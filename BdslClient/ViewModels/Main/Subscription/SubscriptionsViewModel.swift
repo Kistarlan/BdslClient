@@ -13,16 +13,25 @@ import SwiftUI
 @MainActor
 @Observable
 final class SubscriptionsViewModel {
-    let logger = Logger.forCategory(String(describing: SubscriptionsViewModel.self))
+    private let logger = Logger.forCategory(String(describing: SubscriptionsViewModel.self))
 
-    var groupingMode: SubscriptionsGroupingMode = .month
+    var groupingMode: SubscriptionsGroupingMode = .month {
+        didSet { updateDisplayedGroupsIfInitialized() }
+    }
+
     var subscriptions: [UserSubscription] = []
     var isLoading: Bool = false
     var isInitialized: Bool = false
-    var searchText: String = ""
+    var searchText: String = "" {
+        didSet { updateDisplayedGroupsIfInitialized() }
+    }
+
     var localizedError: LocalizedStringResource?
 
-    private var currentUser: User?
+    private(set) var displayedGroups: [GroupedSection<SubscriptionGroupCategory, UserSubscription>] = [
+        GroupedSection(.subscriptionCategory(.active), (0 ..< 5).map { _ in .placeholder() })
+    ]
+
     private let userSubscriptionsService: UserSubscriptionsService
     private let appState: AppState
 
@@ -34,26 +43,19 @@ final class SubscriptionsViewModel {
         self.appState = appState
     }
 
-    var grouped: [GroupedSection<SubscriptionGroupCategory, UserSubscription>] {
-        switch groupingMode {
-        case .category: groupedByCategory
-        case .month: groupedByMonth
-        }
-    }
-
-    var filteredSubscriptions: [UserSubscription] {
-        if searchText == "" {
+    private var filteredSubscriptions: [UserSubscription] {
+        if searchText.isEmpty {
             return subscriptions
         }
 
         return subscriptions.filter { subscription in
-            subscription.title.caseInsensitiveContains(searchText) ||
-                subscription.category.title.localized.caseInsensitiveContains(searchText)
+            subscription.title.localizedStandardContains(searchText) ||
+                subscription.category.title.localized.localizedStandardContains(searchText)
         }
     }
 
-    var groupedByCategory: [GroupedSection<SubscriptionGroupCategory, UserSubscription>] {
-        return filteredSubscriptions
+    private var groupedByCategory: [GroupedSection<SubscriptionGroupCategory, UserSubscription>] {
+        filteredSubscriptions
             .grouped(by: \.category)
             .map {
                 GroupedSection(
@@ -64,17 +66,15 @@ final class SubscriptionsViewModel {
             .sorted { $0.key < $1.key }
     }
 
-    var groupedByMonth: [GroupedSection<SubscriptionGroupCategory, UserSubscription>] {
+    private var groupedByMonth: [GroupedSection<SubscriptionGroupCategory, UserSubscription>] {
         let calendar = Calendar.current
 
         return filteredSubscriptions
             .grouped { subscription in
                 let date = subscription.endDate ?? subscription.startDate
                 let components = calendar.dateComponents([.year, .month], from: date)
-                let firstDay = calendar.date(from: components)!
-                return firstDay
+                return calendar.date(from: components) ?? Date.now
             }
-            .sorted { $0.key > $1.key }
             .map { group in
                 GroupedSection(
                     SubscriptionGroupCategory.date(group.key),
@@ -82,6 +82,18 @@ final class SubscriptionsViewModel {
                 )
             }
             .sorted { $0.key > $1.key }
+    }
+
+    private func updateDisplayedGroupsIfInitialized() {
+        guard isInitialized else { return }
+        updateDisplayedGroups()
+    }
+
+    private func updateDisplayedGroups() {
+        displayedGroups = switch groupingMode {
+        case .category: groupedByCategory
+        case .month: groupedByMonth
+        }
     }
 
     func fetchSubscriptions(forceReload: Bool) async {
@@ -135,6 +147,7 @@ final class SubscriptionsViewModel {
                 }
 
             isInitialized = true
+            updateDisplayedGroups()
 
         } catch TaskError.timeout {
             logger.warning("Timeout")

@@ -14,19 +14,6 @@ struct SubscriptionsScreen: View {
     @Environment(\.theme) private var theme
 
     @Bindable private var viewModel: SubscriptionsViewModel
-    var displayedGroups: [GroupedSection<SubscriptionGroupCategory, UserSubscription>] {
-        if !viewModel.isInitialized {
-            return [
-                GroupedSection(
-                    .subscriptionCategory(.active),
-                    (0 ..< 5).map { _ in .placeholder() }
-                )
-            ]
-        }
-
-        let grouped = viewModel.grouped
-        return grouped
-    }
 
     init(subscriptionsViewModel: SubscriptionsViewModel) {
         viewModel = subscriptionsViewModel
@@ -43,8 +30,12 @@ struct SubscriptionsScreen: View {
             } else {
                 VStack {
                     List {
-                        ForEach(displayedGroups) { group in
-                            subscriptionsGroup(group: group)
+                        ForEach(viewModel.displayedGroups) { group in
+                            SubscriptionGroupRow(
+                                group: group,
+                                isInitialized: viewModel.isInitialized,
+                                isLoading: viewModel.isLoading
+                            )
                         }
                     }
                     .listStyle(.plain)
@@ -58,16 +49,13 @@ struct SubscriptionsScreen: View {
         .background(theme.colors.appBackground)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    viewModel.togleGroupingMode()
-                } label: {
-                    Image(systemName:
-                        viewModel.groupingMode == .category
-                            ? "calendar"
-                            : "square.grid.2x2"
-                    )
+                Button(action: viewModel.togleGroupingMode) {
+                    Label {
+                        Text(viewModel.groupingMode == .category ? LocalizedStringResource.groupByDate : .groupByCategory)
+                    } icon: {
+                        Image(systemName: viewModel.groupingMode == .category ? "calendar" : "square.grid.2x2")
+                    }
                 }
-                .accessibilityLabel(Text(viewModel.groupingMode == .category ? .groupByDate : .groupByCategory))
             }
 
             ToolbarItem(placement: .topBarTrailing) {
@@ -84,40 +72,4 @@ struct SubscriptionsScreen: View {
         }
     }
 
-    func subscriptionsGroup(group: GroupedSection<SubscriptionGroupCategory, UserSubscription>) -> some View {
-        Section {
-            ForEach(group.items) { subscription in
-                subscriptionsCard(subscription)
-            }
-        } header: {
-            groupHeader(group.key)
-        }
-        .listRowSeparator(.hidden)
-    }
-
-    func subscriptionsCard(_ subscription: UserSubscription) -> some View {
-        return NavigationButton(push: PushDestination.subsctiptionDetails(userSubscription: subscription)) {
-            SubscriptionCard(
-                subscription: subscription
-            )
-            .redacted(reason: !viewModel.isInitialized ? .placeholder : [])
-            .shimmer(active: !viewModel.isInitialized)
-        }
-        .disabled(viewModel.isLoading)
-        .listRowBackground(Color.clear)
-    }
-
-    func groupHeader(_ groupCategory: SubscriptionGroupCategory) -> some View {
-        Group {
-            switch groupCategory {
-            case let .date(date):
-                Text(date, format: .dateTime.month(.wide).year())
-            case let .subscriptionCategory(subscriptionCategory):
-                Text(subscriptionCategory.title)
-            }
-        }
-        .font(theme.typography.label)
-        .foregroundStyle(theme.colors.textSecondary)
-        .textCase(.uppercase)
-    }
 }
