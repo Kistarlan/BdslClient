@@ -42,13 +42,16 @@ final class SubscriptionsServiceImpl: SubscriptionsService {
                     key: subscription.id,
                     value: CourseSubscription(
                         activity: event.activity,
-                        subscription: subscription)
+                        subscription: subscription,
+                        title: event.title
+                    )
                 )
             } else {
                 await activityCache.add(
                     key: event.activity.id,
                     value: ActivitySubscription(
-                        activity: event.activity
+                        activity: event.activity,
+                        title: event.activity.title
                     )
                 )
             }

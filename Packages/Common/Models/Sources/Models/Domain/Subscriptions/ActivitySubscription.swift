@@ -7,11 +7,13 @@
 
 public struct ActivitySubscription: Sendable, Identifiable {
     public let activity: Activity
+    public let title: String
     public var id: String {
         activity.id
     }
 
-    public init(activity: Activity) {
+    public init(activity: Activity, title: String) {
         self.activity = activity
+        self.title = title
     }
 }
