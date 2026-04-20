@@ -33,7 +33,11 @@ struct SubscriptionBadge: View {
         case .active:
             return userSubscription.isExpiredSoon ? .expiring : .active
         case .credit:
-            return .activeCredit
+            if let closed = userSubscription.closed, !closed {
+                return .inactive
+            } else {
+                return .activeCredit
+            }
         case .expired, .oneClassTicket:
             return .inactive
         default:
@@ -46,7 +50,11 @@ struct SubscriptionBadge: View {
         case .active:
             return userSubscription.isExpiredSoon ? theme.colors.badgeWarning : theme.colors.badgeActive
         case .credit:
-            return theme.colors.badgeCredit
+            if let closed = userSubscription.closed, !closed {
+                return theme.colors.badgeInactive
+            } else {
+                return theme.colors.badgeCredit
+            }
         case .expired, .oneClassTicket:
             return theme.colors.badgeInactive
         default:

@@ -82,7 +82,11 @@ public extension UserSubscription {
         case .active:
             return remainingLessons
         case .credit:
-            return visitsIds.count
+            if let closed = closed, !closed {
+                return visitsIds.count
+            } else {
+                return nil
+            }
         default:
             return nil
         }
