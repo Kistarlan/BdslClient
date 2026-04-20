@@ -47,6 +47,7 @@ public struct AppServices {
         locationsRepository: LocationsRepository,
         teachersRepository: TeachersRepository,
         groupsRepository: GroupsRepository,
+        subscriptionsRepository: SubscriptionsRepository,
         notificationBuilder: NotificationBuilder
     ) {
         self.tokenStore = tokenStore
@@ -120,8 +121,9 @@ public struct AppServices {
         )
 
         permissionService = PermissionServiceImpl()
-        subscriptionService = SubscriptionsServiceImpl (
-            eventsService: eventsService
+        subscriptionService = SubscriptionsServiceImpl(
+            eventsService: eventsService,
+            subscriptionsRepository: subscriptionsRepository
         )
     }
 }
@@ -177,6 +179,10 @@ public extension AppServices {
             apiClient: apiClient
         )
 
+        let subscriptionsRepository = SubscriptionsRepositoryImpl(
+            apiClient: apiClient
+        )
+
         return AppServices(
             tokenStore: tokenStore,
             authRepository: authRepository,
@@ -189,6 +195,7 @@ public extension AppServices {
             locationsRepository: locationsRepository,
             teachersRepository: teachersRepository,
             groupsRepository: groupsRepository,
+            subscriptionsRepository: subscriptionsRepository,
             notificationBuilder: notificationBuilder
         )
     }

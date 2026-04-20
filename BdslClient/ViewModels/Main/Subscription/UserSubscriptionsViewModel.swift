@@ -1,5 +1,5 @@
 //
-//  SubscriptionsViewModel.swift
+//  UserSubscriptionsViewModel.swift
 //  BdslClient
 //
 //  Created by Oleh Rozkvas on 19.02.2026.
@@ -12,8 +12,8 @@ import SwiftUI
 
 @MainActor
 @Observable
-final class SubscriptionsViewModel {
-    private let logger = Logger.forCategory(String(describing: SubscriptionsViewModel.self))
+final class UserSubscriptionsViewModel {
+    private let logger = Logger.forCategory(String(describing: UserSubscriptionsViewModel.self))
 
     var groupingMode: SubscriptionsGroupingMode = .month {
         didSet { updateDisplayedGroupsIfInitialized() }

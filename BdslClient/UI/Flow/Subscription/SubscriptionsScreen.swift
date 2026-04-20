@@ -14,9 +14,9 @@ struct SubscriptionsScreen: View {
     @Environment(\.theme) private var theme
 
     @Environment(Router.self) private var router
-    @Bindable private var viewModel: SubscriptionsViewModel
+    @Bindable private var viewModel: UserSubscriptionsViewModel
 
-    init(subscriptionsViewModel: SubscriptionsViewModel) {
+    init(subscriptionsViewModel: UserSubscriptionsViewModel) {
         viewModel = subscriptionsViewModel
     }
 

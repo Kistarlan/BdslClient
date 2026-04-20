@@ -55,6 +55,10 @@ public extension AppServices {
             previewDataProvider: previewDataProvider
         )
 
+        let subscriptionsRepository = PreviewSubscriptionsRepository(
+            previewDataProvider: previewDataProvider
+        )
+
         return AppServices(
             tokenStore: tokenStore,
             authRepository: authRepository,
@@ -67,6 +71,7 @@ public extension AppServices {
             locationsRepository: locationsRepository,
             teachersRepository: teachersRepository,
             groupsRepository: groupsRepository,
+            subscriptionsRepository: subscriptionsRepository,
             notificationBuilder: notificationBuilder
         )
     }

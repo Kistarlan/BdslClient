@@ -67,8 +67,8 @@ struct ViewModelsFactory {
         )
     }
 
-    func makeUseSubscriptionsViewModel() -> SubscriptionsViewModel {
-        SubscriptionsViewModel(
+    func makeUseSubscriptionsViewModel() -> UserSubscriptionsViewModel {
+        UserSubscriptionsViewModel(
             userSubscriptionsService: appServices.userSubscriptionsService,
             appState: appState
         )

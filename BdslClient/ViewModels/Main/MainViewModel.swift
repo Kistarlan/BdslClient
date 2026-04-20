@@ -9,13 +9,13 @@ import SwiftUI
 @Observable
 final class MainViewModel {
     let settingsViewModel: SettingsViewModel
-    let subscriptionsViewModel: SubscriptionsViewModel
+    let subscriptionsViewModel: UserSubscriptionsViewModel
     let scheduleViewModel: ScheduleViewModel
     let myClassesViewModel: MyClassesViewModel
 
     init(
         settingsViewModel: SettingsViewModel,
-        subscriptionsViewModel: SubscriptionsViewModel,
+        subscriptionsViewModel: UserSubscriptionsViewModel,
         scheduleViewModel: ScheduleViewModel,
         myClassesViewModel: MyClassesViewModel
     ) {

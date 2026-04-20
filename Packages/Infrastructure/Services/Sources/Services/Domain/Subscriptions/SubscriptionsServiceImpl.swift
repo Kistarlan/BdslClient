@@ -11,12 +11,14 @@ import OSLog
 final class SubscriptionsServiceImpl: SubscriptionsService {
     private let logger = Logger.forCategory(String(describing: SubscriptionsServiceImpl.self))
     private let eventsService: EventsService
+    private let subscriptionsRepository: SubscriptionsRepository
 
     private let activityCache = Cache<String, ActivitySubscription>()
     private let courseCache = Cache<String, CourseSubscription>()
 
-    init(eventsService: EventsService) {
+    init(eventsService: EventsService, subscriptionsRepository: SubscriptionsRepository) {
         self.eventsService = eventsService
+        self.subscriptionsRepository = subscriptionsRepository
     }
 
     func fetchAvailableSubscriptions(forceReload: Bool) async throws -> ([ActivitySubscription], [CourseSubscription]) {
@@ -52,7 +54,13 @@ final class SubscriptionsServiceImpl: SubscriptionsService {
             }
         }
 
+        let settings = try await subscriptionsRepository.fetchSettings()
+
         return (await activityCache.getAll(), await courseCache.getAll())
+    }
+
+    func fetchSettings() async throws -> [SettingDTO] {
+        return try await subscriptionsRepository.fetchSettings()
     }
 
     func clearCache() async {
