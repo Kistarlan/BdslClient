@@ -15,7 +15,8 @@ final class PreviewSubscriptionsRepository: SubscriptionsRepository {
         self.previewDataProvider = previewDataProvider
     }
 
-    func fetchSettings() async throws -> [SettingDTO] {
-        return try previewDataProvider.load([SettingDTO].self, from: "Settings")
+    func fetchSettings() async throws -> SubscriptionSettings {
+        let dtos = try previewDataProvider.load([SettingDTO].self, from: "Settings")
+        return dtos.toDomain()
     }
 }

@@ -9,5 +9,5 @@ import Models
 
 public protocol SubscriptionsService: CacheableService {
     func fetchAvailableSubscriptions(forceReload: Bool) async throws -> ([ActivitySubscription], [CourseSubscription])
-    func fetchSettings() async throws -> [SettingDTO]
+    func fetchSettings() async throws -> SubscriptionSettings
 }

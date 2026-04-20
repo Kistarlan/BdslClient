@@ -54,12 +54,10 @@ final class SubscriptionsServiceImpl: SubscriptionsService {
             }
         }
 
-        let settings = try await subscriptionsRepository.fetchSettings()
-
         return (await activityCache.getAll(), await courseCache.getAll())
     }
 
-    func fetchSettings() async throws -> [SettingDTO] {
+    func fetchSettings() async throws -> SubscriptionSettings {
         return try await subscriptionsRepository.fetchSettings()
     }
 

@@ -8,5 +8,5 @@
 import Models
 
 public protocol SubscriptionsRepository: Sendable {
-    func fetchSettings() async throws -> [SettingDTO]
+    func fetchSettings() async throws -> SubscriptionSettings
 }

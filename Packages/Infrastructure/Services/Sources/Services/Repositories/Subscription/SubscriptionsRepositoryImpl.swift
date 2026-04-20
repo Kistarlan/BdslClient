@@ -14,12 +14,13 @@ final class SubscriptionsRepositoryImpl: SubscriptionsRepository {
         self.apiClient = apiClient
     }
 
-    func fetchSettings() async throws -> [SettingDTO] {
+    func fetchSettings() async throws -> SubscriptionSettings {
         let endpoint = Endpoint(
             path: "/settings",
             method: .get
         )
 
-        return try await apiClient.request(endpoint)
+        let dtos: [SettingDTO] = try await apiClient.request(endpoint)
+        return dtos.toDomain()
     }
 }
