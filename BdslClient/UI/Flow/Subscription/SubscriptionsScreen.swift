@@ -13,6 +13,7 @@ import SwiftUI
 struct SubscriptionsScreen: View {
     @Environment(\.theme) private var theme
 
+    @Environment(Router.self) private var router
     @Bindable private var viewModel: SubscriptionsViewModel
 
     init(subscriptionsViewModel: SubscriptionsViewModel) {
@@ -28,7 +29,7 @@ struct SubscriptionsScreen: View {
                     }
                 }
             } else {
-                VStack {
+                ZStack(alignment: .bottomTrailing) {
                     List {
                         ForEach(viewModel.displayedGroups) { group in
                             SubscriptionGroupRow(
@@ -41,6 +42,17 @@ struct SubscriptionsScreen: View {
                     .listStyle(.plain)
                     .listRowSeparator(.hidden)
                     .scrollContentBackground(.hidden)
+
+                    NavigationButton(push: .buySubscription) {
+                        Label(LocalizedStringResource.buySubscription, systemImage: "plus")
+                            .font(theme.typography.button)
+                            .foregroundStyle(theme.colors.buttonPrimaryForeground)
+                            .padding(.horizontal, theme.layout.spacing.m)
+                            .padding(.vertical, theme.layout.spacing.sm)
+                            .background(theme.colors.buttonPrimaryBackground)
+                            .clipShape(.capsule)
+                    }
+                    .padding(theme.layout.spacing.m)
                 }
                 .searchable(text: $viewModel.searchText)
             }

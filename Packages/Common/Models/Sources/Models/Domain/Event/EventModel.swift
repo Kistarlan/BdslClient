@@ -18,6 +18,7 @@ public struct EventModel: Hashable, Sendable, Identifiable {
     public let level: Level
     public let title: String
     public let activity: Activity
+    public let eventSubscription: EventSubscription?
 
     public init(
         id: String,
@@ -29,7 +30,8 @@ public struct EventModel: Hashable, Sendable, Identifiable {
         location: Location,
         level: Level,
         title: String,
-        activity: Activity
+        activity: Activity,
+        eventSubscription: EventSubscription?
     ) {
         self.id = id
         self.teachers = teachers
@@ -41,5 +43,6 @@ public struct EventModel: Hashable, Sendable, Identifiable {
         self.level = level
         self.title = title
         self.activity = activity
+        self.eventSubscription = eventSubscription
     }
 }

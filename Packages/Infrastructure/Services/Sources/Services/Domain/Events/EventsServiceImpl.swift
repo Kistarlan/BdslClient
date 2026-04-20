@@ -140,7 +140,8 @@ final class EventsServiceImpl: EventsService {
             location: location,
             level: level,
             title: title,
-            activity: activity
+            activity: activity,
+            eventSubscription: dto.subscription?.toDomain() ?? nil
         )
     }
 

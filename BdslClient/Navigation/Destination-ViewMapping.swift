@@ -16,6 +16,8 @@ import SwiftUI
         SettingsScreen(settingsViewModel: vmFactory.makeSettingsViewModel())
     case let .subsctiptionDetails(userSubscription):
         AttendeesScreen(attendeesViewModel: vmFactory.makeAttendeesViewModel(userSubscription: userSubscription))
+    case .buySubscription:
+        EmptyView()
     case .login:
         LoginScreen(vmFactory.makeLoginViewModel())
     case .notificationSettings:

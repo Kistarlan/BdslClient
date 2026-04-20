@@ -27,6 +27,7 @@ public struct AppServices {
     public let cachingManager: CachingManager
     public let notificationManager: NotificationManager
     public let permissionService: PermissionService
+    public let subscriptionService: SubscriptionsService
 
     // MARK: - Settings
 
@@ -119,6 +120,9 @@ public struct AppServices {
         )
 
         permissionService = PermissionServiceImpl()
+        subscriptionService = SubscriptionsServiceImpl (
+            eventsService: eventsService
+        )
     }
 }
 

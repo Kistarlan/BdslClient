@@ -132,7 +132,8 @@ public extension EventModel {
             location: Location.previewValue(),
             level: Level.previewValue(),
             title: "Bachata Month",
-            activity: Activity.previewValue()
+            activity: Activity.previewValue(),
+            eventSubscription: .placeholder()
         )
     }
 }
@@ -151,6 +152,18 @@ public extension GroupModel {
             title: "Bachata Month",
             activity: Activity.previewValue(),
             duration: 60
+        )
+    }
+}
+
+public extension EventSubscription {
+    static func placeholder() -> Self {
+        EventSubscription(
+            id: UUID().uuidString,
+            standalone: false,
+            hours: nil,
+            regularPrice: nil,
+            ticketPrice: nil
         )
     }
 }

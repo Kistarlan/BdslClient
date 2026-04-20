@@ -88,6 +88,23 @@
         }
       }
     },
+    "buySubscription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buy Subscription"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Купити абонемент"
+          }
+        }
+      }
+    },
     "Camera" : {
       "extractionState" : "manual",
       "localizations" : {

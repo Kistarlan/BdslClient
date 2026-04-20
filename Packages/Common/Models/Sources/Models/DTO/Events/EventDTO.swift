@@ -18,6 +18,7 @@ public struct EventDTO: Identifiable, Decodable {
     public let levelId: String?
     public let title: String?
     public let activityId: String?
+    public let subscription: EventSubscriptionDTO?
 
     private enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -30,5 +31,6 @@ public struct EventDTO: Identifiable, Decodable {
         case levelId = "level"
         case title
         case activityId = "activity"
+        case subscription
     }
 }
