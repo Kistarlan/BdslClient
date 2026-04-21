@@ -19,4 +19,18 @@ final class PreviewSubscriptionsRepository: SubscriptionsRepository {
         let dtos = try previewDataProvider.load([SettingDTO].self, from: "Settings")
         return dtos.toDomain()
     }
+
+    func requestOrder(requestModel: OrderRequestDTO) async throws -> OrderResponseDTO {
+        OrderResponseDTO(
+            id: "preview-order-id",
+            user: requestModel.user,
+            createdBy: requestModel.user,
+            recurrentPayCount: requestModel.recurrentPayCount,
+            totalPrice: requestModel.lines.first?.price ?? 0,
+            status: "new",
+            invoice: "preview-invoice-id",
+            invoiceUrl: "https://secure.wayforpay.com/invoice/preview",
+            lines: []
+        )
+    }
 }

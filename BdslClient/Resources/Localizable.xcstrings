@@ -13,6 +13,9 @@
     "%lld" : {
 
     },
+    "%lld ₴" : {
+
+    },
     "+38" : {
 
     },
@@ -249,6 +252,23 @@
         }
       }
     },
+    "courses" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Courses"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Курси"
+          }
+        }
+      }
+    },
     "Credit Lessons" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -306,6 +326,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Дні"
+          }
+        }
+      }
+    },
+    "directions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Directions"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Напрямки"
           }
         }
       }
@@ -834,6 +871,9 @@
         }
       }
     },
+    "OK" : {
+
+    },
     "One Time Ticket" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -863,6 +903,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Відкрити налаштування"
+          }
+        }
+      }
+    },
+    "orderFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to place order. Please try again."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не вдалося оформити замовлення. Спробуйте ще раз."
           }
         }
       }
@@ -1026,6 +1083,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "PIN повинен містити рівно 6 цифр"
+          }
+        }
+      }
+    },
+    "placeOrder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Place Order"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оформити"
           }
         }
       }
@@ -1453,6 +1527,23 @@
         }
       }
     },
+    "totalPrice" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Разом"
+          }
+        }
+      }
+    },
     "Tuesday" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1471,6 +1562,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Українська"
+          }
+        }
+      }
+    },
+    "unlimitedMonth" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited Month"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Місяць безліміту"
           }
         }
       }

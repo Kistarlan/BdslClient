@@ -18,6 +18,28 @@ public struct OrderResponseDTO: Decodable, Sendable {
     public let invoiceUrl: String
     public let lines: [OrderLineResponseDTO]
 
+    public init(
+        id: String,
+        user: String,
+        createdBy: String,
+        recurrentPayCount: Int,
+        totalPrice: Int,
+        status: String,
+        invoice: String,
+        invoiceUrl: String,
+        lines: [OrderLineResponseDTO]
+    ) {
+        self.id = id
+        self.user = user
+        self.createdBy = createdBy
+        self.recurrentPayCount = recurrentPayCount
+        self.totalPrice = totalPrice
+        self.status = status
+        self.invoice = invoice
+        self.invoiceUrl = invoiceUrl
+        self.lines = lines
+    }
+
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case user

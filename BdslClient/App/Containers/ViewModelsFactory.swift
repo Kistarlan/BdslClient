@@ -104,6 +104,13 @@ struct ViewModelsFactory {
     func makeChangePasswordViewModel() -> ChangePasswordViewModel {
         ChangePasswordViewModel(authRepository: appServices.authRepository)
     }
+
+    func makeBuySubscriptionViewModel() -> BuySubscriptionViewModel {
+        BuySubscriptionViewModel(
+            subscriptionsService: appServices.subscriptionService,
+            appState: appState
+        )
+    }
 }
 
 extension ViewModelsFactory {
