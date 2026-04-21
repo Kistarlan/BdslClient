@@ -26,7 +26,7 @@ struct BuySubscriptionScreen: View {
                         Task { await viewModel.load() }
                     }
                 } else {
-                    DirectionsSection(viewModel: viewModel)
+                    StylesSection(viewModel: viewModel)
 
                     if viewModel.showCoursesSection {
                         CoursesSection(viewModel: viewModel)

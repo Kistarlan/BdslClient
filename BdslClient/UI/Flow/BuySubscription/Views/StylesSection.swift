@@ -1,23 +1,24 @@
 //
-//  DirectionsSection.swift
+//  StylesSection.swift
 //  BdslClient
 //
 //  Created by Oleh Rozkvas on 21.04.2026.
 //
 
 import DesignSystem
+import Models
 import SwiftUI
 
-struct DirectionsSection: View {
+struct StylesSection: View {
     var viewModel: BuySubscriptionViewModel
 
     var body: some View {
-        SubscriptionSelectionSection(title: .directions) {
+        SubscriptionSelectionSection(title: .styles) {
             FilterChip(localizedTitle: .unlimitedMonth, isSelected: viewModel.isUnlim) {
                 viewModel.toggleUnlim()
             }
 
-            ForEach(viewModel.displayedActivities) { activity in
+            ForEach(viewModel.displayedStyles) { activity in
                 FilterChip(
                     title: activity.title,
                     isSelected: viewModel.selectedActivityIds.contains(activity.id)

@@ -7,6 +7,7 @@
 
 import DesignSystem
 import SwiftUI
+import Models
 
 struct CoursesSection: View {
     var viewModel: BuySubscriptionViewModel

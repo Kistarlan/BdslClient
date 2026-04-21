@@ -128,7 +128,7 @@ final class BuySubscriptionViewModel {
 
     // MARK: - Display Data
 
-    private static let activityPlaceholders: [ActivitySubscription] = (0 ..< 4).map { _ in
+    private static let stylePlaceholders: [ActivitySubscription] = (0 ..< 4).map { _ in
         ActivitySubscription(activity: .previewValue(), title: "Loading...")
     }
 
@@ -136,8 +136,8 @@ final class BuySubscriptionViewModel {
         CourseSubscription(activity: .previewValue(), subscription: .placeholder(), title: "Loading...")
     }
 
-    var displayedActivities: [ActivitySubscription] {
-        isInitialized ? availableActivities : Self.activityPlaceholders
+    var displayedStyles: [ActivitySubscription] {
+        isInitialized ? availableActivities : Self.stylePlaceholders
     }
 
     var displayedCourses: [CourseSubscription] {
