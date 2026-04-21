@@ -9,4 +9,5 @@ import Models
 
 public protocol SubscriptionsRepository: Sendable {
     func fetchSettings() async throws -> SubscriptionSettings
+    func requestOrder(requestModel: OrderRequestDTO) async throws -> OrderResponseDTO
 }

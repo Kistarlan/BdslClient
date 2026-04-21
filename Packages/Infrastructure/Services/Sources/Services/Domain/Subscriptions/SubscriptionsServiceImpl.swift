@@ -64,6 +64,29 @@ final class SubscriptionsServiceImpl: SubscriptionsService {
         return try await subscriptionsRepository.fetchSettings()
     }
 
+    func requestOrder(
+        userId: String,
+        activities: [ActivitySubscription],
+        courses: [CourseSubscription],
+        price: Int,
+        unlim: Bool
+    ) async throws -> OrderResponseDTO {
+        let line = OrderLineDTO(
+            type: .userSubscription,
+            activities: activities.map(\.id),
+            groups: courses.map(\.id),
+            unlim: unlim,
+            extraHours: 0,
+            price: price
+        )
+        let requestModel = OrderRequestDTO(
+            user: userId,
+            recurrentPayCount: 0,
+            lines: [line]
+        )
+        return try await subscriptionsRepository.requestOrder(requestModel: requestModel)
+    }
+
     func clearCache() async {
         await activityCache.clear()
         await courseCache.clear()

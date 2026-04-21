@@ -6,6 +6,7 @@
 //
 
 import Models
+import Foundation
 
 final class SubscriptionsRepositoryImpl: SubscriptionsRepository {
     let apiClient: APIClient
@@ -23,4 +24,15 @@ final class SubscriptionsRepositoryImpl: SubscriptionsRepository {
         let dtos: [SettingDTO] = try await apiClient.request(endpoint)
         return dtos.toDomain()
     }
+
+    func requestOrder(requestModel: OrderRequestDTO) async throws -> OrderResponseDTO {
+        let endpoint = Endpoint(
+            path: "/orders",
+            method: .post,
+            body: try JSONEncoder().encode(requestModel)
+        )
+
+        return try await apiClient.request(endpoint)
+    }
 }
+
