@@ -24,6 +24,14 @@ extension DayRecurrenceType: Comparable {
         lhs.sortOrder < rhs.sortOrder
     }
 
+    public static func > (lhs: DayRecurrenceType, rhs: DayRecurrenceType) -> Bool {
+        lhs.sortOrder < rhs.sortOrder
+    }
+
+    public static func == (lhs: DayRecurrenceType, rhs: DayRecurrenceType) -> Bool {
+        lhs.sortOrder == rhs.sortOrder
+    }
+
     private var sortOrder: Int {
         switch self {
         case .monday: return 0

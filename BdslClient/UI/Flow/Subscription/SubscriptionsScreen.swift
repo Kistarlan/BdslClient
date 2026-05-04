@@ -15,6 +15,7 @@ struct SubscriptionsScreen: View {
 
     @Environment(Router.self) private var router
     @Bindable private var viewModel: UserSubscriptionsViewModel
+    @State private var isSearchActive = false
 
     init(subscriptionsViewModel: UserSubscriptionsViewModel) {
         viewModel = subscriptionsViewModel
@@ -42,6 +43,11 @@ struct SubscriptionsScreen: View {
                     .listStyle(.plain)
                     .listRowSeparator(.hidden)
                     .scrollContentBackground(.hidden)
+                    .simultaneousGesture(
+                        DragGesture().onChanged { _ in
+                            resetIsSearchActive()
+                        }
+                    )
 
                     NavigationButton(push: .buySubscription) {
                         Label(LocalizedStringResource.buySubscription, systemImage: "plus")
@@ -54,8 +60,15 @@ struct SubscriptionsScreen: View {
                     }
                     .padding(theme.layout.spacing.m)
                 }
-                .searchable(text: $viewModel.searchText)
+                .searchable(
+                    text: $viewModel.searchText,
+                    isPresented: $isSearchActive
+                )
+                .scrollDismissesKeyboard(.immediately)
             }
+        }
+        .onAppear {
+            resetIsSearchActive()
         }
         .navigationTitle(Text(LocalizedStringResource.mySubscriptions))
         .background(theme.colors.appBackground)
@@ -84,4 +97,9 @@ struct SubscriptionsScreen: View {
         }
     }
 
+    private func resetIsSearchActive() {
+        if isSearchActive {
+            isSearchActive = false
+        }
+    }
 }

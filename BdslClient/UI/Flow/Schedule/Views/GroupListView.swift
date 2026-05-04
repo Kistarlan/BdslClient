@@ -20,7 +20,7 @@ struct GroupListView: View {
     var body: some View {
         LazyVStack(alignment: .leading, spacing: theme.layout.spacing.m, pinnedViews: [.sectionHeaders]) {
             ForEach(groupSections) { section in
-                Section(header: sectionHeader(days: section.days)) {
+                Section(header: sectionHeader(days: section.sortedDays)) {
                     ForEach(section.groups) { group in
                         NavigationButton(sheet: .groupDescription(group: group)) {
                             GroupRow(group: group, presentHallImage: !isLoading)
@@ -34,7 +34,7 @@ struct GroupListView: View {
         }
     }
 
-    func sectionHeader(days: Set<DayRecurrenceType>) -> some View {
+    func sectionHeader(days: [DayRecurrenceType]) -> some View {
         Text(
             days.map { $0.localized.localized(locale: locale) }
                 .joined(separator: ", ")
